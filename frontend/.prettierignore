@@ -1,2 +1,7 @@
 out
 public/static
+node_modules
+dist
+.vscode
+coverage
+README.md
