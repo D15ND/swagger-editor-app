@@ -1,5 +1,5 @@
-import {defineConfig} from 'vitest/config';
 import path from 'path';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -7,6 +7,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test-setup.ts',
     css: true,
+    passWithNoTests: true
   },
   resolve: {
     alias: {
