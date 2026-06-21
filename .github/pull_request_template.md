@@ -1,17 +1,14 @@
-## Summary
-_What changed, and why?_
+1. ** Описание ** _Что реализовано?_
 
-## Linked Issue
-Closes #
+2. ** Ссылка на issue ** Closes #
 
-## UI Screenshots
-_If applicable_
+3. ** Скриншот ** _Если необходим_
 
 ---
 
-## DoD
-- [ ] Acceptance criteria met
-- [ ] Code follows conventions
-- [ ] Linked to issue
-- [ ] Lazy loading via `next/dynamic` is used
-- [ ] Covered by tests
+## Выполненные пункты:
+- [ ] Код соответствует стандарту
+- [ ] Ссылка на issue в доске
+- [ ] Ленивая загрузка компонента `next/dynamic`
+- [ ] Добавлены тесты
+- [ ] Добавлен перевод i18next
