@@ -10,6 +10,12 @@ Online editor for designing, editing, and testing APIs via OpenAPI specification
 
 Built by a team of 3 as the final project of the Rolling Scopes School React course. Currently in active development — features are being added incrementally.
 
+## Deploy
+
+App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-app.vercel.app)
+
+> Link will be updated once deployed.
+
 ## Tech Stack
 
 | Category | Technology |
