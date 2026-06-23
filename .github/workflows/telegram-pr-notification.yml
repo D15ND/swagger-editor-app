@@ -1,13 +1,19 @@
-name: Telegram PR Notification
+name: PR Notification
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, reopened, ready_for_review]
+
+permissions:
+  pull-requests: read
+  contents: read
 
 jobs:
   notify:
-    if: ${{ !github.event.pull_request.draft }}
+    name: Send Telegram PR notification
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - name: Send Telegram notification
@@ -15,22 +21,56 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_MESSAGE_THREAD_ID: ${{ secrets.TELEGRAM_MESSAGE_THREAD_ID }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+
           REPO_NAME: ${{ github.repository }}
-          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
-          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_REVIEWERS: ${{ join(github.event.pull_request.requested_reviewers.*.login, ', ') }}
+          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ', ') }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_BASE: ${{ github.event.pull_request.base.ref }}
+          PR_ADDITIONS: ${{ github.event.pull_request.additions }}
+          PR_DELETIONS: ${{ github.event.pull_request.deletions }}
+          PR_FILES: ${{ github.event.pull_request.changed_files }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_ACTION: ${{ github.event.action }}
+
         run: |
-          MESSAGE="🔔 New Pull Request
+          if [ "$PR_ACTION" = "opened" ]; then
+            EVENT="🆕 New Pull Request"
+          elif [ "$PR_ACTION" = "reopened" ]; then
+            EVENT="🔄 Pull Request Reopened"
+          else
+            EVENT="📝 Pull Request Ready for Review"
+          fi
 
-          📦 Repository: ${REPO_NAME}
-          👤 Author: ${PR_AUTHOR}
-          🌿 Branch: ${HEAD_BRANCH} → ${BASE_BRANCH}
-          📝 Title: ${PR_TITLE}
-          🔗 PR: ${PR_URL}"
+          [ -z "$PR_REVIEWERS" ] && PR_REVIEWERS="—"
+          [ -z "$PR_LABELS" ] && PR_LABELS="—"
 
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d message_thread_id="${TELEGRAM_MESSAGE_THREAD_ID}" \
-            --data-urlencode text="${MESSAGE}"
+          TEXT="$EVENT
+
+          📦 Repository: $REPO_NAME
+          🔢 PR: #$PR_NUMBER
+          📝 Title: $PR_TITLE
+          👤 Author: $PR_AUTHOR
+          👥 Reviewers: $PR_REVIEWERS
+          🏷️ Labels: $PR_LABELS
+          🌿 Branch: $PR_HEAD → $PR_BASE
+          📊 Changes: +$PR_ADDITIONS / -$PR_DELETIONS ($PR_FILES files)
+
+          🔗 Open PR: $PR_URL"
+
+          jq -n \
+            --arg chat_id "$TELEGRAM_CHAT_ID" \
+            --argjson message_thread_id "$TELEGRAM_MESSAGE_THREAD_ID" \
+            --arg text "$TEXT" \
+            '{
+              chat_id: $chat_id,
+              message_thread_id: $message_thread_id,
+              text: $text,
+              disable_web_page_preview: true
+            }' \
+            | curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -H "Content-Type: application/json" \
+              -d @-
