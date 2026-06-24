@@ -5,7 +5,7 @@ import '@gravity-ui/uikit/styles/styles.css';
 import { useState } from 'react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, _setTheme] = useState<'light' | 'dark'>('light');
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
