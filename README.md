@@ -22,13 +22,13 @@ App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-a
 | --- | --- |
 | Framework | [Next.js](https://nextjs.org/) 16.2.9 (App Router) |
 | Language | [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/) 19.2.4 |
-| UI Kit | [Gravity UI](https://gravity-ui.com/) (uikit, navigation, icons) |
-| Testing | [Vitest](https://vitest.dev/), [Testing Library](https://testing-library.com/), [jsdom](https://github.com/jsdom/jsdom) |
+| UI Kit | [Gravity UI](https://gravity-ui.com/) |
+| Testing | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/react) |
 | Linting | [ESLint](https://eslint.org/) 9, [Prettier](https://prettier.io/) |
 | Git Hooks | [Husky](https://typicode.github.io/husky/), [lint-staged](https://github.com/lint-staged/lint-staged), [commitlint](https://commitlint.js.org/) (conventional commits) |
 | CI/CD | [GitHub Actions](https://docs.github.com/en/actions) (branch validation, PR title lint) |
 | Auth | JWT-based (email/password) |
-| i18n | [next-intl](https://next-intl.dev/) (planned) |
+| i18n | [next-i18next](https://github.com/i18next/next-i18next) |
 
 ## Features
 
@@ -50,14 +50,22 @@ App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-a
 ```text
 swagger-editor-app/
 ├── frontend/              # Next.js application
-│   ├── app/               # Pages & routing (App Router)
-│   │   ├── about/         # About page
-│   │   ├── history/       # History & Analytics (lazy-loaded, private)
-│   │   ├── signin/        # Sign In form
-│   │   ├── signup/        # Sign Up form
-│   │   └── page.tsx       # Main page (Editor + Viewer)
-│   ├── public/            # Static assets
+│   ├── src/
+│   │   ├── app/           # Pages & routing (App Router)
+│   │   │   ├── [lng]/     # Locale-prefixed routes
+│   │   │   │   ├── about/
+│   │   │   │   ├── history/
+│   │   │   │   ├── signin/
+│   │   │   │   ├── signup/
+│   │   │   │   └── page.tsx
+│   │   │   └── globals.css
+│   │   ├── components/    # Reusable components
+│   │   ├── hooks/         # Custom hooks
+│   │   ├── i18n/          # i18n config, loader, locales
+│   │   ├── providers/     # React context providers
+│   │   └── proxy.ts       # Next.js proxy (i18n middleware)
 │   ├── .husky/            # Git hooks
+│   ├── public/            # Static assets
 │   └── ...config files
 ├── .github/
 │   ├── workflows/         # CI pipelines
@@ -137,19 +145,6 @@ Environment variables (create `.env` in `frontend/`):
 4. Open PR to `develop` with description and linked issue
 
 See [PR template](.github/pull_request_template.md) for checklist.
-
-## Roadmap
-
-- [x] Project scaffolding (Next.js, Gravity UI, ESLint, Prettier, Husky, CI)
-- [ ] Authentication (Sign In / Sign Up)
-- [ ] Swagger Editor (schema editing, format switching, validation)
-- [ ] Swagger Viewer (endpoint list, request/response details)
-- [ ] Try-It-Out (request execution, response display)
-- [ ] cURL generation
-- [ ] History & Analytics (SSR, lazy-loaded)
-- [ ] About page
-- [ ] i18n (≥2 languages)
-- [ ] Deployment to Vercel/Netlify
 
 ## License
 
