@@ -1,4 +1,5 @@
+cd frontend
 echo "Run lint-staged"
 npx lint-staged
 echo "Start typecheck"
-cd frontend && npm run typecheck
+npm run typecheck
