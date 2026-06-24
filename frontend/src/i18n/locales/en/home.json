@@ -1,0 +1,5 @@
+{
+  "title": "Swagger Editor App",
+  "subtitle": "Design, edit, and test APIs via OpenAPI specifications",
+  "description": "OpenAPI specification editor with live viewer and REST client. Supports JSON and YAML formats."
+}
