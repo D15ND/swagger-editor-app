@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Providers } from './themeProvider';
+import { Providers } from './Providers';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
