@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useLayoutEffect, useState } from 'react';
 
 const STORAGE_KEY = 'swagger-editor-theme';
 
@@ -24,23 +24,20 @@ function getStoredTheme(): Theme {
 
 function syncBodyClass(theme: Theme) {
   document.body.classList.remove('g-root_theme_light', 'g-root_theme_dark');
-  document.body.classList.add('g-root_theme_' + theme);
+  document.body.classList.add(`g-root_theme_${theme}`);
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
-  useEffect(() => {
-    // https://react.dev/reference/react-dom/client/hydrateRoot#handling-different-client-and-server-content
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(getStoredTheme());
-  }, []);
+  useLayoutEffect(() => {
+    syncBodyClass(theme);
+  }, [theme]);
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
       const next = prev === 'light' ? 'dark' : 'light';
       localStorage.setItem(STORAGE_KEY, next);
-      syncBodyClass(next);
       return next;
     });
   }, []);
