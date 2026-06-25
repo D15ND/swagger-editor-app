@@ -1,23 +1,24 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Globe } from '@gravity-ui/icons';
 import { useLocaleSwitch } from '@/hooks/useLocaleSwitch';
+import styles from './LanguageSwitcher.module.css';
 
 export default function LanguageSwitcher() {
-  const locales = useLocaleSwitch();
+  const { current, next, href } = useLocaleSwitch();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   return (
-    <nav style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', padding: 16 }}>
-      {locales.map(({ code, href, isActive }) => (
-        <Link
-          key={code}
-          href={href}
-          style={{ fontWeight: isActive ? 700 : 400 }}
-          {...(isActive ? { 'aria-current': 'page' as const } : {})}
-        >
-          {code.toUpperCase()}
-        </Link>
-      ))}
-    </nav>
+    <Link href={href(next())} className={styles.link}>
+      <Globe className={styles.icon} />
+      {mounted && <span className={styles.label}>{current.toUpperCase()}</span>}
+    </Link>
   );
 }
