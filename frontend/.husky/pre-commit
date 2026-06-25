@@ -1,0 +1,5 @@
+cd frontend
+echo "Run lint-staged"
+npx lint-staged
+echo "Start typecheck"
+npm run typecheck
