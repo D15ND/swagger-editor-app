@@ -9,10 +9,7 @@ type I18nProviderProps = {
   lng: string;
 };
 
-export default async function I18nProvider({
-  children,
-  lng,
-}: I18nProviderProps) {
+export default async function I18nProvider({ children, lng }: I18nProviderProps) {
   const { i18n } = await getT();
   const resources = getResources(i18n);
 
