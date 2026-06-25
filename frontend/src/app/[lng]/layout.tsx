@@ -29,7 +29,7 @@ export default async function RootLayout({
             __html: `
               (function() {
                 try {
-                  var t = localStorage.getItem('theme');
+                  var t = localStorage.getItem('swagger-editor-theme');
                   if (t !== 'dark' && t !== 'light') {
                     t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }

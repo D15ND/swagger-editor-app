@@ -13,17 +13,13 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
-function getSystemTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
 function getStoredTheme(): Theme {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'dark' || stored === 'light') return stored;
   } catch {}
-  return getSystemTheme();
+  if (typeof window === 'undefined') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 function syncBodyClass(theme: Theme) {
@@ -33,15 +29,19 @@ function syncBodyClass(theme: Theme) {
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getStoredTheme);
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, theme);
-    syncBodyClass(theme);
-  }, [theme]);
+    setTheme(getStoredTheme());
+  }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem(STORAGE_KEY, next);
+      syncBodyClass(next);
+      return next;
+    });
   }, []);
 
   return (
