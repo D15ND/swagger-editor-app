@@ -25,13 +25,14 @@ function getStoredTheme(): Theme {
 function syncBodyClass(theme: Theme) {
   document.body.classList.remove('g-root_theme_light', 'g-root_theme_dark');
   document.body.classList.add('g-root_theme_' + theme);
-  document.documentElement.style.colorScheme = theme;
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
+    // https://react.dev/reference/react-dom/client/hydrateRoot#handling-different-client-and-server-content
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(getStoredTheme());
   }, []);
 

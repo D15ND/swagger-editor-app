@@ -34,7 +34,6 @@ export default async function RootLayout({
                     t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }
                   document.body.className = 'g-root g-root_theme_' + t;
-                  document.documentElement.style.colorScheme = t;
                 } catch(e) {}
               })();
             `,
