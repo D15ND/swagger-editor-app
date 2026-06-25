@@ -22,8 +22,24 @@ export default async function RootLayout({
   const { lng } = await params;
 
   return (
-    <html lang={lng}>
-      <body>
+    <html lang={lng} suppressHydrationWarning>
+      <body className="g-root" suppressHydrationWarning>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('theme');
+                  if (t !== 'dark' && t !== 'light') {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  document.body.className = 'g-root g-root_theme_' + t;
+                  document.documentElement.style.colorScheme = t;
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
         <Providers>
           <I18nProvider lng={lng}>
             <LanguageSwitcher />
