@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import '../globals.css';
 import { Providers } from '../Providers';
 import I18nProvider from '@/providers/I18nProvider';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import Header from '@/components/Header';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
@@ -41,7 +41,7 @@ export default async function RootLayout({
         />
         <Providers>
           <I18nProvider lng={lng}>
-            <LanguageSwitcher />
+            <Header />
             {children}
           </I18nProvider>
         </Providers>
