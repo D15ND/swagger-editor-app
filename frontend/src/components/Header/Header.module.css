@@ -194,6 +194,8 @@
 /* Mobile toggle */
 .mobileToggle {
   display: flex;
+  align-items: center;
+  gap: var(--g-spacing-1);
 }
 
 @media (min-width: 768px) {
@@ -226,12 +228,23 @@
 
 /* Mobile panel */
 .panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--g-spacing-2);
-  padding: var(--g-spacing-2) var(--g-spacing-6) var(--g-spacing-4);
-  border-top: 1px solid var(--g-color-line-generic);
+  gap: var(--g-spacing-4);
+  padding: var(--g-spacing-4);
+  border-bottom: 1px solid var(--g-color-line-generic);
   background: var(--g-color-base-background);
+  z-index: 49;
+  animation-name: lift-backdrop;
+  animation-duration: auto;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll();
+  animation-range: 0 100px;
 }
 
 .navPanel {
@@ -242,9 +255,9 @@
 
 .panelActions {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--g-spacing-2);
-  padding-top: var(--g-spacing-2);
+  padding-top: var(--g-spacing-4);
   border-top: 1px solid var(--g-color-line-generic);
 }
 

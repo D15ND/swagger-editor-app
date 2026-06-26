@@ -58,6 +58,7 @@ export default function Header() {
           </div>
 
           <div className={styles.mobileToggle}>
+            <ThemeToggle />
             <button className={styles.hamburger} onClick={() => setMenuOpen((v) => !v)}>
               {menuOpen ? <Xmark /> : <Bars />}
             </button>
@@ -81,9 +82,6 @@ export default function Header() {
           </nav>
 
           <div className={styles.panelActions}>
-            <ThemeToggle />
-            <LanguageSwitcher />
-
             {user ? (
               <button className={styles.btnSignOut}>
                 <LockOpen />
