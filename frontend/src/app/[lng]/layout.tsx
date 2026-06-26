@@ -22,8 +22,8 @@ export default async function RootLayout({
   const { lng } = await params;
 
   return (
-    <html lang={lng} suppressHydrationWarning>
-      <body className="g-root" suppressHydrationWarning>
+    <html lang={lng} className="g-root" suppressHydrationWarning>
+      <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -33,12 +33,14 @@ export default async function RootLayout({
                   if (t !== 'dark' && t !== 'light') {
                     t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }
-                  document.body.className = 'g-root g-root_theme_' + t;
+                  document.documentElement.className = 'g-root g-root_theme_' + t;
                 } catch(e) {}
               })();
             `,
           }}
         />
+      </head>
+      <body>
         <Providers>
           <I18nProvider lng={lng}>
             <Header />
