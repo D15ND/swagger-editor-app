@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Bars, Xmark, LockOpen, PersonPlus, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from '@/components/Logo';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -9,23 +9,14 @@ import LocalizedLink from '@/components/LocalizedLink';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   // TODO: replace with const { user } = useAuth()
   // const user = null;
   const user = true;
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <header className={`${styles.header}${scrolled ? ` ${styles.scrolled}` : ''}`}>
+    <header className={styles.header}>
       <div className={styles.container}>
         <Logo />
 

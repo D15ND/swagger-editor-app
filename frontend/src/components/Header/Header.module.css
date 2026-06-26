@@ -1,25 +1,66 @@
+@keyframes border-reveal {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: inset 0 -2px 0 var(--g-color-line-generic), 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@keyframes lift-backdrop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes lift-content {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-12px);
+  }
+}
+
 .header {
   position: sticky;
   top: 0;
   z-index: 50;
   width: 100%;
-  border-bottom: 1px solid transparent;
-  background: var(--g-color-base-background);
-  transition: box-shadow var(--se-transition-slow), background var(--se-transition-slow);
+  background: transparent;
 }
 
-.scrolled {
-  border-bottom-color: var(--g-color-line-generic);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--g-color-base-background);
+  pointer-events: none;
+  animation-name: lift-backdrop, border-reveal;
+  animation-duration: auto;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll();
+  animation-range: 0 100px;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1280px;
+  max-width: var(--g-screen-xl);
   margin: 0 auto;
   padding: var(--g-spacing-4) var(--g-spacing-6);
+  animation-name: lift-content;
+  animation-duration: auto;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll();
+  animation-range: 0 100px;
 }
 
 @media (min-width: 768px) {
@@ -94,7 +135,9 @@
   text-decoration: none;
   color: var(--g-color-text-secondary);
   border-radius: var(--g-radius-m);
-  transition: color var(--se-transition-fast), background var(--se-transition-fast);
+  transition:
+    color var(--se-transition-fast),
+    background var(--se-transition-fast);
 }
 
 .btnSignIn:hover {
@@ -115,7 +158,9 @@
   background: var(--g-color-base-brand);
   border-radius: var(--g-radius-m);
   box-shadow: var(--se-shadow-brand);
-  transition: background var(--se-transition-fast), box-shadow var(--se-transition-fast);
+  transition:
+    background var(--se-transition-fast),
+    box-shadow var(--se-transition-fast);
 }
 
 .btnSignUp:hover {
@@ -136,7 +181,9 @@
   cursor: pointer;
   color: var(--g-color-text-secondary);
   border-radius: var(--g-radius-m);
-  transition: color var(--se-transition-fast), background var(--se-transition-fast);
+  transition:
+    color var(--se-transition-fast),
+    background var(--se-transition-fast);
 }
 
 .btnSignOut:hover {
@@ -159,15 +206,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: var(--g-spacing-9);
+  height: var(--g-spacing-9);
   padding: 0;
   background: none;
   border: none;
   cursor: pointer;
   color: var(--g-color-text-secondary);
   border-radius: var(--g-radius-m);
-  transition: color var(--se-transition-fast), background var(--se-transition-fast);
+  transition:
+    color var(--se-transition-fast),
+    background var(--se-transition-fast);
 }
 
 .hamburger:hover {
