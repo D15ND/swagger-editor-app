@@ -1,0 +1,39 @@
+:root {
+  /* === Brand === */
+  --color-indigo-500: #6366f1;
+  --color-violet-600: #7c3aed;
+
+  /* === Semantic === */
+  --color-blue-500: #3b82f6;
+  --color-green-500: #22c55e;
+  --color-orange-500: #f97316;
+  --color-red-500: #ef4444;
+  --color-purple-500: #a855f7;
+  --color-amber-500: #f59e0b;
+  --color-slate-400: #64748b;
+  --color-white: #fff;
+
+  /* === Radii === */
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+
+  /* === Spacing === */
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* === Font sizes === */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+
+  /* === Transitions === */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
