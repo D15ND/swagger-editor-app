@@ -33,14 +33,7 @@
   background: transparent;
 }
 
-.header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--g-color-base-background);
-  pointer-events: none;
-  animation-name: lift-backdrop, border-reveal;
+.scrollAnim {
   animation-duration: auto;
   animation-timing-function: linear;
   animation-fill-mode: both;
@@ -48,7 +41,18 @@
   animation-range: 0 100px;
 }
 
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--g-color-base-background);
+  pointer-events: none;
+  composes: scrollAnim;
+  animation-name: lift-backdrop, border-reveal;
+}
+
 .container {
+  composes: scrollAnim;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,11 +60,6 @@
   margin: 0 auto;
   padding: var(--g-spacing-4) var(--g-spacing-6);
   animation-name: lift-content;
-  animation-duration: auto;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-  animation-timeline: scroll();
-  animation-range: 0 100px;
 }
 
 @media (min-width: 768px) {
@@ -228,6 +227,7 @@
 
 /* Mobile panel */
 .panel {
+  composes: scrollAnim;
   position: absolute;
   top: 100%;
   left: 0;
@@ -240,11 +240,6 @@
   background: var(--g-color-base-background);
   z-index: 49;
   animation-name: lift-backdrop;
-  animation-duration: auto;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-  animation-timeline: scroll();
-  animation-range: 0 100px;
 }
 
 .navPanel {
