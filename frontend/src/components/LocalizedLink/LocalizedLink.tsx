@@ -1,15 +1,17 @@
+'use client';
+
 import Link from 'next/link';
-import { headers } from 'next/headers';
+import { useParams } from 'next/navigation';
 
 type LocalizedLinkProps = Omit<React.ComponentProps<typeof Link>, 'href'> & { href: string };
 
-export default async function LocalizedLink({
+export default function LocalizedLink({
   href,
   children,
   ...rest
 }: LocalizedLinkProps) {
-  const headerList = await headers();
-  const lng = headerList.get('x-i18next-current-language') || 'en';
+  const params = useParams<{ lng: string }>();
+  const lng = params?.lng || 'en';
   const localizedHref = href.startsWith('/') ? `/${lng}${href}` : href;
 
   return (
