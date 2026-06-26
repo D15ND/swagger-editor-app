@@ -22,16 +22,17 @@ function getStoredTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function syncBodyClass(theme: Theme) {
-  document.body.classList.remove('g-root_theme_light', 'g-root_theme_dark');
-  document.body.classList.add(`g-root_theme_${theme}`);
+function syncThemeClass(theme: Theme) {
+  const root = document.documentElement;
+  root.classList.remove('g-root_theme_light', 'g-root_theme_dark');
+  root.classList.add(`g-root_theme_${theme}`);
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   useLayoutEffect(() => {
-    syncBodyClass(theme);
+    syncThemeClass(theme);
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
