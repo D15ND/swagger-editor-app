@@ -1,3 +1,5 @@
+import '@gravity-ui/uikit/styles/fonts.css';
+import '@gravity-ui/uikit/styles/styles.css';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import '../globals.css';
