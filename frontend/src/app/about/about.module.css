@@ -3,8 +3,7 @@
   padding: 72px 24px;
   background:
     radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.14), transparent 320px),
-    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
-    #f8f9ff;
+    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px), #f8f9ff;
   color: #101828;
 }
 
@@ -168,8 +167,7 @@
   .page {
     background:
       radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.18), transparent 360px),
-      radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
-      #020617;
+      radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px), #020617;
     color: #f8fafc;
   }
 

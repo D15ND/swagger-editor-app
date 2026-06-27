@@ -51,8 +51,8 @@ export default function AboutPage() {
         <h1>About the Project</h1>
 
         <p>
-          A Swagger/OpenAPI Viewer and Editor built as a final project for the
-          RS School React Course.
+          A Swagger/OpenAPI Viewer and Editor built as a final project for the RS School React
+          Course.
         </p>
       </section>
 
@@ -61,17 +61,11 @@ export default function AboutPage() {
           <h2>RS School</h2>
 
           <p>
-            This application is created as part of the RS School curriculum.
-            RS School is a free, community-based education program conducted by
-            The Rolling Scopes developer community.
+            This application is created as part of the RS School curriculum. RS School is a free,
+            community-based education program conducted by The Rolling Scopes developer community.
           </p>
 
-          <a
-            className={styles.link}
-            href="https://rs.school/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className={styles.link} href="https://rs.school/" target="_blank" rel="noreferrer">
             Learn more about RS School
             <span aria-hidden="true">↗</span>
           </a>
@@ -96,11 +90,7 @@ export default function AboutPage() {
         <div className={styles.teamGrid}>
           {teamMembers.map((member) => (
             <article key={member.github} className={styles.memberCard}>
-              <Avatar
-                text={getInitials(member.name)}
-                size="xl"
-                className={styles.avatar}
-              />
+              <Avatar text={getInitials(member.name)} size="xl" className={styles.avatar} />
 
               <h3>{member.name}</h3>
 
