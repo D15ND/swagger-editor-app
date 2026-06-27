@@ -1,0 +1,17 @@
+{
+  "badge": "Финальный проект RS School",
+  "title": "О проекте",
+  "subtitle": "Swagger/OpenAPI Viewer and Editor, созданный как финальный проект курса React в RS School.",
+  "rsSchool": {
+    "title": "RS School",
+    "description": "Это приложение создано в рамках учебной программы RS School. RS School — это бесплатная образовательная программа сообщества The Rolling Scopes.",
+    "link": "Узнать больше о RS School"
+  },
+  "technologies": {
+    "title": "Технологии",
+    "description": "Проект использует современный React-стек для разработки, валидации, тестирования и локализации приложения."
+  },
+  "team": {
+    "title": "Команда"
+  }
+}
