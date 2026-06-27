@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Flex, Button } from '@gravity-ui/uikit';
-import { Bars, Xmark, ArrowRightFromSquare, LockOpen, PersonPlus, Clock, BookOpen } from '@gravity-ui/icons';
+import { Bars, Xmark, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from '@/components/Logo';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
+import AuthButtons from './AuthButtons';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -45,29 +46,7 @@ export default function Header() {
           <Flex className={styles.desktopControls} alignItems="center" gap="2">
             <ThemeToggle />
             <LanguageSwitcher />
-            {user ? (
-              <Button view="flat-danger" size="l" onClick={() => {}}>
-                <Button.Icon>
-                  <ArrowRightFromSquare />
-                </Button.Icon>
-                Sign Out
-              </Button>
-            ) : (
-              <>
-                <Button view="flat" size="l" onClick={() => go('/signin')}>
-                  <Button.Icon>
-                    <LockOpen />
-                  </Button.Icon>
-                  Sign In
-                </Button>
-                <Button view="action" size="l" onClick={() => go('/signup')}>
-                  <Button.Icon>
-                    <PersonPlus />
-                  </Button.Icon>
-                  Sign Up
-                </Button>
-              </>
-            )}
+            <AuthButtons user={user} go={go} />
           </Flex>
 
           <Flex className={styles.mobileToggle} alignItems="center" gap="1">
@@ -95,29 +74,7 @@ export default function Header() {
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
-            {user ? (
-              <Button view="flat-danger" size="l" onClick={() => {}}>
-                <Button.Icon>
-                  <ArrowRightFromSquare />
-                </Button.Icon>
-                Sign Out
-              </Button>
-            ) : (
-              <>
-                <Button view="flat" size="l" onClick={() => go('/signin')}>
-                  <Button.Icon>
-                    <LockOpen />
-                  </Button.Icon>
-                  Sign In
-                </Button>
-                <Button view="action" size="l" onClick={() => go('/signup')}>
-                  <Button.Icon>
-                    <PersonPlus />
-                  </Button.Icon>
-                  Sign Up
-                </Button>
-              </>
-            )}
+            <AuthButtons user={user} go={go} />
           </Flex>
         </div>
       )}
