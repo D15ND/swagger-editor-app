@@ -39,6 +39,7 @@ export function ThemeContextProvider({ children }: { children: React.ReactNode }
     setTheme((prev) => {
       const next = prev === 'light' ? 'dark' : 'light';
       localStorage.setItem(STORAGE_KEY, next);
+      document.cookie = `${STORAGE_KEY}=${next}; path=/; max-age=31536000; SameSite=Lax`;
       return next;
     });
   }, []);

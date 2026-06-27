@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import '../globals.css';
 import { Providers } from '../Providers';
 import I18nProvider from '@/providers/I18nProvider';
@@ -20,26 +21,12 @@ export default async function RootLayout({
   params: Promise<{ lng: string }>;
 }>) {
   const { lng } = await params;
+  const headersList = await headers();
+  const theme = headersList.get('x-theme');
+  const themeClass = theme === 'dark' || theme === 'light' ? ` g-root_theme_${theme}` : '';
 
   return (
-    <html lang={lng} className="g-root" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var t = localStorage.getItem('swagger-editor-theme');
-                  if (t !== 'dark' && t !== 'light') {
-                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  document.documentElement.className = 'g-root g-root_theme_' + t;
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
+    <html lang={lng} className={`g-root${themeClass}`} suppressHydrationWarning>
       <body>
         <Providers>
           <I18nProvider lng={lng}>
