@@ -1,7 +1,12 @@
-import path from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
+  ssr: {
+    noExternal: ['@gravity-ui/uikit'],
+  },
   test: {
     passWithNoTests: true,
     environment: 'jsdom',
@@ -9,10 +14,6 @@ export default defineConfig({
     include: ['**/*.test.tsx', '**/*.test.ts'],
     testTimeout: 15000,
     setupFiles: './test-setup.ts',
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './'),
-    },
+    css: true,
   },
 });
