@@ -3,6 +3,18 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Header from './Header';
 
+vi.mock('next-i18next/client', () => ({
+  useT: () => ({
+    t: (key: string) => {
+      const map: Record<string, string> = {
+        'nav.history': 'History',
+        'nav.about': 'About',
+      };
+      return map[key] || key;
+    },
+  }),
+}));
+
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),

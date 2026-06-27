@@ -2,6 +2,7 @@
 
 import { Button } from '@gravity-ui/uikit';
 import { ArrowRightFromSquare, LockOpen, PersonPlus } from '@gravity-ui/icons';
+import { useT } from 'next-i18next/client';
 
 type Props = {
   user?: boolean;
@@ -9,12 +10,14 @@ type Props = {
 }
 
 export default function AuthButtons({ user, go }: Props) {
+  const { t } = useT('common');
+
   return user ? (
     <Button view="flat-danger" size="l" onClick={() => {}}>
       <Button.Icon>
         <ArrowRightFromSquare />
       </Button.Icon>
-      Sign Out
+      {t('nav.signOut')}
     </Button>
   ) : (
     <>
@@ -22,13 +25,13 @@ export default function AuthButtons({ user, go }: Props) {
         <Button.Icon>
           <LockOpen />
         </Button.Icon>
-        Sign In
+        {t('nav.signIn')}
       </Button>
       <Button view="action" size="l" onClick={() => go('/signup')}>
         <Button.Icon>
           <PersonPlus />
         </Button.Icon>
-        Sign Up
+        {t('nav.signUp')}
       </Button>
     </>
   );

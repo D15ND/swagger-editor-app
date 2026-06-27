@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Flex, Button } from '@gravity-ui/uikit';
+import { useT } from 'next-i18next/client';
 import { Bars, Xmark, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
@@ -21,6 +22,7 @@ export default function Header() {
   // const user = null;
   const user = true;
 
+  const { t } = useT('common');
   const go = (path: string) => router.push(`/${lng}${path}`);
 
   return (
@@ -33,12 +35,12 @@ export default function Header() {
           {user && (
             <LocalizedLink href="/history" className={styles.navLink}>
               <Clock className={styles.navIcon} />
-              <span>History</span>
+              <span>{t('nav.history')}</span>
             </LocalizedLink>
           )}
           <LocalizedLink href="/about" className={styles.navLink}>
             <BookOpen className={styles.navIcon} />
-            <span>About</span>
+            <span>{t('nav.about')}</span>
           </LocalizedLink>
         </Flex>
 
@@ -64,12 +66,12 @@ export default function Header() {
             {user && (
               <LocalizedLink href="/history" className={styles.navLink}>
                 <Clock className={styles.navIcon} />
-                <span>History</span>
+                <span>{t('nav.history')}</span>
               </LocalizedLink>
             )}
             <LocalizedLink href="/about" className={styles.navLink}>
               <BookOpen className={styles.navIcon} />
-              <span>About</span>
+              <span>{t('nav.about')}</span>
             </LocalizedLink>
           </Flex>
 
