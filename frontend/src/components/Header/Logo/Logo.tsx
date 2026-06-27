@@ -2,7 +2,7 @@ import { BookOpen } from '@gravity-ui/icons';
 import LocalizedLink from '@/components/LocalizedLink';
 import styles from './Logo.module.css';
 
-interface LogoProps {
+type LogoProps = {
   compact?: boolean;
   href?: string;
   className?: string;

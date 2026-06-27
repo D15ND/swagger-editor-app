@@ -3,7 +3,7 @@
 import { Button } from '@gravity-ui/uikit';
 import { ArrowRightFromSquare, LockOpen, PersonPlus } from '@gravity-ui/icons';
 
-interface Props {
+type Props = {
   user?: boolean;
   go: (path: string) => void;
 }
