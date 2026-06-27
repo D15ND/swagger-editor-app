@@ -12,6 +12,10 @@
     "description": "The project uses a modern React stack for building, validating, testing, and localizing the application."
   },
   "team": {
-    "title": "Our Team"
+    "title": "Our Team",
+    "roles": {
+      "teamLead": "Team Lead",
+      "developer": "Developer"
+    }
   }
 }
