@@ -13,6 +13,7 @@ type TeamMember = {
   name: string;
   roleKey: 'teamLead' | 'developer';
   github: string;
+  avatarUrl: string;
 };
 
 const technologies: Technology[] = [
@@ -31,16 +32,19 @@ const teamMembers: TeamMember[] = [
     name: 'D15ND',
     roleKey: 'teamLead',
     github: 'D15ND',
+    avatarUrl: 'https://github.com/D15ND.png',
   },
   {
     name: 'self-destructed',
     roleKey: 'developer',
     github: 'self-destructed',
+    avatarUrl: 'https://github.com/self-destructed.png',
   },
   {
     name: 'fayzullo05',
     roleKey: 'developer',
     github: 'fayzullo05',
+    avatarUrl: 'https://github.com/fayzullo05.png',
   },
 ];
 
@@ -67,12 +71,7 @@ export default function AboutPage() {
 
           <p>{t('rsSchool.description')}</p>
 
-          <a
-            className={styles.link}
-            href="https://rs.school/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className={styles.link} href="https://rs.school/" target="_blank" rel="noreferrer">
             {t('rsSchool.link')}
             <span aria-hidden="true">↗</span>
           </a>
@@ -97,28 +96,29 @@ export default function AboutPage() {
         <h2>{t('team.title')}</h2>
 
         <div className={styles.teamGrid}>
-{teamMembers.map((member) => (
-  <article key={member.github} className={styles.memberCard}>
-    <Avatar
-      text={getInitials(member.name)}
-      size="xl"
-      className={styles.avatar}
-    />
+          {teamMembers.map((member) => (
+            <article key={member.github} className={styles.memberCard}>
+              <Avatar
+                imgUrl={member.avatarUrl}
+                text={getInitials(member.name)}
+                size="xl"
+                className={styles.avatar}
+              />
 
-    <h3>{member.name}</h3>
+              <h3>{member.name}</h3>
 
-    <p>{t(`team.roles.${member.roleKey}`)}</p>
+              <p>{t(`team.roles.${member.roleKey}`)}</p>
 
-    <a
-      className={styles.githubLink}
-      href={`https://github.com/${member.github}`}
-      target="_blank"
-      rel="noreferrer"
-    >
-      @{member.github}
-    </a>
-  </article>
-))}
+              <a
+                className={styles.githubLink}
+                href={`https://github.com/${member.github}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                @{member.github}
+              </a>
+            </article>
+          ))}
         </div>
       </section>
     </main>
