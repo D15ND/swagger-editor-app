@@ -23,7 +23,9 @@ vi.mock('next/navigation', () => ({
 
 vi.mock('@/components/LocalizedLink', () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...rest}>{children}</a>
+    <a href={href} {...rest}>
+      {children}
+    </a>
   ),
 }));
 
@@ -42,7 +44,9 @@ describe('Header', () => {
     mockPush.mockClear();
     mockUseTheme.mockReturnValue({ theme: 'light', toggleTheme: vi.fn() });
     mockUseLocaleSwitch.mockReturnValue({
-      current: 'en', next: () => 'ru', href: (l: string) => `/${l}/current-path`,
+      current: 'en',
+      next: () => 'ru',
+      href: (l: string) => `/${l}/current-path`,
     });
   });
 

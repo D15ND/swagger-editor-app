@@ -4,7 +4,9 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 vi.mock('next/link', () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...rest}>{children}</a>
+    <a href={href} {...rest}>
+      {children}
+    </a>
   ),
 }));
 
@@ -16,7 +18,9 @@ vi.mock('@/hooks/useLocaleSwitch', () => ({
 describe('LanguageSwitcher', () => {
   it('renders a link', () => {
     mockUseLocaleSwitch.mockReturnValue({
-      current: 'en', next: () => 'ru', href: () => '/ru/test',
+      current: 'en',
+      next: () => 'ru',
+      href: () => '/ru/test',
     });
 
     render(<LanguageSwitcher />);
@@ -26,7 +30,9 @@ describe('LanguageSwitcher', () => {
 
   it('shows locale label after hydration', () => {
     mockUseLocaleSwitch.mockReturnValue({
-      current: 'en', next: () => 'ru', href: () => '/ru/test',
+      current: 'en',
+      next: () => 'ru',
+      href: () => '/ru/test',
     });
 
     render(<LanguageSwitcher />);
@@ -36,8 +42,9 @@ describe('LanguageSwitcher', () => {
 
   it('link points to next locale', () => {
     mockUseLocaleSwitch.mockReturnValue({
-      current: 'en', next: () => 'ru',
-      href: (locale: string) => locale === 'ru' ? '/ru/test' : '/en/test',
+      current: 'en',
+      next: () => 'ru',
+      href: (locale: string) => (locale === 'ru' ? '/ru/test' : '/en/test'),
     });
 
     render(<LanguageSwitcher />);

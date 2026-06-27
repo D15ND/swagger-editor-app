@@ -4,7 +4,9 @@ import Logo from './Logo';
 
 vi.mock('@/components/LocalizedLink', () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...rest}>{children}</a>
+    <a href={href} {...rest}>
+      {children}
+    </a>
   ),
 }));
 

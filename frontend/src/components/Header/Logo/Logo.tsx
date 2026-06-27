@@ -6,7 +6,7 @@ type LogoProps = {
   compact?: boolean;
   href?: string;
   className?: string;
-}
+};
 
 export default function Logo({ compact = false, href = '/', className }: LogoProps) {
   if (compact) {

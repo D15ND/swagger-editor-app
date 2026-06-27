@@ -9,7 +9,9 @@
   cursor: pointer;
   font-weight: var(--g-text-header-font-weight);
   font-size: var(--font-size-sm);
-  transition: color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .link:hover {

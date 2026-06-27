@@ -7,7 +7,7 @@ import { useT } from 'next-i18next/client';
 type Props = {
   user?: boolean;
   go: (path: string) => void;
-}
+};
 
 export default function AuthButtons({ user, go }: Props) {
   const { t } = useT('common');

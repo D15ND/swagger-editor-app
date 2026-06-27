@@ -53,7 +53,12 @@ export default function Header() {
 
           <Flex className={styles.mobileToggle} alignItems="center" gap="1">
             <ThemeToggle />
-            <Button view="flat" size="l" aria-label="Toggle menu" onClick={() => setMenuOpen((v) => !v)}>
+            <Button
+              view="flat"
+              size="l"
+              aria-label="Toggle menu"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
               <Button.Icon>{menuOpen ? <Xmark /> : <Bars />}</Button.Icon>
             </Button>
           </Flex>
