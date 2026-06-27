@@ -6,7 +6,7 @@ const i18nConfig: I18nConfig = {
   supportedLngs,
   fallbackLng: 'en',
   defaultNS: 'common',
-  ns: ['common', 'home'],
+  ns: ['common', 'home', 'about'],
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   resourceLoader,
 };
