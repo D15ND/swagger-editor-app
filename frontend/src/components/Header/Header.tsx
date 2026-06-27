@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Bars, Xmark, LockOpen, PersonPlus, Clock, BookOpen } from '@gravity-ui/icons';
+import { useRouter, useParams } from 'next/navigation';
+import { Flex, Button } from '@gravity-ui/uikit';
+import { Bars, Xmark, ArrowRightFromSquare, LockOpen, PersonPlus, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from '@/components/Logo';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -10,18 +12,23 @@ import styles from './Header.module.css';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+  const params = useParams<{ lng: string }>();
+  const lng = params?.lng || 'en';
 
   // TODO: replace with const { user } = useAuth()
   // const user = null;
   const user = true;
 
+  const go = (path: string) => router.push(`/${lng}${path}`);
+
   return (
     <header className={styles.header}>
       <div className={styles.backdrop} />
-      <div className={styles.container}>
+      <Flex className={styles.container} alignItems="center" justifyContent="space-between">
         <Logo />
 
-        <nav className={styles.navDesktop}>
+        <Flex as="nav" className={styles.navDesktop} alignItems="center" gap="6">
           {user && (
             <LocalizedLink href="/history" className={styles.navLink}>
               <Clock className={styles.navIcon} />
@@ -32,44 +39,49 @@ export default function Header() {
             <BookOpen className={styles.navIcon} />
             <span>About</span>
           </LocalizedLink>
-        </nav>
+        </Flex>
 
-        <div className={styles.actions}>
-          <div className={styles.desktopControls}>
+        <Flex className={styles.actions} alignItems="center" gap="2">
+          <Flex className={styles.desktopControls} alignItems="center" gap="2">
             <ThemeToggle />
             <LanguageSwitcher />
-
             {user ? (
-              <button className={styles.btnSignOut}>
-                <LockOpen />
-                <span>Sign Out</span>
-              </button>
+              <Button view="flat-danger" size="l" onClick={() => {}}>
+                <Button.Icon>
+                  <ArrowRightFromSquare />
+                </Button.Icon>
+                Sign Out
+              </Button>
             ) : (
               <>
-                <LocalizedLink href="/signin" className={styles.btnSignIn}>
-                  <LockOpen />
-                  <span>Sign In</span>
-                </LocalizedLink>
-                <LocalizedLink href="/signup" className={styles.btnSignUp}>
-                  <PersonPlus />
-                  <span>Sign Up</span>
-                </LocalizedLink>
+                <Button view="flat" size="l" onClick={() => go('/signin')}>
+                  <Button.Icon>
+                    <LockOpen />
+                  </Button.Icon>
+                  Sign In
+                </Button>
+                <Button view="action" size="l" onClick={() => go('/signup')}>
+                  <Button.Icon>
+                    <PersonPlus />
+                  </Button.Icon>
+                  Sign Up
+                </Button>
               </>
             )}
-          </div>
+          </Flex>
 
-          <div className={styles.mobileToggle}>
+          <Flex className={styles.mobileToggle} alignItems="center" gap="1">
             <ThemeToggle />
-            <button className={styles.hamburger} onClick={() => setMenuOpen((v) => !v)}>
-              {menuOpen ? <Xmark /> : <Bars />}
-            </button>
-          </div>
-        </div>
-      </div>
+            <Button view="flat" size="l" onClick={() => setMenuOpen((v) => !v)}>
+              <Button.Icon>{menuOpen ? <Xmark /> : <Bars />}</Button.Icon>
+            </Button>
+          </Flex>
+        </Flex>
+      </Flex>
 
       {menuOpen && (
         <div className={styles.panel}>
-          <nav className={styles.navPanel}>
+          <Flex as="nav" direction="column" gap="2">
             {user && (
               <LocalizedLink href="/history" className={styles.navLink}>
                 <Clock className={styles.navIcon} />
@@ -80,27 +92,33 @@ export default function Header() {
               <BookOpen className={styles.navIcon} />
               <span>About</span>
             </LocalizedLink>
-          </nav>
+          </Flex>
 
-          <div className={styles.panelActions}>
+          <Flex direction="column" gap="2" className={styles.panelActions}>
             {user ? (
-              <button className={styles.btnSignOut}>
-                <LockOpen />
-                <span>Sign Out</span>
-              </button>
+              <Button view="flat-danger" size="l" onClick={() => {}}>
+                <Button.Icon>
+                  <ArrowRightFromSquare />
+                </Button.Icon>
+                Sign Out
+              </Button>
             ) : (
               <>
-                <LocalizedLink href="/signin" className={styles.btnSignIn}>
-                  <LockOpen />
-                  <span>Sign In</span>
-                </LocalizedLink>
-                <LocalizedLink href="/signup" className={styles.btnSignUp}>
-                  <PersonPlus />
-                  <span>Sign Up</span>
-                </LocalizedLink>
+                <Button view="flat" size="l" onClick={() => go('/signin')}>
+                  <Button.Icon>
+                    <LockOpen />
+                  </Button.Icon>
+                  Sign In
+                </Button>
+                <Button view="action" size="l" onClick={() => go('/signup')}>
+                  <Button.Icon>
+                    <PersonPlus />
+                  </Button.Icon>
+                  Sign Up
+                </Button>
               </>
             )}
-          </div>
+          </Flex>
         </div>
       )}
     </header>
