@@ -6,7 +6,7 @@ import '../globals.css';
 import { Providers } from '../Providers';
 import I18nProvider from '@/providers/I18nProvider';
 import Header from '@/components/Header';
-import { STORAGE_KEY, getThemeClass } from '@/shared/theme';
+import { STORAGE_KEY, HEADER_KEY, THEME_LIGHT, getThemeClass, type Theme } from '@/shared/theme';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
@@ -27,8 +27,9 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const cookieTheme = cookieStore.get(STORAGE_KEY)?.value;
   const headersList = await headers();
-  const headerTheme = headersList.get('x-theme');
-  const theme = cookieTheme || headerTheme || 'light';
+  const headerTheme = headersList.get(HEADER_KEY);
+  const rawTheme = cookieTheme || headerTheme;
+  const theme: Theme = rawTheme === 'dark' || rawTheme === 'light' ? rawTheme : THEME_LIGHT;
   const themeClass = getThemeClass(theme);
 
   return (
