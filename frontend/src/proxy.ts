@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { supportedLngs } from '@/i18n/locales';
-import { STORAGE_KEY, HEADER_KEY, THEME_DARK, THEME_LIGHT, type Theme } from '@/shared/theme';
-
-const fallbackLng = 'en';
+import { supportedLngs, DEFAULT_LNG } from '@/i18n/locales';
+import { STORAGE_KEY, HEADER_KEY, THEME_DARK, THEME_LIGHT } from '@/shared/theme';
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
@@ -12,7 +10,7 @@ export function proxy(request: NextRequest) {
   const lng = match && supportedLngs.includes(match[1]) ? match[1] : '';
 
   if (!lng) {
-    return NextResponse.redirect(new URL(`/${fallbackLng}${pathname}${search}`, request.url));
+    return NextResponse.redirect(new URL(`/${DEFAULT_LNG}${pathname}${search}`, request.url));
   }
 
   const requestHeaders = new Headers(request.headers);

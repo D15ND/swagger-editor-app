@@ -10,13 +10,14 @@ import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
 import AuthButtons from './AuthButtons';
+import { DEFAULT_LNG } from '@/i18n/locales';
 import styles from './Header.module.css';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const params = useParams<{ lng: string }>();
-  const lng = params?.lng || 'en';
+  const lng = params?.lng || DEFAULT_LNG;
 
   // TODO: replace with const { user } = useAuth()
   // const user = null;
