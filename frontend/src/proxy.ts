@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { supportedLngs } from '@/i18n/locales';
+import { STORAGE_KEY, HEADER_KEY, THEME_DARK, THEME_LIGHT, type Theme } from '@/shared/theme';
 
 const fallbackLng = 'en';
 
@@ -17,9 +18,9 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-i18next-current-language', lng);
 
-  const theme = request.cookies.get('swagger-editor-theme')?.value;
-  if (theme === 'dark' || theme === 'light') {
-    requestHeaders.set('x-theme', theme);
+  const theme = request.cookies.get(STORAGE_KEY)?.value;
+  if (theme === THEME_DARK || theme === THEME_LIGHT) {
+    requestHeaders.set(HEADER_KEY, theme);
   }
 
   return NextResponse.next({ request: { headers: requestHeaders } });

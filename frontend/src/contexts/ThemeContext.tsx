@@ -1,8 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useState } from 'react';
-import { type Theme } from '@gravity-ui/uikit';
-import { STORAGE_KEY } from '@/shared/theme';
+import { STORAGE_KEY, THEME_DARK, THEME_LIGHT, type Theme } from '@/shared/theme';
 
 type ThemeContextType = {
   theme: Theme;
@@ -14,11 +13,11 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 function getStoredTheme(): Theme {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'dark' || stored === 'light') return stored;
+    if (stored === THEME_DARK || stored === THEME_LIGHT) return stored;
   } catch {}
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return THEME_LIGHT;
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEME_DARK : THEME_LIGHT;
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
@@ -26,7 +25,7 @@ export function ThemeContextProvider({ children }: { children: React.ReactNode }
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
+      const next = prev === THEME_LIGHT ? THEME_DARK : THEME_LIGHT;
       localStorage.setItem(STORAGE_KEY, next);
       document.cookie = `${STORAGE_KEY}=${next}; path=/; max-age=31536000; SameSite=Lax`;
       return next;
