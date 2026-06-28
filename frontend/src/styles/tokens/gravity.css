@@ -7,7 +7,7 @@
   --g-screen-xxl: 1400px;
 
   --g-color-base-brand: var(--se-brand-primary);
-  --g-color-base-brand-hover: #5b5fe7;
+  --g-color-base-brand-hover: var(--se-brand-primary-hover);
   --g-color-text-brand: var(--se-brand-primary);
   --g-color-text-brand-contrast: var(--color-white);
   --g-color-text-link: var(--se-brand-primary);
@@ -15,11 +15,4 @@
   --g-color-line-brand: var(--se-brand-primary);
   --g-color-base-selection: rgba(99, 102, 241, 0.12);
   --g-color-base-selection-hover: rgba(99, 102, 241, 0.2);
-}
-
-.g-root_theme_dark {
-  --se-shadow-brand: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
-  --se-header-bg: rgba(10, 10, 10, 0.8);
-  --se-footer-bg: #0a0a0a;
-  --se-footer-border: rgba(30, 41, 59, 0.6);
 }
