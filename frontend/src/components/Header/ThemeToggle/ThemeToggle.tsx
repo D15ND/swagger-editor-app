@@ -16,9 +16,11 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  if (!mounted) return null;
+
   return (
     <Button view="flat" size="l" className={styles.toggle} onClick={toggleTheme}>
-      <Button.Icon>{mounted ? theme === 'dark' ? <Sun /> : <Moon /> : <Sun />}</Button.Icon>
+      <Button.Icon>{theme === 'dark' ? <Sun /> : <Moon />}</Button.Icon>
     </Button>
   );
 }
