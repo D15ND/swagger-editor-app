@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@gravity-ui/uikit';
-import { ArrowRightFromSquare, LockOpen, PersonPlus } from '@gravity-ui/icons';
 import { useT } from 'next-i18next/client';
+import { ArrowRightFromSquare, LockOpen, PersonPlus } from '@gravity-ui/icons';
 
 type Props = {
   user?: boolean;

@@ -55,19 +55,9 @@
 
 .container {
   composes: scrollAnim;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: var(--g-screen-xl);
-  margin: 0 auto;
-  padding: var(--g-spacing-4) var(--g-spacing-6);
+  padding-top: var(--g-spacing-4);
+  padding-bottom: var(--g-spacing-4);
   animation-name: lift-content;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: var(--g-spacing-4) var(--g-spacing-8);
-  }
 }
 
 /* Navigation */

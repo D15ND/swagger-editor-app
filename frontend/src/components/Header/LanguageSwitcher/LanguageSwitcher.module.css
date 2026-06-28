@@ -3,15 +3,15 @@
   align-items: center;
   gap: var(--g-spacing-2);
   padding: var(--g-spacing-2);
-  border-radius: var(--radius-lg);
+  border-radius: var(--se-radius-lg);
   background: transparent;
   text-decoration: none;
   cursor: pointer;
   font-weight: var(--g-text-header-font-weight);
-  font-size: var(--font-size-sm);
+  font-size: var(--se-font-size-sm);
   transition:
-    color var(--transition-fast),
-    background-color var(--transition-fast);
+    color var(--se-transition-fast),
+    background-color var(--se-transition-fast);
 }
 
 .link:hover {
@@ -22,7 +22,7 @@
   color: var(--g-color-text-secondary);
   width: 16px;
   height: 16px;
-  transition: color var(--transition-fast);
+  transition: color var(--se-transition-fast);
 }
 
 .link:hover .icon {
@@ -32,7 +32,7 @@
 .label {
   color: var(--g-color-text-secondary);
   text-transform: uppercase;
-  transition: color var(--transition-fast);
+  transition: color var(--se-transition-fast);
 }
 
 .link:hover .label {
