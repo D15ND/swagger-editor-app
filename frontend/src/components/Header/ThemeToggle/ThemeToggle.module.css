@@ -3,5 +3,5 @@
 }
 
 .toggle:hover svg {
-  color: var(--g-color-text-brand);
+  color: var(--se-text-brand);
 }

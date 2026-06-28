@@ -14,6 +14,7 @@ body {
 
 body {
   min-height: 100%;
+  background: var(--se-page-bg);
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;

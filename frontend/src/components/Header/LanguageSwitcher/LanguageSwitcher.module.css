@@ -15,26 +15,26 @@
 }
 
 .link:hover {
-  background: var(--g-color-base-simple-hover);
+  background: var(--se-bg-hover);
 }
 
 .icon {
-  color: var(--g-color-text-secondary);
+  color: var(--se-text-secondary);
   width: 16px;
   height: 16px;
   transition: color var(--se-transition-fast);
 }
 
 .link:hover .icon {
-  color: var(--g-color-text-brand);
+  color: var(--se-text-brand);
 }
 
 .label {
-  color: var(--g-color-text-secondary);
+  color: var(--se-text-secondary);
   text-transform: uppercase;
   transition: color var(--se-transition-fast);
 }
 
 .link:hover .label {
-  color: var(--g-color-text-brand);
+  color: var(--se-text-brand);
 }

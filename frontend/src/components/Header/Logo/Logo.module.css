@@ -10,8 +10,8 @@
 }
 
 .iconBox {
-  background: var(--g-color-base-brand);
-  color: var(--g-color-text-brand-contrast);
+  background: var(--se-brand-primary);
+  color: var(--se-text-on-brand);
   padding: var(--g-spacing-2);
   border-radius: var(--se-radius-lg);
   transition: transform var(--se-transition-base);
@@ -33,5 +33,5 @@
   font-size: var(--se-font-size-xl);
   letter-spacing: -0.025em;
   white-space: nowrap;
-  color: var(--g-color-text-primary);
+  color: var(--se-text-primary);
 }
