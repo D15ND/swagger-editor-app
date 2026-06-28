@@ -67,6 +67,6 @@
   --se-sidebar-width: 320px;
 
   /* === Footer === */
-  --se-footer-bg: var(--g-color-base-background);
+  --se-footer-bg: oklch(0.968 0.007 247.896);
   --se-footer-border: var(--g-color-line-generic);
 }

@@ -7,6 +7,7 @@ import { Providers } from '../Providers';
 import I18nProvider from '@/providers/I18nProvider';
 import Header from '@/components/Header';
 import { STORAGE_KEY, HEADER_KEY, THEME_LIGHT, getThemeClass, type Theme } from '@/shared/theme';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
@@ -39,6 +40,7 @@ export default async function RootLayout({
           <I18nProvider lng={lng}>
             <Header />
             {children}
+            <Footer />
           </I18nProvider>
         </Providers>
       </body>
