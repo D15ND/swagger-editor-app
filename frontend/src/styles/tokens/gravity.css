@@ -20,4 +20,6 @@
 .g-root_theme_dark {
   --se-shadow-brand: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
   --se-header-bg: rgba(10, 10, 10, 0.8);
+  --se-footer-bg: #0a0a0a;
+  --se-footer-border: rgba(30, 41, 59, 0.6);
 }
