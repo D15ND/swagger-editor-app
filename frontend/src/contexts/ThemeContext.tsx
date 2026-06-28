@@ -1,10 +1,8 @@
 'use client';
 
-import { createContext, useCallback, useContext, useLayoutEffect, useState } from 'react';
-
-const STORAGE_KEY = 'swagger-editor-theme';
-
-type Theme = 'light' | 'dark';
+import { createContext, useCallback, useContext, useState } from 'react';
+import { type Theme } from '@gravity-ui/uikit';
+import { STORAGE_KEY } from '@/shared/theme';
 
 type ThemeContextType = {
   theme: Theme;
@@ -19,21 +17,12 @@ function getStoredTheme(): Theme {
     if (stored === 'dark' || stored === 'light') return stored;
   } catch {}
   if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
 
-function syncThemeClass(theme: Theme) {
-  const root = document.documentElement;
-  root.classList.remove('g-root_theme_light', 'g-root_theme_dark');
-  root.classList.add(`g-root_theme_${theme}`);
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 export function ThemeContextProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
-
-  useLayoutEffect(() => {
-    syncThemeClass(theme);
-  }, [theme]);
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {

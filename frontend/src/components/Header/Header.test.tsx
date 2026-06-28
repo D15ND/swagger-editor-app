@@ -29,9 +29,8 @@ vi.mock('@/components/LocalizedLink', () => ({
   ),
 }));
 
-const mockUseTheme = vi.fn();
 vi.mock('@/contexts/ThemeContext', () => ({
-  useTheme: () => mockUseTheme(),
+  useTheme: () => ({ theme: 'light', toggleTheme: vi.fn() }),
 }));
 
 const mockUseLocaleSwitch = vi.fn();
@@ -42,7 +41,6 @@ vi.mock('@/hooks/useLocaleSwitch', () => ({
 describe('Header', () => {
   beforeEach(() => {
     mockPush.mockClear();
-    mockUseTheme.mockReturnValue({ theme: 'light', toggleTheme: vi.fn() });
     mockUseLocaleSwitch.mockReturnValue({
       current: 'en',
       next: () => 'ru',
