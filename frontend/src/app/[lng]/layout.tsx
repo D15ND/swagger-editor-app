@@ -1,11 +1,12 @@
 import '@gravity-ui/uikit/styles/fonts.css';
 import '@gravity-ui/uikit/styles/styles.css';
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import '../globals.css';
 import { Providers } from '../Providers';
 import I18nProvider from '@/providers/I18nProvider';
 import Header from '@/components/Header';
+import { STORAGE_KEY, getThemeClass } from '@/shared/theme';
 
 export const metadata: Metadata = {
   title: 'Swagger Editor App',
@@ -23,13 +24,16 @@ export default async function RootLayout({
   params: Promise<{ lng: string }>;
 }>) {
   const { lng } = await params;
+  const cookieStore = await cookies();
+  const cookieTheme = cookieStore.get(STORAGE_KEY)?.value;
   const headersList = await headers();
-  const theme = headersList.get('x-theme');
-  const themeClass = theme === 'dark' || theme === 'light' ? ` g-root_theme_${theme}` : '';
+  const headerTheme = headersList.get('x-theme');
+  const theme = cookieTheme || headerTheme || 'light';
+  const themeClass = getThemeClass(theme);
 
   return (
-    <html lang={lng} className={`g-root${themeClass}`} suppressHydrationWarning>
-      <body>
+    <html lang={lng}>
+      <body className={themeClass}>
         <Providers>
           <I18nProvider lng={lng}>
             <Header />
