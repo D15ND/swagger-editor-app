@@ -65,4 +65,33 @@
   /* === Layout === */
   --se-max-width: 1440px;
   --se-sidebar-width: 320px;
+
+  /* === Page surfaces === */
+  --se-page-bg: #f8f9ff;
+  --se-page-text-primary: #101828;
+  --se-page-text-secondary: #667085;
+  --se-card-bg: rgba(255, 255, 255, 0.86);
+  --se-card-border: rgba(99, 102, 241, 0.14);
+  --se-card-hover-bg: rgba(99, 102, 241, 0.05);
+  --se-card-shadow: 0 24px 70px rgba(49, 56, 120, 0.08);
+
+  --se-page-gradient:
+    radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.14), transparent 320px),
+    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
+    var(--se-page-bg);
+}
+
+.g-root_theme_dark {
+  --se-page-bg: #020617;
+  --se-page-text-primary: #f8fafc;
+  --se-page-text-secondary: #9fb2d0;
+  --se-card-bg: rgba(15, 23, 42, 0.86);
+  --se-card-border: rgba(148, 163, 184, 0.16);
+  --se-card-hover-bg: rgba(99, 102, 241, 0.08);
+  --se-card-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+
+  --se-page-gradient:
+    radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.18), transparent 360px),
+    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
+    var(--se-page-bg);
 }
