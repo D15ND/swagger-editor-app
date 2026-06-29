@@ -1,0 +1,21 @@
+{
+  "badge": "RS School Final Project",
+  "title": "About the Project",
+  "subtitle": "A Swagger/OpenAPI Viewer and Editor built as a final project for the RS School React Course.",
+  "rsSchool": {
+    "title": "RS School",
+    "description": "This application is created as part of the RS School curriculum. RS School is a free, community-based education program conducted by The Rolling Scopes developer community.",
+    "link": "Learn more about RS School"
+  },
+  "technologies": {
+    "title": "Technologies",
+    "description": "The project uses a modern React stack for building, validating, testing, and localizing the application."
+  },
+  "team": {
+    "title": "Our Team",
+    "roles": {
+      "teamLead": "Team Lead",
+      "developer": "Developer"
+    }
+  }
+}
