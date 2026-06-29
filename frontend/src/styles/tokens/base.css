@@ -19,8 +19,10 @@
   --color-indigo-500-rgb: 99, 102, 241;
 
   /* === Surfaces === */
-  --color-slate-50: #f1f5f9;
-  --color-slate-100: #e5eaf1;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e5eaf1;
+  --color-slate-950: #020618;
   --color-neutral-100: #f0f0f0;
   --color-neutral-200: #e5e5e5;
   --color-neutral-900: #1c1c1c;

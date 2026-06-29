@@ -1,4 +1,5 @@
 .g-root {
+  --g-color-base-background: var(--se-page-bg);
   --g-screen-xs: 0px;
   --g-screen-sm: 576px;
   --g-screen-md: 768px;
