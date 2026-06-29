@@ -1,6 +1,7 @@
 :root {
   /* === Brand === */
   --color-indigo-500: #6366f1;
+  --color-indigo-400: #5b5fe7;
   --color-violet-600: #7c3aed;
 
   /* === Semantic === */
@@ -13,6 +14,19 @@
   --color-slate-400: #64748b;
   --color-slate-600: #475569;
   --color-white: #fff;
+  --color-black-rgb: 0, 0, 0;
+  --color-white-rgb: 255, 255, 255;
+  --color-indigo-500-rgb: 99, 102, 241;
+
+  /* === Surfaces === */
+  --color-slate-50: #f1f5f9;
+  --color-slate-100: #e5eaf1;
+  --color-neutral-100: #f0f0f0;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-900: #1c1c1c;
+  --color-neutral-950: #0a0a0a;
+  --color-dark-border: #10151d;
+  --color-dark-border-strong: #131a25;
 
   /* === Radii === */
   --radius-lg: 12px;
