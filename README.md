@@ -27,25 +27,26 @@ App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-a
 | Linting | [ESLint](https://eslint.org/) 9, [Prettier](https://prettier.io/) |
 | Git Hooks | [Husky](https://typicode.github.io/husky/), [lint-staged](https://github.com/lint-staged/lint-staged), [commitlint](https://commitlint.js.org/) (conventional commits) |
 | CI/CD | [GitHub Actions](https://docs.github.com/en/actions) (branch validation, PR title lint) |
-| Auth | JWT-based (email/password) |
+| Auth | [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) |
 | i18n | [next-i18next](https://github.com/i18next/next-i18next) |
 
 ## Features
 
-> Planned feature set based on the task. Implementation in progress.
+> ✅ = Done, 🚧 = In progress, ⬜ = Planned
 
-- **Swagger Editor** — paste/edit OpenAPI specs, auto-detect JSON/YAML, format switching, schema validation
-- **Swagger Viewer** — endpoint list by path/method, parameters, request/response schemas
-- **Try-It-Out** — execute requests via SSR to avoid CORS, view response status/headers/body
-- **cURL generation** — generate copyable cURL commands from request state
-- **History & Analytics** — authenticated users: request history, duration, status codes, timestamps (SSR)
-- **Authentication** — sign in / sign up with email/password, JWT tokens, private route protection
-- **i18n** — multi-language support (≥2 languages), language toggler in header
-- **About page** — RS School info, team members, technologies used
+| | Feature | Status |
+| --- | --- | --- |
+| 🌐 | i18n (en/ru, language toggler in header) | ✅ |
+| ℹ️ | About page (RS School info, team, tech stack) | ✅ |
+| 🔐 | Auth UI (sign-in form with validation) | ✅ |
+| 📝 | Swagger Editor (paste/edit OpenAPI specs) | ⬜ |
+| 👁️ | Swagger Viewer (endpoints, schemas) | ⬜ |
+| 🧪 | Try-It-Out (API request execution) | ⬜ |
+| 📋 | cURL generation | ⬜ |
+| 📊 | History & Analytics (authenticated users) | ⬜ |
+| 🔑 | JWT auth, private routes | ⬜ |
 
 ## Project Structure
-
-> Tentative project structure, subject to change as development progresses.
 
 ```text
 swagger-editor-app/
@@ -53,19 +54,26 @@ swagger-editor-app/
 │   ├── src/
 │   │   ├── app/           # Pages & routing (App Router)
 │   │   │   ├── [lng]/     # Locale-prefixed routes
-│   │   │   │   ├── about/
-│   │   │   │   ├── history/
-│   │   │   │   ├── signin/
-│   │   │   │   ├── signup/
+│   │   │   │   ├── about/ # About page (team, tech stack)
+│   │   │   │   ├── auth/  # Auth page (sign-in form)
+│   │   │   │   ├── layout.tsx
 │   │   │   │   └── page.tsx
-│   │   │   └── globals.css
+│   │   │   ├── globals.css
+│   │   │   └── Providers.tsx
 │   │   ├── components/    # Reusable components
-│   │   ├── hooks/         # Custom hooks
-│   │   ├── i18n/          # i18n config, loader, locales
-│   │   ├── providers/     # React context providers
-│   │   └── proxy.ts       # Next.js proxy (i18n middleware)
-│   ├── .husky/            # Git hooks
-│   ├── public/            # Static assets
+│   │   │   ├── Auth/      # Sign-in form (react-hook-form + zod)
+│   │   │   ├── Footer/    # Sticky footer (server + client split)
+│   │   │   ├── Header/    # Header with nav, theme toggle, lang switcher
+│   │   │   └── LocalizedLink/  # i18n-aware Link component
+│   │   ├── contexts/      # React contexts (theme)
+│   │   ├── hooks/         # Custom hooks (useLocaleSwitch)
+│   │   ├── i18n/          # i18n config, loader, locales (en, ru)
+│   │   ├── providers/     # ThemeProvider, I18nProvider
+│   │   ├── shared/        # Shared constants & utilities
+│   │   ├── styles/        # CSS token system
+│   │   │   └── tokens/    # base.css, semantic.css, gravity.css
+│   │   └── proxy.ts       # i18n middleware
+│   ├── .husky/            # Git hooks (commit-msg, pre-commit)
 │   └── ...config files
 ├── .github/
 │   ├── workflows/         # CI pipelines
@@ -112,17 +120,23 @@ Environment variables (create `.env` in `frontend/`):
 
 | Variable | Description |
 | --- | --- |
-| `NEXT_PUBLIC_API_URL` | Auth API base URL |
-| `JWT_SECRET` | JWT signing secret |
+| `NEXT_PUBLIC_API_URL` | Auth API base URL (planned) |
+| `JWT_SECRET` | JWT signing secret (planned) |
 
 ## Architecture
 
-> Proposed approach. Will be refined during implementation.
+### Current
+- **SSR-first:** Pages render on server, client components hydrate for interactivity
+- **i18n:** Locale prefix in URL (`[lng]`), server-side `getT()` for static content, `useT` hook for dynamic
+- **Styling:** CSS custom properties token system (`--se-*`) mapped from Gravity UI tokens, dark mode via `.g-root_theme_dark`
+- **Layout:** CSS grid wrapper (`auto 1fr auto`) with sticky footer; Header + Footer SSR
+- **Linting:** ESLint 9 + Prettier, enforced via Husky pre-commit + lint-staged
 
-- **SSR (Server-Side Rendering):** API requests from Try-It-Out are proxied through Next.js server routes to bypass CORS
-- **Auth flow:** JWT tokens stored in cookies/httpOnly; private routes redirect to main page on expired token
-- **State management:** Editor schema ↔ Viewer auto-sync; authenticated user session in React context
-- **Lazy loading:** History & Analytics page code-split via `next/dynamic` (not loaded for anonymous users)
+### Planned
+- **Try-It-Out proxying:** API requests routed through Next.js server routes to bypass CORS
+- **Auth flow:** JWT tokens in cookies/httpOnly; private routes with redirect on expiry
+- **State management:** Editor schema ↔ Viewer auto-sync; auth session in React context
+- **Code splitting:** History & Analytics page via `next/dynamic` (not loaded for anonymous users)
 
 ## Team
 
