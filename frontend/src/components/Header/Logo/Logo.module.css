@@ -1,0 +1,37 @@
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--g-spacing-3);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.iconBox {
+  background: var(--se-brand-primary);
+  color: var(--se-text-on-brand);
+  padding: var(--g-spacing-2);
+  border-radius: var(--se-radius-lg);
+  transition: transform var(--se-transition-base);
+}
+
+.link:hover .iconBox {
+  transform: scale(1.05);
+}
+
+.icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.text {
+  font-family: var(--g-text-body-font-family);
+  font-weight: var(--g-text-header-font-weight);
+  font-size: var(--se-font-size-xl);
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  color: var(--se-text-primary);
+}

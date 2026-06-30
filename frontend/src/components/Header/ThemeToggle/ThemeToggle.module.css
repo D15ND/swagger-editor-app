@@ -1,0 +1,7 @@
+.toggle svg {
+  transition: color var(--se-transition-base);
+}
+
+.toggle:hover svg {
+  color: var(--se-text-brand);
+}

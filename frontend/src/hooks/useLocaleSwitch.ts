@@ -1,27 +1,36 @@
 'use client';
 
 import { useParams, usePathname, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 import { supportedLngs } from '@/i18n/locales';
 
-type LocaleItem = {
-  code: string;
-  href: string;
-  isActive: boolean;
+type UseLocaleSwitchResult = {
+  current: string;
+  next: () => string;
+  href: (locale: string) => string;
 };
 
-export function useLocaleSwitch(): LocaleItem[] {
+export function useLocaleSwitch(): UseLocaleSwitchResult {
   const params = useParams<{ lng: string }>();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const qs = searchParams.toString();
   const query = qs ? `?${qs}` : '';
 
-  return supportedLngs.map((locale) => {
-    const isActive = params.lng === locale;
-    const href = isActive
-      ? `${pathname}${query}`
-      : `/${locale}${pathname.replace(/^\/[a-z]{2}/, '') || '/'}${query}`;
+  const current = params.lng;
 
-    return { code: locale, href, isActive };
-  });
+  const href = useCallback(
+    (locale: string) => {
+      if (locale === current) return `${pathname}${query}`;
+      return `/${locale}${pathname.replace(/^\/[a-z]{2}/, '') || '/'}${query}`;
+    },
+    [current, pathname, query],
+  );
+
+  const next = useCallback(() => {
+    const idx = supportedLngs.indexOf(current);
+    return supportedLngs[(idx + 1) % supportedLngs.length];
+  }, [current]);
+
+  return useMemo(() => ({ current, next, href }), [current, next, href]);
 }
