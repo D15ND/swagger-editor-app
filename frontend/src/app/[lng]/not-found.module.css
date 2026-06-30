@@ -121,33 +121,23 @@
     var(--se-page-bg, #020617);
 }
 
-.fileQuestionIcon,
-.arrowLeftIcon,
-.homeIcon {
-  display: inline-block;
-  flex-shrink: 0;
-  background-color: currentColor;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-}
-
-.fileQuestionIcon {
+.icon {
   width: 56px;
   height: 56px;
-  mask-image: url('/icons/file-question.svg');
 }
 
-.arrowLeftIcon {
+.smallIcon {
   width: 18px;
   height: 18px;
-  mask-image: url('/icons/arrow-left.svg');
+  flex-shrink: 0;
 }
 
-.homeIcon {
-  width: 18px;
-  height: 18px;
-  mask-image: url('/icons/home.svg');
+.buttonContent,
+.homeLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 :global(.g-root_theme_dark) .content h2 {

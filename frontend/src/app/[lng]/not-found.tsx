@@ -1,20 +1,12 @@
-'use client';
+import { FileQuestion, House } from '@gravity-ui/icons';
+import { getT } from 'next-i18next/server';
 
-import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-import { Button } from '@gravity-ui/uikit';
-import { useT } from 'next-i18next/client';
-
+import LocalizedLink from '@/components/LocalizedLink/';
+import { GoBackButton } from './go-back-button';
 import styles from './not-found.module.css';
 
-export default function NotFoundPage() {
-  const router = useRouter();
-  const params = useParams<{ lng: string }>();
-  const { t } = useT('notFound');
-
-  function handleGoBack() {
-    router.back();
-  }
+export default async function NotFoundPage() {
+  const { t } = await getT('notFound');
 
   return (
     <main className={styles.page}>
@@ -23,7 +15,7 @@ export default function NotFoundPage() {
 
       <section className={styles.content}>
         <div className={styles.iconBox} aria-hidden="true">
-          <span className={styles.fileQuestionIcon} />
+          <FileQuestion className={styles.icon} />
         </div>
 
         <h1>{t('title')}</h1>
@@ -33,17 +25,12 @@ export default function NotFoundPage() {
         <p>{t('description')}</p>
 
         <div className={styles.actions}>
-          <Button view="outlined" size="xl" onClick={handleGoBack}>
-            <span className={styles.buttonContent}>
-              <span className={styles.arrowLeftIcon} />
-              {t('goBack')}
-            </span>
-          </Button>
+          <GoBackButton>{t('goBack')}</GoBackButton>
 
-          <Link className={styles.homeLink} href={`/${params.lng}`}>
-            <span className={styles.homeIcon} />
+          <LocalizedLink className={styles.homeLink} href="/">
+            <House className={styles.smallIcon} />
             {t('backHome')}
-          </Link>
+          </LocalizedLink>
         </div>
       </section>
     </main>

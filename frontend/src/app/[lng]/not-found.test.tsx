@@ -1,49 +1,38 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import NotFoundPage from './not-found';
 
-const backMock = vi.fn();
+vi.mock('next-i18next/server', () => ({
+  getT: vi.fn(async () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        title: '404',
+        subtitle: 'Page not found',
+        description: 'Oops! The page you are looking for does not exist or has been moved.',
+        goBack: 'Go Back',
+        backHome: 'Back to Home',
+      };
 
-const translations: Record<string, string> = {
-  title: '404',
-  subtitle: 'Страница не найдена',
-  description:
-    'Упс! Страница, которую вы ищете, не существует или была перемещена. Вернёмся назад.',
-  goBack: 'Назад',
-  backHome: 'На главную',
-};
+      return translations[key] ?? key;
+    },
+  })),
+}));
 
-vi.mock('@gravity-ui/uikit', () => ({
-  Button: ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => (
-    <button type="button" onClick={onClick}>
-      {children}
-    </button>
+vi.mock('./go-back-button', () => ({
+  GoBackButton: ({ children }: { children: React.ReactNode }) => (
+    <button type="button">{children}</button>
   ),
 }));
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    back: backMock,
-  }),
-  useParams: () => ({
-    lng: 'ru',
-  }),
-}));
-
-vi.mock('next-i18next/client', () => ({
-  useT: () => ({
-    t: (key: string) => translations[key] ?? key,
-  }),
+vi.mock('@gravity-ui/icons', () => ({
+  FileQuestion: () => <span data-testid="file-question-icon" />,
+  House: () => <span data-testid="home-icon" />,
 }));
 
 describe('NotFoundPage', () => {
-  beforeEach(() => {
-    backMock.mockClear();
-  });
-
-  it('renders localized not found content', () => {
-    render(<NotFoundPage />);
+  it('renders not found content', async () => {
+    render(await NotFoundPage());
 
     expect(
       screen.getByRole('heading', {
@@ -55,37 +44,28 @@ describe('NotFoundPage', () => {
     expect(
       screen.getByRole('heading', {
         level: 2,
-        name: 'Страница не найдена',
+        name: 'Page not found',
       }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText(
-        'Упс! Страница, которую вы ищете, не существует или была перемещена. Вернёмся назад.',
-      ),
+      screen.getByText('Oops! The page you are looking for does not exist or has been moved.'),
     ).toBeInTheDocument();
   });
 
-  it('calls router back when go back button is clicked', () => {
-    render(<NotFoundPage />);
+  it('renders navigation actions', async () => {
+    render(await NotFoundPage());
 
-    fireEvent.click(
+    expect(
       screen.getByRole('button', {
-        name: /назад/i,
+        name: /go back/i,
       }),
-    );
+    ).toBeInTheDocument();
 
-    expect(backMock).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders home link with current locale', () => {
-    render(<NotFoundPage />);
-
-    const homeLink = screen.getByRole('link', {
-      name: /на главную/i,
-    });
-
-    expect(homeLink).toBeInTheDocument();
-    expect(homeLink).toHaveAttribute('href', '/ru');
+    expect(
+      screen.getByRole('link', {
+        name: /back to home/i,
+      }),
+    ).toHaveAttribute('href', '/');
   });
 });
