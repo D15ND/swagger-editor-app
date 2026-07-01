@@ -1,0 +1,23 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-spacing-6);
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--se-space-12) var(--g-spacing-6) var(--g-spacing-6);
+}
+
+.title {
+  font-size: var(--se-font-size-2xl);
+  font-weight: var(--g-text-header-font-weight);
+  color: var(--se-text-primary);
+  margin: 0;
+}
