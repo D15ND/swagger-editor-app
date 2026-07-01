@@ -14,6 +14,30 @@
     "unexpected": "Something went wrong",
     "notFound": "Page not found"
   },
+  "history": {
+    "emptyTitle": "No requests yet",
+    "emptyHint": "Open an API specification and use Try-It-Out to execute your first request. Your request history will appear here.",
+    "goToEditor": "Go to Editor",
+    "goToViewer": "Go to Viewer",
+    "totalRequests_one": "{{count}} request",
+    "totalRequests_other": "{{count}} requests",
+    "clearAll": "Clear all",
+    "analytics": {
+      "endpoint": "Endpoint",
+      "method": "Method",
+      "url": "URL",
+      "status": "Status",
+      "duration": "Duration",
+      "size": "Size",
+      "requestSize": "Request size",
+      "responseSize": "Response size",
+      "timestamp": "Timestamp",
+      "time": "Time",
+      "error": "Error",
+      "requestBody": "Request body",
+      "responseBody": "Response body"
+    }
+  },
   "footer": {
     "description": "RS School final project"
   }
