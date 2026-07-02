@@ -18,8 +18,8 @@
   },
   "lint-staged": {
     "frontend/**/*.{ts,tsx}": [
-      "npm run lint:fix --prefix frontend --",
-      "npx prettier --write"
+      "eslint --fix --config ./frontend/eslint.config.mjs",
+      "prettier --write --config ./frontend/.prettierrc"
     ]
   },
   "dependencies": {
