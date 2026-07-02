@@ -1,25 +1,30 @@
 import { redirect } from 'next/navigation';
 import { getT } from 'next-i18next/server';
-import dynamic from 'next/dynamic';
-
-const HistoryContent = dynamic(() => import('./HistoryContent'), {
-  loading: () => null,
-});
+import { createClient } from '@/lib/supabase/server';
+import { toHistoryEntry } from '@/lib/history/mapper';
+import HistoryContent from './HistoryContent';
 
 export async function generateMetadata() {
-  const { t } = await getT('common');
-  return { title: t('nav.history') };
+  const { t } = await getT('history');
+  return { title: t('title') };
 }
 
 export default async function HistoryPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
 
-  // TODO: replace with real auth check once JWT auth is implemented
-  const isAuthenticated = true;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!isAuthenticated) {
-    redirect(`/${lng}`);
-  }
+  if (!user) redirect(`/${lng}`);
 
-  return <HistoryContent />;
+  const { data: rows } = await supabase
+    .from('request_logs')
+    .select('*')
+    .order('timestamp', { ascending: false });
+
+  const entries = (rows ?? []).map(toHistoryEntry);
+
+  return <HistoryContent entries={entries} lng={lng} />;
 }
