@@ -12,6 +12,7 @@ import LocalizedLink from '@/components/LocalizedLink';
 import AuthButtons from './AuthButtons';
 import { DEFAULT_LNG } from '@/i18n/locales';
 import styles from './Header.module.css';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,9 +20,7 @@ export default function Header() {
   const params = useParams<{ lng: string }>();
   const lng = params?.lng || DEFAULT_LNG;
 
-  // TODO: replace with const { user } = useAuth()
-  // const user = null;
-  const user = true;
+  const { user, signOut } = useAuth();
 
   const { t } = useT('common');
   const go = (path: string) => router.push(`/${lng}${path}`);
@@ -45,12 +44,11 @@ export default function Header() {
               <span>{t('nav.about')}</span>
             </LocalizedLink>
           </Flex>
-
           <Flex className={styles.actions} alignItems="center" gap="2">
             <Flex className={styles.desktopControls} alignItems="center" gap="2">
               <ThemeToggle />
               <LanguageSwitcher />
-              <AuthButtons user={user} go={go} />
+              <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
             </Flex>
 
             <Flex className={styles.mobileToggle} alignItems="center" gap="1">
@@ -84,7 +82,7 @@ export default function Header() {
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
-            <AuthButtons user={user} go={go} />
+            <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
           </Flex>
         </div>
       )}
