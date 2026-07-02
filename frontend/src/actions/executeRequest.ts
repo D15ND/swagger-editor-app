@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import type { RequestLogInsert } from '@/lib/supabase/types';
 
 type ExecuteRequestParams = {
   method: string;
@@ -28,7 +29,7 @@ export async function executeRequest(params: ExecuteRequestParams) {
     } = await supabase.auth.getUser();
 
     if (user) {
-      await supabase.from('request_logs').insert({
+      const insert: RequestLogInsert = {
         user_id: user.id,
         method,
         url,
@@ -40,7 +41,9 @@ export async function executeRequest(params: ExecuteRequestParams) {
           ? Number(responseHeaders['content-length'])
           : responseBody.length,
         error: null,
-      });
+      };
+
+      await supabase.from('request_logs').insert(insert);
     }
 
     return { status: response.status, headers: responseHeaders, body: responseBody, error: null };
