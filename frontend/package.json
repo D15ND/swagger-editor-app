@@ -20,6 +20,9 @@
     "frontend/**/*.{ts,tsx}": [
       "eslint --fix --config ./frontend/eslint.config.mjs",
       "prettier --write --config ./frontend/.prettierrc"
+    ],
+    "frontend/**/*.{json,css,md,mjs,cjs}": [
+      "prettier --write --config ./frontend/.prettierrc"
     ]
   },
   "dependencies": {
