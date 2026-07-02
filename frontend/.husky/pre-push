@@ -1,0 +1,4 @@
+npm --prefix frontend run ci:format || err=1
+(cd frontend && npm exec validate-branch-name) || err=1
+
+exit $err
