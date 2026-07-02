@@ -16,7 +16,7 @@
 
 .card :global(.g-table__table) {
   width: 100%;
-  min-width: 950px;
+  min-width: 1000px;
 }
 
 .card :global(.g-table) {

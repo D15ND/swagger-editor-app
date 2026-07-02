@@ -1,5 +1,3 @@
-'use client';
-
 import type { HttpMethod } from '@/lib/types';
 import { getMethodColor, getMethodBg } from '@/lib/colors';
 import styles from './MethodBadge.module.css';

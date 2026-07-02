@@ -1,5 +1,3 @@
-'use client';
-
 import { CircleExclamation } from '@gravity-ui/icons';
 import { getStatusColor, getStatusBg } from '@/lib/colors';
 import styles from './StatusPill.module.css';
