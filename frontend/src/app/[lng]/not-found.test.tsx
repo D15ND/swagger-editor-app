@@ -25,6 +25,14 @@ vi.mock('./go-back-button', () => ({
   ),
 }));
 
+vi.mock('@/components/LocalizedLink', () => ({
+  default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  ),
+}));
+
 vi.mock('@gravity-ui/icons', () => ({
   FileQuestion: () => <span data-testid="file-question-icon" />,
   House: () => <span data-testid="home-icon" />,
