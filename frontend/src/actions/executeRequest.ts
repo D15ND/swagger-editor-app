@@ -12,10 +12,7 @@ type ExecuteRequestParams = {
 export async function executeRequest(params: ExecuteRequestParams) {
   const { method, url, headers, body } = params;
 
-  const bodyToSend =
-    method === 'GET' || method === 'HEAD'
-      ? undefined
-      : body ?? undefined;
+  const bodyToSend = method === 'GET' || method === 'HEAD' ? undefined : (body ?? undefined);
 
   const start = Date.now();
 
@@ -26,7 +23,9 @@ export async function executeRequest(params: ExecuteRequestParams) {
     const responseHeaders = Object.fromEntries(response.headers);
 
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (user) {
       await supabase.from('request_logs').insert({
