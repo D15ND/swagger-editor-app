@@ -1,5 +1,6 @@
 .page {
-  height: calc(100dvh - var(--se-header-height) - 72px);
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
   color: var(--se-page-text-primary);
   background: var(--se-page-bg);
