@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@gravity-ui/uikit';
+import { useT } from 'next-i18next/client';
 
 import type { OpenApiDocument, SchemaFormat } from '../types';
 import {
@@ -25,6 +26,7 @@ type SwaggerEditorProps = {
 };
 
 export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEditorProps) {
+  const { t } = useT('swaggerEditor');
   const isValid = errors.length === 0;
 
   function handleChange(value: string) {
@@ -45,7 +47,7 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
         source: value,
         format: detectedFormat,
         document: null,
-        errors: [error instanceof Error ? error.message : 'Invalid schema.'],
+        errors: [error instanceof Error ? error.message : t('errors.invalidSchema')],
       });
     }
   }
@@ -80,27 +82,35 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
         source,
         format,
         document: null,
-        errors: [error instanceof Error ? error.message : 'Cannot convert invalid schema.'],
+        errors: [error instanceof Error ? error.message : t('errors.cannotConvert')],
       });
     }
   }
+
+  const convertButtonText =
+    format === 'json' ? t('actions.convertToYaml') : t('actions.convertToJson');
 
   return (
     <main className={styles.page}>
       <section className={styles.editorPanel}>
         <div className={styles.toolbar}>
           <div className={styles.fileInfo}>
-            <span className={styles.formatBadge}>{format.toUpperCase()}</span>
-            <span className={styles.fileName}>schema.{format === 'json' ? 'json' : 'yaml'}</span>
+            <span className={styles.formatBadge}>
+              {format === 'json' ? t('format.json') : t('format.yaml')}
+            </span>
+
+            <span className={styles.fileName}>
+              {t('fileName')}.{format === 'json' ? 'json' : 'yaml'}
+            </span>
           </div>
 
           <div className={styles.actions}>
             <span className={isValid ? styles.validStatus : styles.invalidStatus}>
-              {isValid ? 'Valid schema' : 'Invalid schema'}
+              {isValid ? t('status.valid') : t('status.invalid')}
             </span>
 
             <Button view="outlined" size="m" disabled={!isValid} onClick={handleFormatSwitch}>
-              Convert to {format === 'json' ? 'YAML' : 'JSON'}
+              {convertButtonText}
             </Button>
           </div>
         </div>
@@ -109,13 +119,13 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
           className={styles.textarea}
           value={source}
           spellCheck={false}
-          aria-label="OpenAPI schema editor"
+          aria-label={t('aria.editor')}
           onChange={(event) => handleChange(event.target.value)}
         />
 
         {errors.length > 0 && (
           <div className={styles.errorBox}>
-            <h2>Validation errors</h2>
+            <h2>{t('errors.title')}</h2>
 
             <ul>
               {errors.map((error) => (

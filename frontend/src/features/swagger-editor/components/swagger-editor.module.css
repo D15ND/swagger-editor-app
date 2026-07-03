@@ -70,8 +70,7 @@
   overflow: auto;
   color: var(--se-page-text-primary);
   background:
-    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-    var(--se-card-bg);
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px), var(--se-card-bg);
   background-size: 100% 32px;
   border: 0;
   outline: none;

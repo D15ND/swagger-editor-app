@@ -1,0 +1,26 @@
+{
+  "title": "Swagger Editor",
+  "fileName": "schema",
+  "format": {
+    "json": "JSON",
+    "yaml": "YAML"
+  },
+  "status": {
+    "valid": "Схема валидна",
+    "invalid": "Схема невалидна"
+  },
+  "actions": {
+    "convertToJson": "Конвертировать в JSON",
+    "convertToYaml": "Конвертировать в YAML",
+    "loadExample": "Загрузить пример"
+  },
+  "errors": {
+    "title": "Ошибки валидации",
+    "invalidSchema": "Невалидная схема.",
+    "cannotConvert": "Невозможно конвертировать невалидную схему.",
+    "cannotConvertValidation": "Невозможно конвертировать невалидную схему. Сначала исправьте ошибки валидации."
+  },
+  "aria": {
+    "editor": "Редактор OpenAPI схемы"
+  }
+}
