@@ -16,9 +16,11 @@ vi.mock('next-i18next/client', () => ({
   }),
 }));
 
+const noop = vi.fn();
+
 describe('AuthButtons', () => {
   it('renders Sign Out when user is logged in', () => {
-    render(<AuthButtons user go={vi.fn()} />);
+    render(<AuthButtons isAuth go={noop} signOut={noop} />);
 
     expect(screen.getByRole('button', { name: /sign out/i })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /sign in/i })).not.toBeInTheDocument();
@@ -26,7 +28,7 @@ describe('AuthButtons', () => {
   });
 
   it('renders Sign In and Sign Up when user is not logged in', () => {
-    render(<AuthButtons go={vi.fn()} />);
+    render(<AuthButtons isAuth={false} go={noop} signOut={noop} />);
 
     expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
@@ -37,7 +39,7 @@ describe('AuthButtons', () => {
     const user = userEvent.setup();
     const go = vi.fn();
 
-    render(<AuthButtons go={go} />);
+    render(<AuthButtons isAuth={false} go={go} signOut={noop} />);
 
     await user.click(screen.getByRole('button', { name: /sign in/i }));
 
@@ -48,7 +50,7 @@ describe('AuthButtons', () => {
     const user = userEvent.setup();
     const go = vi.fn();
 
-    render(<AuthButtons go={go} />);
+    render(<AuthButtons isAuth={false} go={go} signOut={noop} />);
 
     await user.click(screen.getByRole('button', { name: /sign up/i }));
 
