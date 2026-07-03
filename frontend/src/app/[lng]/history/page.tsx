@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { getT } from 'next-i18next/server';
 import { createClient } from '@/lib/supabase/server';
 import { toHistoryEntry } from '@/lib/history/mapper';
@@ -16,13 +15,15 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   const { lng } = await params;
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-  if (error || !data?.claims?.sub) redirect(`/${lng}`);
+  const { data: authData } = await supabase.auth.getClaims();
+  const userId = authData?.claims?.sub ?? null;
 
   const { data: rows } = await supabase
     .from('request_logs')
     .select('*')
-    .order('timestamp', { ascending: false });
+    .eq('user_id', userId ?? '')
+    .order('timestamp', { ascending: false })
+    .limit(15);
 
   const entries = (rows ?? []).map(toHistoryEntry);
 

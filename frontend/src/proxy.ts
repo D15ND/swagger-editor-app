@@ -29,7 +29,7 @@ export async function proxy(request: NextRequest) {
   const isPrivate = privateRoutes.some((r) => stripped.startsWith(r));
   const isAuth = authRoutes.some((r) => stripped.startsWith(r));
 
-      if (isPrivate || isAuth) {
+  if (isPrivate || isAuth) {
     const { user, supabaseResponse } = await updateSession(request);
 
     if (!user && isPrivate) {
