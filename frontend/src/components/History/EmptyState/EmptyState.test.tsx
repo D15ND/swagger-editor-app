@@ -9,7 +9,6 @@ vi.mock('next-i18next/client', () => ({
         emptyTitle: 'No requests yet',
         emptyHint: 'Open an API specification and use Try-It-Out to execute your first request.',
         goToEditor: 'Go to Editor',
-        goToViewer: 'Go to Viewer',
       };
       return map[key] || key;
     },
@@ -81,20 +80,16 @@ describe('EmptyState', () => {
     expect(screen.getByText(/Open an API specification/)).toBeInTheDocument();
   });
 
-  it('renders editor and viewer buttons', () => {
+  it('renders editor button', () => {
     render(<EmptyState />);
 
     expect(screen.getByText('Go to Editor')).toBeInTheDocument();
-    expect(screen.getByText('Go to Viewer')).toBeInTheDocument();
   });
 
-  it('buttons link to home page', () => {
+  it('button links to home page', () => {
     render(<EmptyState />);
 
-    const links = screen.getAllByRole('link');
-    expect(links).toHaveLength(2);
-    links.forEach((link) => {
-      expect(link).toHaveAttribute('href', '/');
-    });
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', '/');
   });
 });
