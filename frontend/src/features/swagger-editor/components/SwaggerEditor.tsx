@@ -3,7 +3,12 @@
 import { Button } from '@gravity-ui/uikit';
 
 import type { OpenApiDocument, SchemaFormat } from '../types';
-import { convertSchemaFormat, detectSchemaFormat, getNextSchemaFormat, parseSchema } from '../utils';
+import {
+  convertSchemaFormat,
+  detectSchemaFormat,
+  getNextSchemaFormat,
+  parseSchema,
+} from '../utils';
 import { validateOpenApiDocument } from '../validation';
 import styles from './swagger-editor.module.css';
 
@@ -86,9 +91,7 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
         <div className={styles.toolbar}>
           <div className={styles.fileInfo}>
             <span className={styles.formatBadge}>{format.toUpperCase()}</span>
-            <span className={styles.fileName}>
-              schema.{format === 'json' ? 'json' : 'yaml'}
-            </span>
+            <span className={styles.fileName}>schema.{format === 'json' ? 'json' : 'yaml'}</span>
           </div>
 
           <div className={styles.actions}>
