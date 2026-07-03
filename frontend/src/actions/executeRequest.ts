@@ -24,13 +24,13 @@ export async function executeRequest(params: ExecuteRequestParams) {
     const responseHeaders = Object.fromEntries(response.headers);
 
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const { data, error: claimsError } = await supabase.auth.getClaims();
+    if (claimsError) console.warn('executeRequest getClaims error:', claimsError.message);
+    const userId = data?.claims?.sub ?? null;
 
-    if (user) {
+    if (userId) {
       const insert: RequestLogInsert = {
-        user_id: user.id,
+        user_id: userId,
         method,
         url,
         endpoint: new URL(url).pathname,
