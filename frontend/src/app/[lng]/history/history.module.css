@@ -16,8 +16,24 @@
 }
 
 .title {
-  font-size: var(--se-font-size-2xl);
-  font-weight: var(--g-text-header-font-weight);
-  color: var(--se-text-primary);
   margin: 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--g-color-text-secondary);
+  font-size: var(--se-font-size-sm);
+}
+
+.cards {
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 150px;
+  padding: var(--g-spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-spacing-2);
 }
