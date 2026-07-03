@@ -1,10 +1,14 @@
 import { getT } from 'next-i18next/server';
+import dynamic from 'next/dynamic';
 import { createClient } from '@/lib/supabase/server';
 import { toHistoryEntry } from '@/lib/history/mapper';
-import HistoryContent from './HistoryContent';
 import HistoryActions from './HistoryActions';
 import AnalyticsCards from './AnalyticsCards';
 import styles from './history.module.css';
+
+const HistoryContent = dynamic(() => import('./HistoryContent'), {
+  loading: () => <div className={styles.skeleton} />,
+});
 
 export async function generateMetadata() {
   const { t } = await getT('history');
