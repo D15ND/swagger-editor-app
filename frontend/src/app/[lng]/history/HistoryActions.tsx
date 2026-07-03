@@ -21,5 +21,9 @@ export default function HistoryActions({ clearAllLabel }: Props) {
     }
   }, [router]);
 
-  return <Button view="flat-danger" size="m" onClick={handleClear} style={{ alignSelf: 'flex-start' }}>{clearAllLabel}</Button>;
+  return (
+    <Button view="flat-danger" size="m" onClick={handleClear} style={{ alignSelf: 'flex-start' }}>
+      {clearAllLabel}
+    </Button>
+  );
 }

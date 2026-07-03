@@ -6,11 +6,10 @@ vi.mock('next-i18next/client', () => ({
   useT: () => ({
     t: (key: string) => {
       const map: Record<string, string> = {
-        'emptyTitle': 'No requests yet',
-        'emptyHint':
-          'Open an API specification and use Try-It-Out to execute your first request.',
-        'goToEditor': 'Go to Editor',
-        'goToViewer': 'Go to Viewer',
+        emptyTitle: 'No requests yet',
+        emptyHint: 'Open an API specification and use Try-It-Out to execute your first request.',
+        goToEditor: 'Go to Editor',
+        goToViewer: 'Go to Viewer',
       };
       return map[key] || key;
     },

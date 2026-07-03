@@ -4,12 +4,7 @@ import { Table, Text } from '@gravity-ui/uikit';
 import { Clock } from '@gravity-ui/icons';
 import type { TableColumnConfig } from '@gravity-ui/uikit';
 import type { HistoryEntry } from '@/lib/history';
-import {
-  getRelativeTimeOptions,
-  formatBytes,
-  formatDuration,
-  extractPath,
-} from '@/lib/history';
+import { getRelativeTimeOptions, formatBytes, formatDuration, extractPath } from '@/lib/history';
 import EmptyState from '@/components/History/EmptyState';
 import MethodBadge from './MethodBadge';
 import StatusPill from './StatusPill';

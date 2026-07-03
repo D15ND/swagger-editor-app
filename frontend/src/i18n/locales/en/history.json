@@ -1,6 +1,6 @@
 {
   "title": "History & Analytics",
-"subtitle": "Review your past API interactions and performance metrics.",
+  "subtitle": "Review your past API interactions and performance metrics.",
   "emptyTitle": "No requests yet",
   "emptyHint": "Open an API specification and use Try-It-Out to execute your first request. Your request history will appear here.",
   "goToEditor": "Go to Editor",
