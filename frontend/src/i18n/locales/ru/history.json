@@ -4,7 +4,7 @@
   "emptyTitle": "Запросов пока нет",
   "emptyHint": "Откройте API-спецификацию и используйте Try-It-Out, чтобы выполнить первый запрос. История запросов появится здесь.",
   "goToEditor": "Перейти в редактор",
-  "goToViewer": "Перейти к просмотру",
+
   "totalRequests_one": "{{count}} запрос",
   "totalRequests_few": "{{count}} запроса",
   "totalRequests_many": "{{count}} запросов",

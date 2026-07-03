@@ -19,18 +19,11 @@ export default function EmptyState() {
         <Text variant="body-2" className={styles.hint}>
           {t('emptyHint')}
         </Text>
-        <Flex gap="3" className={styles.links}>
-          <LocalizedLink href="/">
-            <Button view="action" size="l">
-              {t('goToEditor')}
-            </Button>
-          </LocalizedLink>
-          <LocalizedLink href="/">
-            <Button view="outlined" size="l">
-              {t('goToViewer')}
-            </Button>
-          </LocalizedLink>
-        </Flex>
+        <LocalizedLink href="/">
+          <Button view="action" size="l">
+            {t('goToEditor')}
+          </Button>
+        </LocalizedLink>
       </Flex>
     </Card>
   );

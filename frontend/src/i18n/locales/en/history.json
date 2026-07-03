@@ -4,7 +4,7 @@
   "emptyTitle": "No requests yet",
   "emptyHint": "Open an API specification and use Try-It-Out to execute your first request. Your request history will appear here.",
   "goToEditor": "Go to Editor",
-  "goToViewer": "Go to Viewer",
+
   "totalRequests_one": "{{count}} request",
   "totalRequests_other": "{{count}} requests",
   "clearAll": "Clear all",
