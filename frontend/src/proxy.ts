@@ -29,7 +29,7 @@ export async function proxy(request: NextRequest) {
   const isPrivate = privateRoutes.some((r) => stripped.startsWith(r));
   const isAuth = authRoutes.some((r) => stripped.startsWith(r));
 
-  if (isPrivate || isAuth) {
+      if (isPrivate || isAuth) {
     const { user, supabaseResponse } = await updateSession(request);
 
     if (!user && isPrivate) {
@@ -44,7 +44,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    const response = NextResponse.next({ request, headers: requestHeaders });
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
     supabaseResponse.cookies.getAll().forEach((c) => response.cookies.set(c.name, c.value));
     return response;
   }

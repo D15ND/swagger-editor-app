@@ -21,9 +21,14 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getClaims();
+
+  if (error) {
+    console.error('updateSession getClaims error:', error.message);
+  }
+
+  const claims = data?.claims ?? null;
+  const user = claims?.sub ? { id: claims.sub } : null;
 
   return { supabase, supabaseResponse, user };
 }
