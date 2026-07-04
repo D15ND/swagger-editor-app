@@ -17,16 +17,13 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 const supabase = createClient();
 
-async function noopAsync() {}
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!supabase);
   const router = useRouter();
 
   useEffect(() => {
     if (!supabase) {
-      setLoading(false);
       return;
     }
 
