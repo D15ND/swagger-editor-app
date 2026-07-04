@@ -24,6 +24,10 @@ export async function executeRequest(params: ExecuteRequestParams) {
     const responseHeaders = Object.fromEntries(response.headers);
 
     const supabase = await createClient();
+    if (!supabase) {
+      return { status: response.status, headers: responseHeaders, body: responseBody, error: null };
+    }
+
     const { data, error: claimsError } = await supabase.auth.getClaims();
     if (claimsError) console.warn('executeRequest getClaims error:', claimsError.message);
     const userId = data?.claims?.sub ?? null;

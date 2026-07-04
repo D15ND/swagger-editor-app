@@ -1,10 +1,10 @@
+import { toHistoryEntry } from '@/lib/history/mapper';
+import { createClient } from '@/lib/supabase/server';
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/lib/supabase/server';
-import { toHistoryEntry } from '@/lib/history/mapper';
-import HistoryActions from './HistoryActions';
 import AnalyticsCards from './AnalyticsCards';
 import styles from './history.module.css';
+import HistoryActions from './HistoryActions';
 
 const HistoryContent = dynamic(() => import('./HistoryContent'), {
   loading: () => <div className={styles.skeleton} />,
@@ -19,6 +19,18 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   const { lng } = await params;
 
   const supabase = await createClient();
+  if (!supabase) {
+    return (
+      <main className={styles.page}>
+        <div className={styles.main}>
+          <h1 className={styles.title}>History</h1>
+          <p className={styles.subtitle}>Authentication is not configured.</p>
+          <HistoryContent entries={[]} lng={lng} />
+        </div>
+      </main>
+    );
+  }
+
   const { data: authData } = await supabase.auth.getClaims();
   const userId = authData?.claims?.sub ?? null;
 
