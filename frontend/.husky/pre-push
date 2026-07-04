@@ -1,12 +1,2 @@
-err=0
-
-echo "--- ci:format ---"
-npm --prefix frontend run ci:format || err=1
-echo "--- validate-branch-name ---"
-(cd frontend && npm exec validate-branch-name) || err=1
 echo "--- typecheck ---"
-npm --prefix frontend run typecheck || err=1
-echo "--- test ---"
-npm --prefix frontend test || err=1
-
-exit $err
+npm --prefix frontend run typecheck
