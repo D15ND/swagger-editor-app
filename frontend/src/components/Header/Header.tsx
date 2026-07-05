@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Flex, Button, Container } from '@gravity-ui/uikit';
+import { Flex, Button, Container, Drawer } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 import { Bars, Xmark, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from './Logo';
@@ -16,6 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
   const params = useParams<{ lng: string }>();
   const lng = params?.lng || DEFAULT_LNG;
@@ -66,16 +67,43 @@ export default function Header() {
         </Flex>
       </Container>
 
-      {menuOpen && (
-        <div className={styles.panel}>
+      <Drawer
+        open={menuOpen}
+        onOpenChange={setMenuOpen}
+        placement="right"
+        size="auto"
+        initialFocus={closeBtnRef}
+      >
+        <Flex direction="column" gap="4" className={styles.drawerBody}>
+          <Flex alignItems="center" justifyContent="flex-end">
+            <Button
+              ref={closeBtnRef}
+              view="flat"
+              size="l"
+              aria-label="Close menu"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Button.Icon>
+                <Xmark />
+              </Button.Icon>
+            </Button>
+          </Flex>
           <Flex as="nav" direction="column" gap="2">
             {user && (
-              <LocalizedLink href="/history" className={styles.navLink}>
+              <LocalizedLink
+                href="/history"
+                className={styles.navLink}
+                onClick={() => setMenuOpen(false)}
+              >
                 <Clock className={styles.navIcon} />
                 <span>{t('nav.history')}</span>
               </LocalizedLink>
             )}
-            <LocalizedLink href="/about" className={styles.navLink}>
+            <LocalizedLink
+              href="/about"
+              className={styles.navLink}
+              onClick={() => setMenuOpen(false)}
+            >
               <BookOpen className={styles.navIcon} />
               <span>{t('nav.about')}</span>
             </LocalizedLink>
@@ -84,8 +112,8 @@ export default function Header() {
           <Flex direction="column" gap="2" className={styles.panelActions}>
             <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
           </Flex>
-        </div>
-      )}
+        </Flex>
+      </Drawer>
     </header>
   );
 }
