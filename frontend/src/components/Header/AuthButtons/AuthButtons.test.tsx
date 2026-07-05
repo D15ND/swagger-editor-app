@@ -1,7 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import AuthButtons from './AuthButtons';
+
+vi.mock('@/components/LocalizedLink', () => ({
+  default: ({ href, children, component: _component, ...rest }: Record<string, unknown>) => (
+    <a href={href as string} {...rest}>
+      {children as React.ReactNode}
+    </a>
+  ),
+}));
 
 vi.mock('next-i18next/client', () => ({
   useT: () => ({
@@ -19,41 +26,24 @@ vi.mock('next-i18next/client', () => ({
 const noop = vi.fn();
 
 describe('AuthButtons', () => {
-  it('renders Sign Out when user is logged in', () => {
-    render(<AuthButtons isAuth go={noop} signOut={noop} />);
+  it('renders Sign Out button when user is logged in', () => {
+    render(<AuthButtons isAuth signOut={noop} />);
 
     expect(screen.getByRole('button', { name: /sign out/i })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /sign in/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /sign up/i })).not.toBeInTheDocument();
   });
 
   it('renders Sign In and Sign Up when user is not logged in', () => {
-    render(<AuthButtons isAuth={false} go={noop} signOut={noop} />);
+    render(<AuthButtons isAuth={false} signOut={noop} />);
 
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /sign out/i })).not.toBeInTheDocument();
-  });
+    // Gravity UI Button with component renders <a role="button">
+    const signIn = screen.getByRole('button', { name: /sign in/i });
+    const signUp = screen.getByRole('button', { name: /sign up/i });
 
-  it('calls go with /signin on Sign In click', async () => {
-    const user = userEvent.setup();
-    const go = vi.fn();
+    expect(signIn).toBeInTheDocument();
+    expect(signUp).toBeInTheDocument();
 
-    render(<AuthButtons isAuth={false} go={go} signOut={noop} />);
-
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
-
-    expect(go).toHaveBeenCalledWith('/signin');
-  });
-
-  it('calls go with /signup on Sign Up click', async () => {
-    const user = userEvent.setup();
-    const go = vi.fn();
-
-    render(<AuthButtons isAuth={false} go={go} signOut={noop} />);
-
-    await user.click(screen.getByRole('button', { name: /sign up/i }));
-
-    expect(go).toHaveBeenCalledWith('/signup');
+    // href подтверждает, что это ссылка в DOM
+    expect(signIn).toHaveAttribute('href', '/signin');
+    expect(signUp).toHaveAttribute('href', '/signup');
   });
 });

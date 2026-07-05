@@ -15,16 +15,10 @@ vi.mock('next-i18next/client', () => ({
   }),
 }));
 
-const mockPush = vi.fn();
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: mockPush }),
-  useParams: () => ({ lng: 'en' }),
-}));
-
 vi.mock('@/components/LocalizedLink', () => ({
-  default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...rest}>
-      {children}
+  default: ({ href, children, component: _component, ...rest }: Record<string, unknown>) => (
+    <a href={href as string} {...rest}>
+      {children as React.ReactNode}
     </a>
   ),
 }));
@@ -47,7 +41,6 @@ vi.mock('@/contexts/AuthContext', () => ({
 
 describe('Header', () => {
   beforeEach(() => {
-    mockPush.mockClear();
     mockUseLocaleSwitch.mockReturnValue({
       current: 'en',
       next: () => 'ru',

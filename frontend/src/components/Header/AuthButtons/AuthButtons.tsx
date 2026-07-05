@@ -3,14 +3,14 @@
 import { Button } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 import { ArrowRightFromSquare, LockOpen, PersonPlus } from '@gravity-ui/icons';
+import LocalizedLink from '@/components/LocalizedLink';
 
 type Props = {
   isAuth: boolean;
-  go: (path: string) => void;
   signOut: () => void;
 };
 
-export default function AuthButtons({ isAuth, go, signOut }: Props) {
+export default function AuthButtons({ isAuth, signOut }: Props) {
   const { t } = useT('common');
 
   return isAuth ? (
@@ -22,13 +22,13 @@ export default function AuthButtons({ isAuth, go, signOut }: Props) {
     </Button>
   ) : (
     <>
-      <Button view="flat" size="l" onClick={() => go('/signin')}>
+      <Button component={LocalizedLink} href="/signin" view="flat" size="l">
         <Button.Icon>
           <LockOpen />
         </Button.Icon>
         {t('nav.signIn')}
       </Button>
-      <Button view="action" size="l" onClick={() => go('/signup')}>
+      <Button component={LocalizedLink} href="/signup" view="action" size="l">
         <Button.Icon>
           <PersonPlus />
         </Button.Icon>
