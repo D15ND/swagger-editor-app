@@ -67,7 +67,8 @@ export default function Header() {
         initialFocus={closeBtnRef}
       >
         <Flex direction="column" gap="4" className={styles.drawerBody}>
-          <Flex alignItems="center" justifyContent="flex-end">
+          <Flex alignItems="center" justifyContent="space-between">
+            <Logo compact />
             <Button
               ref={closeBtnRef}
               view="flat"
