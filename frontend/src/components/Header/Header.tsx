@@ -65,6 +65,7 @@ export default function Header() {
         placement="right"
         size="auto"
         initialFocus={closeBtnRef}
+        disableBodyScrollLock
       >
         <Flex direction="column" gap="4" className={styles.drawerBody}>
           <Flex alignItems="center" justifyContent="space-between">
