@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import { Flex, Button, Container, Drawer } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 import { Bars, Xmark, Clock, BookOpen } from '@gravity-ui/icons';
@@ -10,21 +9,14 @@ import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
 import AuthButtons from './AuthButtons';
-import { DEFAULT_LNG } from '@/i18n/locales';
 import styles from './Header.module.css';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
-  const router = useRouter();
-  const params = useParams<{ lng: string }>();
-  const lng = params?.lng || DEFAULT_LNG;
-
   const { user, signOut } = useAuth();
-
   const { t } = useT('common');
-  const go = (path: string) => router.push(`/${lng}${path}`);
 
   return (
     <header className={styles.header}>
@@ -49,7 +41,7 @@ export default function Header() {
             <Flex className={styles.desktopControls} alignItems="center" gap="2">
               <ThemeToggle />
               <LanguageSwitcher />
-              <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
+              <AuthButtons isAuth={!!user} signOut={signOut} />
             </Flex>
 
             <Flex className={styles.mobileToggle} alignItems="center" gap="1">
@@ -110,7 +102,7 @@ export default function Header() {
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
-            <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
+            <AuthButtons isAuth={!!user} signOut={signOut} />
           </Flex>
         </Flex>
       </Drawer>
