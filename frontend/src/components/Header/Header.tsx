@@ -8,7 +8,7 @@ import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
-import AuthButtons from './AuthButtons';
+import AuthLinks from './AuthLinks';
 import styles from './Header.module.css';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -40,7 +40,7 @@ export default function Header() {
             <Flex className={styles.desktopControls} alignItems="center" gap="2">
               <ThemeToggle />
               <LanguageSwitcher />
-              <AuthButtons isAuth={!!user} signOut={signOut} />
+              <AuthLinks isAuth={!!user} signOut={signOut} />
             </Flex>
 
             <Flex className={styles.mobileToggle} alignItems="center" gap="1">
@@ -74,7 +74,7 @@ export default function Header() {
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
-            <AuthButtons isAuth={!!user} signOut={signOut} />
+            <AuthLinks isAuth={!!user} signOut={signOut} />
           </Flex>
         </div>
       )}

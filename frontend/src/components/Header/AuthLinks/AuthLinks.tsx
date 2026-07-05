@@ -10,7 +10,7 @@ type Props = {
   signOut: () => void;
 };
 
-export default function AuthButtons({ isAuth, signOut }: Props) {
+export default function AuthLinks({ isAuth, signOut }: Props) {
   const { t } = useT('common');
 
   return isAuth ? (
