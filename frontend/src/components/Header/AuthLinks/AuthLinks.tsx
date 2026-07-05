@@ -8,13 +8,14 @@ import LocalizedLink from '@/components/LocalizedLink';
 type Props = {
   isAuth: boolean;
   signOut: () => void;
+  onClick?: () => void;
 };
 
-export default function AuthButtons({ isAuth, signOut }: Props) {
+export default function AuthLinks({ isAuth, signOut, onClick }: Props) {
   const { t } = useT('common');
 
   return isAuth ? (
-    <Button view="flat-danger" size="l" onClick={signOut}>
+    <Button view="flat-danger" size="l" onClick={() => { onClick?.(); signOut(); }}>
       <Button.Icon>
         <ArrowRightFromSquare />
       </Button.Icon>
@@ -22,13 +23,13 @@ export default function AuthButtons({ isAuth, signOut }: Props) {
     </Button>
   ) : (
     <>
-      <Button component={LocalizedLink} href="/signin" view="flat" size="l">
+      <Button component={LocalizedLink} href="/signin" view="flat" size="l" onClick={onClick}>
         <Button.Icon>
           <LockOpen />
         </Button.Icon>
         {t('nav.signIn')}
       </Button>
-      <Button component={LocalizedLink} href="/signup" view="action" size="l">
+      <Button component={LocalizedLink} href="/signup" view="action" size="l" onClick={onClick}>
         <Button.Icon>
           <PersonPlus />
         </Button.Icon>
