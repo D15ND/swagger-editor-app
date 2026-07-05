@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import AuthLinks from './AuthLinks';
 
@@ -45,5 +46,28 @@ describe('AuthLinks', () => {
     // href подтверждает, что это ссылка в DOM
     expect(signIn).toHaveAttribute('href', '/signin');
     expect(signUp).toHaveAttribute('href', '/signup');
+  });
+
+  it('fires onClick when clicked with isAuth=false', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+
+    render(<AuthLinks isAuth={false} signOut={noop} onClick={onClick} />);
+
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
+    expect(onClick).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByRole('button', { name: /sign up/i }));
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+
+  it('fires onClick when clicked with isAuth=true', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+
+    render(<AuthLinks isAuth signOut={noop} onClick={onClick} />);
+
+    await user.click(screen.getByRole('button', { name: /sign out/i }));
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
