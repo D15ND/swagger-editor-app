@@ -102,6 +102,7 @@ export default function Header() {
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
+            <LanguageSwitcher />
             <AuthButtons isAuth={!!user} signOut={signOut} />
           </Flex>
         </Flex>
