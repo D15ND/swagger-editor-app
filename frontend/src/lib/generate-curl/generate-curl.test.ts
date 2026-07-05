@@ -38,7 +38,7 @@ describe('generateCurlCommand', () => {
 
     const result = generateCurlCommand(method, url, headers, body);
 
-    expect(result).toContain("-d '{\"name\":\"test\"}'");
+    expect(result).toContain('-d \'{"name":"test"}\'');
   });
 
   it('omits body for GET', () => {
