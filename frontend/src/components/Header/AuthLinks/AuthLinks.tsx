@@ -15,7 +15,14 @@ export default function AuthLinks({ isAuth, signOut, onClick }: Props) {
   const { t } = useT('common');
 
   return isAuth ? (
-    <Button view="flat-danger" size="l" onClick={() => { onClick?.(); signOut(); }}>
+    <Button
+      view="flat-danger"
+      size="l"
+      onClick={() => {
+        onClick?.();
+        signOut();
+      }}
+    >
       <Button.Icon>
         <ArrowRightFromSquare />
       </Button.Icon>
