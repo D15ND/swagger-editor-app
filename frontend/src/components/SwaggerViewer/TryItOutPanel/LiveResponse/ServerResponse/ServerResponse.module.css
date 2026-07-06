@@ -1,0 +1,60 @@
+.card {
+  padding: var(--g-spacing-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-spacing-3);
+}
+
+.mono {
+  font-family: var(--se-font-mono);
+  font-weight: 600;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-spacing-1);
+}
+
+.pre {
+  margin: 0;
+  padding: var(--g-spacing-2) var(--g-spacing-3);
+  border-radius: var(--se-radius-md);
+  background: var(--g-color-base-misc-light);
+  font-family: var(--se-font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  word-break: break-all;
+}
+
+.list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-spacing-half);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--g-spacing-3);
+  padding: var(--g-spacing-half) var(--g-spacing-1);
+  border-radius: var(--g-border-radius-s);
+}
+
+.key {
+  font-family: var(--se-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.value {
+  margin: 0;
+  font-family: var(--se-font-mono);
+  font-size: 13px;
+  word-break: break-all;
+}
