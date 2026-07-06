@@ -17,14 +17,15 @@ export async function generateMetadata() {
 
 export default async function HistoryPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
+  const { t } = await getT('history', { lng });
 
   const supabase = await createClient();
   if (!supabase) {
     return (
       <main className={styles.page}>
         <div className={styles.main}>
-          <h1 className={styles.title}>History</h1>
-          <p className={styles.subtitle}>Authentication is not configured.</p>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
           <HistoryContent entries={[]} lng={lng} />
         </div>
       </main>
@@ -50,8 +51,6 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   ).length;
   const errored = entries.filter((e) => e.error !== null).length;
   const avg = total ? Math.round(totalTime / total) : 0;
-
-  const { t } = await getT('history', { lng });
 
   return (
     <main className={styles.page}>
