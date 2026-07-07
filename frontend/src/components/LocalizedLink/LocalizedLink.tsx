@@ -11,8 +11,11 @@ export default function LocalizedLink({ href, children, ...rest }: LocalizedLink
   const lng = params?.lng || DEFAULT_LNG;
   const localizedHref = href.startsWith('/') ? `/${lng}${href}` : href;
 
+  // Gravity UI Button forwards internal props (component) to rendered element
+  const { component: _c, ...linkProps } = rest as Record<string, unknown>;
+
   return (
-    <Link href={localizedHref} {...rest}>
+    <Link href={localizedHref} {...linkProps}>
       {children}
     </Link>
   );
