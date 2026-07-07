@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Text } from '@gravity-ui/uikit';
+import { Text } from '@gravity-ui/uikit';
 import LiveResponse from './LiveResponse';
 import type { HttpMethod } from '@/lib/types';
 
@@ -113,25 +113,18 @@ const scenarios: Scenario[] = [
   },
 ];
 
-const wrapperStyle: React.CSSProperties = {
-  maxWidth: 900,
-  margin: '0 auto',
-  padding: '40px 24px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 24,
-};
-
 export default function LiveResponseDemo() {
   return (
-    <div style={wrapperStyle}>
+    <div
+      style={{ maxWidth: 900, width: '100%', minWidth: 0, margin: '0 auto', padding: '40px 24px' }}
+    >
       {scenarios.map((s) => (
-        <Card key={s.label} view="outlined" size="l" style={{ padding: 16 }}>
+        <div key={s.label} style={{ marginBottom: 32 }}>
           <Text variant="header-1" as="h3" style={{ margin: '0 0 12px' }}>
             {s.label}
           </Text>
           <LiveResponse request={s.request} response={s.response} />
-        </Card>
+        </div>
       ))}
     </div>
   );
