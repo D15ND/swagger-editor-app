@@ -14,12 +14,16 @@
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
+    "checks": "npm run ci:format && npx validate-branch-name && npm run typecheck && npm test",
     "prepare": "cd .. && husky frontend/.husky"
   },
   "lint-staged": {
     "frontend/**/*.{ts,tsx}": [
-      "npm run lint:fix --prefix frontend --",
-      "npx prettier --write"
+      "eslint --fix --config ./frontend/eslint.config.mjs",
+      "prettier --write --config ./frontend/.prettierrc"
+    ],
+    "frontend/**/*.{json,css,md,mjs,cjs}": [
+      "prettier --write --config ./frontend/.prettierrc"
     ]
   },
   "dependencies": {

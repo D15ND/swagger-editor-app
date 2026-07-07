@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeProvider } from '@gravity-ui/uikit';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Header from './Header';
 
@@ -15,16 +16,10 @@ vi.mock('next-i18next/client', () => ({
   }),
 }));
 
-const mockPush = vi.fn();
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: mockPush }),
-  useParams: () => ({ lng: 'en' }),
-}));
-
 vi.mock('@/components/LocalizedLink', () => ({
-  default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...rest}>
-      {children}
+  default: ({ href, children, component: _component, ...rest }: Record<string, unknown>) => (
+    <a href={href as string} {...rest}>
+      {children as React.ReactNode}
     </a>
   ),
 }));
@@ -45,9 +40,12 @@ vi.mock('@/contexts/AuthContext', () => ({
   }),
 }));
 
+function renderWithTheme(ui: React.ReactElement) {
+  return render(<ThemeProvider theme="light">{ui}</ThemeProvider>);
+}
+
 describe('Header', () => {
   beforeEach(() => {
-    mockPush.mockClear();
     mockUseLocaleSwitch.mockReturnValue({
       current: 'en',
       next: () => 'ru',
@@ -56,19 +54,19 @@ describe('Header', () => {
   });
 
   it('renders Logo', () => {
-    render(<Header />);
+    renderWithTheme(<Header />);
 
     expect(screen.getByRole('link', { name: /swagger editor/i })).toBeInTheDocument();
   });
 
   it('shows History link for authenticated user', () => {
-    render(<Header />);
+    renderWithTheme(<Header />);
 
     expect(screen.getByText('History')).toBeInTheDocument();
   });
 
   it('shows About link', () => {
-    render(<Header />);
+    renderWithTheme(<Header />);
 
     expect(screen.getByText('About')).toBeInTheDocument();
   });
@@ -76,7 +74,7 @@ describe('Header', () => {
   it('toggles mobile menu on hamburger click', async () => {
     const user = userEvent.setup();
 
-    render(<Header />);
+    renderWithTheme(<Header />);
 
     expect(screen.getAllByText('History').length).toBe(1);
     const toggle = screen.getByRole('button', { name: /toggle menu/i });
@@ -88,6 +86,8 @@ describe('Header', () => {
 
     await user.click(toggle);
 
-    expect(screen.getAllByText('History').length).toBe(1);
+    await waitFor(() => {
+      expect(screen.getAllByText('History').length).toBe(1);
+    });
   });
 });
