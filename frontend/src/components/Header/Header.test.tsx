@@ -38,6 +38,13 @@ vi.mock('@/hooks/useLocaleSwitch', () => ({
   useLocaleSwitch: () => mockUseLocaleSwitch(),
 }));
 
+vi.mock('@/contexts/AuthContext', () => ({
+  useAuth: () => ({
+    user: { id: '1', email: 'test@test.com' },
+    signOut: vi.fn(),
+  }),
+}));
+
 describe('Header', () => {
   beforeEach(() => {
     mockPush.mockClear();

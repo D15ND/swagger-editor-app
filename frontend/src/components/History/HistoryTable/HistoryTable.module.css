@@ -1,0 +1,91 @@
+.card {
+  padding: 0;
+  border-radius: var(--se-radius-xl);
+  clip-path: inset(0 round var(--se-radius-xl));
+  border: 1px solid var(--color-slate-200);
+  background: var(--g-color-base-background);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+:global(.g-root_theme_dark) .card {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.card :global(.g-table__table) {
+  width: 100%;
+  min-width: 1000px;
+}
+
+.card :global(.g-table) {
+  font-size: var(--se-font-size-sm);
+}
+
+.card :global(.g-table__head .g-table__cell) {
+  padding: var(--g-spacing-4) var(--g-spacing-5);
+  font-weight: var(--g-text-header-font-weight);
+  border-bottom: 1px solid var(--color-slate-200);
+  white-space: nowrap;
+}
+
+:global(.g-root_theme_light) .card :global(.g-table__head .g-table__cell) {
+  background: var(--color-slate-50);
+  color: var(--se-text-secondary);
+}
+
+:global(.g-root_theme_dark) .card :global(.g-table__head .g-table__cell) {
+  background: #162034;
+  color: #cbd5e1;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.card :global(.g-table__body .g-table__cell) {
+  padding: var(--g-spacing-4) var(--g-spacing-5);
+  border-bottom: 1px solid var(--color-slate-200);
+  white-space: nowrap;
+}
+
+:global(.g-root_theme_light) .card :global(.g-table__body .g-table__cell) {
+  background: var(--color-white);
+}
+
+:global(.g-root_theme_dark) .card :global(.g-table__body .g-table__cell) {
+  background: #0f172b;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.g-root_theme_light) .card :global(.g-table__row:hover .g-table__cell) {
+  background: var(--color-slate-50);
+}
+
+:global(.g-root_theme_dark) .card :global(.g-table__row:hover .g-table__cell) {
+  background: #131c30;
+}
+
+.card :global(.g-table__body .g-table__row:last-child .g-table__cell) {
+  border-bottom: none;
+}
+
+.endpointCell {
+  display: flex;
+  align-items: center;
+  gap: var(--g-spacing-3);
+}
+
+.path {
+  composes: mono;
+  font-weight: var(--g-text-subheader-font-weight);
+}
+
+.mono {
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.timeCell {
+  display: flex;
+  align-items: center;
+  gap: var(--g-spacing-2);
+  white-space: nowrap;
+}

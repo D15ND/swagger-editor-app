@@ -1,0 +1,2 @@
+echo "--- typecheck ---"
+npm --prefix frontend run typecheck
