@@ -1,6 +1,7 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/lib/supabase/server';
+import { getSession } from '@/lib/auth';
+import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
 import HistoryActions from './HistoryActions';
 import AnalyticsCards from './AnalyticsCards';
@@ -17,19 +18,15 @@ export async function generateMetadata() {
 
 export default async function HistoryPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
+  const { t } = await getT('history', { lng });
 
-  const supabase = await createClient();
-  const { data: authData } = await supabase.auth.getClaims();
-  const userId = authData?.claims?.sub ?? null;
+  const session = await getSession();
 
-  const { data: rows } = await supabase
-    .from('request_logs')
-    .select('*')
-    .eq('user_id', userId ?? '')
-    .order('timestamp', { ascending: false })
-    .limit(15);
-
-  const entries = (rows ?? []).map(toHistoryEntry);
+  const entries = session
+    ? (await fetchHistoryRows(session.supabase, session.user.id, 15).catch(() => [])).map(
+        toHistoryEntry,
+      )
+    : [];
 
   const total = entries.length;
   const totalTime = entries.reduce((s, e) => s + e.duration, 0);
@@ -38,8 +35,6 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   ).length;
   const errored = entries.filter((e) => e.error !== null).length;
   const avg = total ? Math.round(totalTime / total) : 0;
-
-  const { t } = await getT('history', { lng });
 
   return (
     <main className={styles.page}>

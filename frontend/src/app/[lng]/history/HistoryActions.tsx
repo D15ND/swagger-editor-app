@@ -3,7 +3,6 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@gravity-ui/uikit';
-import { clearHistory } from '@/actions/clearHistory';
 
 type Props = {
   clearAllLabel: string;
@@ -14,8 +13,8 @@ export default function HistoryActions({ clearAllLabel }: Props) {
 
   const handleClear = useCallback(async () => {
     try {
-      await clearHistory();
-      router.refresh();
+      const res = await fetch('/api/history', { method: 'DELETE' });
+      if (res.ok) router.refresh();
     } catch (err) {
       console.error('Clear history failed:', err);
     }
