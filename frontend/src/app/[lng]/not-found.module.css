@@ -92,6 +92,7 @@
   gap: 16px;
 }
 
+.buttonContent,
 .homeLink {
   display: inline-flex;
   align-items: center;
