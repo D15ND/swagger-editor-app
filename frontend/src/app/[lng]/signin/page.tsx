@@ -1,5 +1,45 @@
-import Auth from '@/components/Auth/Auth';
+'use client';
 
-export default async function SignInPage() {
-  return <Auth mode="signin" />;
+import { useRouter } from 'next/navigation';
+import { Text } from '@gravity-ui/uikit';
+import { useT } from 'next-i18next/client';
+import { createClient } from '@/lib/supabase/client';
+import AuthForm, { type AuthFormData } from '@/components/AuthForm/AuthForm';
+import styles from './signin.module.css';
+
+export default function SignInPage() {
+  const { t } = useT('auth');
+  const router = useRouter();
+
+  const handleSubmit = async (data: AuthFormData) => {
+    const supabase = createClient();
+    if (!supabase) return;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      console.error('Sign in error:', error);
+      return;
+    }
+
+    router.push('/');
+    router.refresh();
+  };
+
+  return (
+    <main className={styles.page}>
+      <div className={styles.content}>
+        <Text as="h1" variant="header-2" className={styles.title}>
+          {t('signin.title')}
+        </Text>
+        <Text variant="body-1" color="secondary" className={styles.description}>
+          {t('signin.description')}
+        </Text>
+        <AuthForm onSubmit={handleSubmit} submitLabel={t('signin.submit')} />
+      </div>
+    </main>
+  );
 }
