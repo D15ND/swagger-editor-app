@@ -1,8 +1,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { HISTORY_TABLE } from '@/lib/supabase/constants';
 
 export async function fetchHistoryRows(supabase: SupabaseClient, userId: string, limit = 15) {
   const { data, error } = await supabase
-    .from('request_logs')
+    .from(HISTORY_TABLE)
     .select('*')
     .eq('user_id', userId)
     .order('timestamp', { ascending: false })
@@ -13,7 +14,7 @@ export async function fetchHistoryRows(supabase: SupabaseClient, userId: string,
 }
 
 export async function deleteAllHistory(supabase: SupabaseClient, userId: string) {
-  const { error } = await supabase.from('request_logs').delete().eq('user_id', userId);
+  const { error } = await supabase.from(HISTORY_TABLE).delete().eq('user_id', userId);
   if (error) throw error;
 }
 
@@ -31,6 +32,6 @@ export async function insertHistoryRow(
     error: string | null;
   },
 ) {
-  const { error } = await supabase.from('request_logs').insert({ user_id: userId, ...row });
+  const { error } = await supabase.from(HISTORY_TABLE).insert({ user_id: userId, ...row });
   if (error) throw error;
 }

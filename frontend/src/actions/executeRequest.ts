@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { HISTORY_TABLE } from '@/lib/supabase/constants';
 import type { LogInsert } from '@/lib/supabase/types';
 
 type ExecuteRequestParams = {
@@ -43,7 +44,7 @@ export async function executeRequest(params: ExecuteRequestParams) {
         error: null,
       };
 
-      await supabase.from('request_logs').insert(insert);
+      await supabase.from(HISTORY_TABLE).insert(insert);
     }
 
     return { status: response.status, headers: responseHeaders, body: responseBody, error: null };
