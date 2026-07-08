@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Text } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 import { createClient } from '@/lib/supabase/client';
@@ -10,6 +11,7 @@ import styles from './signup.module.css';
 export default function SignUpPage() {
   const { t } = useT('auth');
   const router = useRouter();
+  const { lng } = useParams<{ lng: string }>();
 
   const handleSubmit = async (data: AuthFormData) => {
     const supabase = createClient();
@@ -25,7 +27,7 @@ export default function SignUpPage() {
       return;
     }
 
-    router.push('/');
+    router.push(`/${lng}`);
     router.refresh();
   };
 
