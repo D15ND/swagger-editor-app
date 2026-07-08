@@ -19,7 +19,7 @@ vi.mock('next-i18next/server', () => ({
   })),
 }));
 
-vi.mock('./go-back-button', () => ({
+vi.mock('@/components/GoBackButton', () => ({
   GoBackButton: ({ children }: { children: React.ReactNode }) => (
     <button type="button">{children}</button>
   ),
