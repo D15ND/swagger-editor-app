@@ -1,7 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import type { RequestLogInsert } from '@/lib/supabase/types';
+import type { LogInsert } from '@/lib/supabase/types';
 
 type ExecuteRequestParams = {
   method: string;
@@ -29,7 +29,7 @@ export async function executeRequest(params: ExecuteRequestParams) {
     const userId = data?.claims?.sub ?? null;
 
     if (userId) {
-      const insert: RequestLogInsert = {
+      const insert: LogInsert = {
         user_id: userId,
         method,
         url,
