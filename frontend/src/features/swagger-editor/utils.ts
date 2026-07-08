@@ -3,6 +3,38 @@ import { parse, stringify } from 'yaml';
 import type { OpenApiDocument, SchemaFormat, SchemaState } from './types';
 import { validateOpenApiDocument } from './validation';
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isOptionalString(value: unknown): value is string | undefined {
+  return value === undefined || typeof value === 'string';
+}
+
+function isOpenApiDocument(value: unknown): value is OpenApiDocument {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  if (!isOptionalString(value.openapi)) {
+    return false;
+  }
+
+  if (!isOptionalString(value.swagger)) {
+    return false;
+  }
+
+  if (value.info !== undefined && !isRecord(value.info)) {
+    return false;
+  }
+
+  if (value.paths !== undefined && !isRecord(value.paths)) {
+    return false;
+  }
+
+  return true;
+}
+
 export function detectSchemaFormat(value: string): SchemaFormat {
   const trimmedValue = value.trim();
 
@@ -20,12 +52,13 @@ export function detectSchemaFormat(value: string): SchemaFormat {
 
 export function parseSchema(value: string): OpenApiDocument {
   const format = detectSchemaFormat(value);
+  const parsedValue: unknown = format === 'json' ? JSON.parse(value) : parse(value);
 
-  if (format === 'json') {
-    return JSON.parse(value) as OpenApiDocument;
+  if (!isOpenApiDocument(parsedValue)) {
+    throw new Error('Schema must be an OpenAPI/Swagger object.');
   }
 
-  return parse(value) as OpenApiDocument;
+  return parsedValue;
 }
 
 export function parseSchemaState(source: string): SchemaState {
