@@ -1,0 +1,9 @@
+.badge {
+  font-size: var(--g-text-caption-2-font-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: var(--g-spacing-half) var(--g-spacing-3);
+  border-radius: var(--g-border-radius-m);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}

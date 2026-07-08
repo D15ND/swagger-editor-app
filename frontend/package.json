@@ -14,12 +14,16 @@
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
+    "checks": "npm run ci:format && npx validate-branch-name && npm run typecheck && npm test",
     "prepare": "cd .. && husky frontend/.husky"
   },
   "lint-staged": {
     "frontend/**/*.{ts,tsx}": [
-      "npm run lint:fix --prefix frontend --",
-      "npx prettier --write"
+      "eslint --fix --config ./frontend/eslint.config.mjs",
+      "prettier --write --config ./frontend/.prettierrc"
+    ],
+    "frontend/**/*.{json,css,md,mjs,cjs}": [
+      "prettier --write --config ./frontend/.prettierrc"
     ]
   },
   "dependencies": {
@@ -27,6 +31,8 @@
     "@gravity-ui/navigation": "^6.1.0",
     "@gravity-ui/uikit": "^7.42.0",
     "@hookform/resolvers": "^5.4.0",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.110.0",
     "i18next": "^26.3.1",
     "next": "16.2.9",
     "next-i18next": "^16.0.7",

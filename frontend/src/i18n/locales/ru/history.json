@@ -1,0 +1,27 @@
+{
+  "title": "История и аналитика",
+  "subtitle": "Просматривайте прошлые API-запросы и метрики производительности.",
+  "emptyTitle": "Запросов пока нет",
+  "emptyHint": "Откройте API-спецификацию и используйте Try-It-Out, чтобы выполнить первый запрос. История запросов появится здесь.",
+  "goToEditor": "Перейти в редактор",
+
+  "totalRequests_one": "{{count}} запрос",
+  "totalRequests_few": "{{count}} запроса",
+  "totalRequests_many": "{{count}} запросов",
+  "totalRequests_other": "{{count}} запросов",
+  "clearAll": "Очистить всё",
+  "analytics": {
+    "endpoint": "Endpoint",
+    "method": "Метод",
+    "status": "Статус",
+    "duration": "Длительность",
+    "requestSize": "Размер запроса",
+    "responseSize": "Размер ответа",
+    "time": "Время",
+    "error": "Ошибка",
+    "successful": "Успешных",
+    "failed": "С ошибками",
+    "totalTime": "Общее время",
+    "avgDuration": "Среднее время"
+  }
+}
