@@ -1,29 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { Flex, Button, Container } from '@gravity-ui/uikit';
+import { useRef, useState } from 'react';
+import { Flex, Button, Container, Drawer } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 import { Bars, Xmark, Clock, BookOpen } from '@gravity-ui/icons';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
-import AuthButtons from './AuthButtons';
-import { DEFAULT_LNG } from '@/i18n/locales';
+import AuthLinks from './AuthLinks';
 import styles from './Header.module.css';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter();
-  const params = useParams<{ lng: string }>();
-  const lng = params?.lng || DEFAULT_LNG;
-
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
   const { user, signOut } = useAuth();
-
   const { t } = useT('common');
-  const go = (path: string) => router.push(`/${lng}${path}`);
 
   return (
     <header className={styles.header}>
@@ -48,7 +41,7 @@ export default function Header() {
             <Flex className={styles.desktopControls} alignItems="center" gap="2">
               <ThemeToggle />
               <LanguageSwitcher />
-              <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
+              <AuthLinks isAuth={!!user} signOut={signOut} />
             </Flex>
 
             <Flex className={styles.mobileToggle} alignItems="center" gap="1">
@@ -66,26 +59,56 @@ export default function Header() {
         </Flex>
       </Container>
 
-      {menuOpen && (
-        <div className={styles.panel}>
+      <Drawer
+        open={menuOpen}
+        onOpenChange={setMenuOpen}
+        placement="right"
+        size="auto"
+        initialFocus={closeBtnRef}
+        disableBodyScrollLock
+      >
+        <Flex direction="column" gap="4" className={styles.drawerBody}>
+          <Flex alignItems="center" justifyContent="space-between">
+            <Logo compact />
+            <Button
+              ref={closeBtnRef}
+              view="flat"
+              size="l"
+              aria-label="Close menu"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Button.Icon>
+                <Xmark />
+              </Button.Icon>
+            </Button>
+          </Flex>
           <Flex as="nav" direction="column" gap="2">
             {user && (
-              <LocalizedLink href="/history" className={styles.navLink}>
+              <LocalizedLink
+                href="/history"
+                className={styles.navLink}
+                onClick={() => setMenuOpen(false)}
+              >
                 <Clock className={styles.navIcon} />
                 <span>{t('nav.history')}</span>
               </LocalizedLink>
             )}
-            <LocalizedLink href="/about" className={styles.navLink}>
+            <LocalizedLink
+              href="/about"
+              className={styles.navLink}
+              onClick={() => setMenuOpen(false)}
+            >
               <BookOpen className={styles.navIcon} />
               <span>{t('nav.about')}</span>
             </LocalizedLink>
           </Flex>
 
           <Flex direction="column" gap="2" className={styles.panelActions}>
-            <AuthButtons isAuth={!!user} go={go} signOut={signOut} />
+            <LanguageSwitcher />
+            <AuthLinks isAuth={!!user} signOut={signOut} onClick={() => setMenuOpen(false)} />
           </Flex>
-        </div>
-      )}
+        </Flex>
+      </Drawer>
     </header>
   );
 }

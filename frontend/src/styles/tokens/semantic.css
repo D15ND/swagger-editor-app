@@ -34,6 +34,7 @@
   --se-status-info-bg: rgba(59, 130, 246, 0.1);
 
   /* === Radii === */
+  --se-radius-md: var(--radius-md);
   --se-radius-lg: var(--radius-lg);
   --se-radius-xl: var(--radius-xl);
   --se-radius-2xl: var(--radius-2xl);
@@ -42,6 +43,9 @@
   /* === Spacing === */
   --se-space-12: var(--space-12);
   --se-space-16: var(--space-16);
+
+  /* === Font stacks === */
+  --se-font-mono: var(--font-mono);
 
   /* === Font sizes === */
   --se-font-size-xs: var(--font-size-xs);
