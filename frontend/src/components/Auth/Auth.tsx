@@ -14,7 +14,11 @@ const signInSchema = z.object({
 
 type SignInFormData = z.infer<typeof signInSchema>;
 
-function Auth() {
+type AuthProps = {
+  mode?: 'signin' | 'signup';
+};
+
+function Auth({ mode = 'signin' }: AuthProps) {
   const { t } = useT('auth');
 
   const {

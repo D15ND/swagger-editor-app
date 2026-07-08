@@ -1,10 +1,10 @@
+import { toHistoryEntry } from '@/lib/history/mapper';
+import { createClient } from '@/lib/supabase/server';
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/lib/supabase/server';
-import { toHistoryEntry } from '@/lib/history/mapper';
-import HistoryActions from './HistoryActions';
 import AnalyticsCards from './AnalyticsCards';
 import styles from './history.module.css';
+import HistoryActions from './HistoryActions';
 
 const HistoryContent = dynamic(() => import('./HistoryContent'), {
   loading: () => <div className={styles.skeleton} />,
@@ -17,8 +17,21 @@ export async function generateMetadata() {
 
 export default async function HistoryPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
+  const { t } = await getT('history', { lng });
 
   const supabase = await createClient();
+  if (!supabase) {
+    return (
+      <main className={styles.page}>
+        <div className={styles.main}>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
+          <HistoryContent entries={[]} lng={lng} />
+        </div>
+      </main>
+    );
+  }
+
   const { data: authData } = await supabase.auth.getClaims();
   const userId = authData?.claims?.sub ?? null;
 
@@ -38,8 +51,6 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   ).length;
   const errored = entries.filter((e) => e.error !== null).length;
   const avg = total ? Math.round(totalTime / total) : 0;
-
-  const { t } = await getT('history', { lng });
 
   return (
     <main className={styles.page}>

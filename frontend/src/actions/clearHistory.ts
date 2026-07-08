@@ -1,12 +1,14 @@
 'use server';
 
-import { headers } from 'next/headers';
-import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
 import { DEFAULT_LNG } from '@/i18n/locales';
+import { createClient } from '@/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 export async function clearHistory() {
   const supabase = await createClient();
+  if (!supabase) throw new Error('Supabase is not configured');
+
   const { data, error: claimsError } = await supabase.auth.getClaims();
   if (claimsError) console.error('clearHistory getClaims error:', claimsError.message);
   const userId = data?.claims?.sub ?? null;
