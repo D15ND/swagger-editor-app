@@ -12,9 +12,9 @@ export default function SignInPage() {
   const { t } = useT('auth');
   const router = useRouter();
   const { lng } = useParams<{ lng: string }>();
+  const supabase = createClient();
 
   const handleSubmit = async (data: AuthFormData) => {
-    const supabase = createClient();
     if (!supabase) return;
 
     const { error } = await supabase.auth.signInWithPassword({
