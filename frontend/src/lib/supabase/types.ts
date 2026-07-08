@@ -1,4 +1,4 @@
-export type RequestLogRow = {
+export type LogRow = {
   duration: number;
   endpoint: string;
   error: string | null;
@@ -12,7 +12,7 @@ export type RequestLogRow = {
   user_id: string;
 };
 
-export type RequestLogInsert = {
+export type LogInsert = {
   duration: number;
   endpoint: string;
   error?: string | null;
