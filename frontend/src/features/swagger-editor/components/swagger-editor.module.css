@@ -1,0 +1,126 @@
+.page {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--se-page-text-primary);
+  background: var(--se-page-bg);
+}
+
+.editorPanel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 0;
+  background: var(--se-card-bg);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--se-card-border);
+  background: var(--se-card-bg);
+}
+
+.fileInfo,
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.formatBadge {
+  padding: 8px 14px;
+  color: var(--se-brand-primary);
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  border-radius: var(--se-radius-lg);
+  font-size: var(--se-font-size-sm);
+  font-weight: 700;
+}
+
+.fileName {
+  color: var(--se-page-text-secondary);
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  font-size: var(--se-font-size-sm);
+}
+
+.validStatus,
+.invalidStatus {
+  font-size: var(--se-font-size-sm);
+  font-weight: 700;
+}
+
+.validStatus {
+  color: var(--se-status-success);
+}
+
+.invalidStatus {
+  color: var(--se-status-error);
+}
+
+.textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 28px;
+  overflow: auto;
+  color: var(--se-page-text-primary);
+  background:
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px), var(--se-card-bg);
+  background-size: 100% 32px;
+  border: 0;
+  outline: none;
+  resize: none;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 2.05;
+  tab-size: 2;
+}
+
+.errorBox {
+  margin: 0;
+  padding: 18px 24px;
+  color: var(--se-status-error);
+  background: var(--se-status-error-bg);
+  border-top: 1px solid rgba(239, 68, 68, 0.24);
+}
+
+.errorBox h2 {
+  margin: 0 0 8px;
+  font-size: var(--se-font-size-base);
+}
+
+.errorBox ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.errorBox li {
+  line-height: 1.6;
+}
+
+:global(.g-root_theme_dark) .textarea {
+  background:
+    linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px), var(--se-card-bg);
+}
+
+@media (max-width: 720px) {
+  .toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .textarea {
+    padding: 20px 16px;
+    font-size: 14px;
+  }
+}

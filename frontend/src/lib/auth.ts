@@ -2,6 +2,7 @@ import { createClient } from './supabase/server';
 
 export async function getSession() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const {
     data: { user },
     error,

@@ -5,6 +5,7 @@ import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
 import AnalyticsCards from '@/components/History/AnalyticsCards';
 import HistoryActions from '@/components/History/HistoryActions';
+import styles from './history.module.css';
 
 const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
   loading: () => (
@@ -29,11 +30,21 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
 
   const session = await getSession();
 
-  const entries = session
-    ? (await fetchHistoryRows(session.supabase, session.user.id, 15).catch(() => [])).map(
-        toHistoryEntry,
-      )
-    : [];
+  if (!session) {
+    return (
+      <main className={styles.page}>
+        <div className={styles.main}>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
+          <HistoryContent entries={[]} lng={lng} />
+        </div>
+      </main>
+    );
+  }
+
+  const entries = (
+    await fetchHistoryRows(session.supabase, session.user.id, 15).catch(() => [])
+  ).map(toHistoryEntry);
 
   const total = entries.length;
   const totalTime = entries.reduce((s, e) => s + e.duration, 0);
