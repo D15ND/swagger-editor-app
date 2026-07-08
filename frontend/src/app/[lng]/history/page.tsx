@@ -1,6 +1,7 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
+import { Text } from '@gravity-ui/uikit';
 import { getSession } from '@/lib/auth';
 import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
@@ -13,8 +14,12 @@ function PageShell({ t, children }: { t: (key: string) => string; children: Reac
   return (
     <main className={styles.page}>
       <div className={styles.main}>
-        <h1 className={styles.title}>{t('title')}</h1>
-        <p className={styles.subtitle}>{t('subtitle')}</p>
+        <Text as="h1" variant="header-2" className={styles.title}>
+          {t('title')}
+        </Text>
+        <Text variant="body-1" color="secondary">
+          {t('subtitle')}
+        </Text>
         {children}
       </div>
     </main>
@@ -22,15 +27,7 @@ function PageShell({ t, children }: { t: (key: string) => string; children: Reac
 }
 
 const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
-  loading: () => (
-    <div
-      style={{
-        height: 320,
-        background: 'var(--g-color-base-generic)',
-        borderRadius: 'var(--se-radius-xl)',
-      }}
-    />
-  ),
+  loading: () => <div className={styles.skeleton} />,
 });
 
 export async function generateMetadata() {

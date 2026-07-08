@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@gravity-ui/uikit';
+import styles from './HistoryActions.module.css';
 
 type Props = {
   clearAllLabel: string;
@@ -21,7 +22,7 @@ export default function HistoryActions({ clearAllLabel }: Props) {
   }, [router]);
 
   return (
-    <Button view="flat-danger" size="m" onClick={handleClear} style={{ alignSelf: 'flex-start' }}>
+    <Button view="flat-danger" size="m" onClick={handleClear} className={styles.clearButton}>
       {clearAllLabel}
     </Button>
   );
