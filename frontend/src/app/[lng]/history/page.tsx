@@ -5,6 +5,7 @@ import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
 import AnalyticsCards from '@/components/History/AnalyticsCards';
 import HistoryActions from '@/components/History/HistoryActions';
+import EmptyState from '@/components/History/EmptyState';
 import styles from './history.module.css';
 
 const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
@@ -36,7 +37,7 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
         <div className={styles.main}>
           <h1 className={styles.title}>{t('title')}</h1>
           <p className={styles.subtitle}>{t('subtitle')}</p>
-          <HistoryContent entries={[]} lng={lng} />
+          <EmptyState />
         </div>
       </main>
     );
