@@ -4,13 +4,11 @@ import { getSupabaseConfig } from './constants';
 
 export async function createClient() {
   const cookieStore = await cookies();
-  const { url, publishableKey } = getSupabaseConfig();
+  const config = getSupabaseConfig();
 
-  if (!url || !publishableKey) {
-    return null;
-  }
+  if (!config) return null;
 
-  return createServerClient(url, publishableKey, {
+  return createServerClient(config.url, config.publishableKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
