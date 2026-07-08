@@ -1,0 +1,12 @@
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.smallIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

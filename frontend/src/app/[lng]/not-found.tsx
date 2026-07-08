@@ -2,7 +2,7 @@ import { FileQuestion, House } from '@gravity-ui/icons';
 import { getT } from 'next-i18next/server';
 
 import LocalizedLink from '@/components/LocalizedLink';
-import { GoBackButton } from './go-back-button';
+import { GoBackButton } from '@/components/GoBackButton';
 import styles from './not-found.module.css';
 
 export default async function NotFoundPage() {
