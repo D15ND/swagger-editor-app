@@ -1,8 +1,8 @@
 import type { HttpMethod } from '@/lib/types';
 import type { HistoryEntry } from './types';
-import type { RequestLogRow } from '@/lib/supabase/types';
+import type { LogRow } from '@/lib/supabase/types';
 
-export function toHistoryEntry(row: RequestLogRow): HistoryEntry {
+export function toHistoryEntry(row: LogRow): HistoryEntry {
   return {
     id: row.id,
     method: row.method as HttpMethod,
