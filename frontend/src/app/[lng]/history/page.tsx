@@ -1,5 +1,6 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
+import { ReactNode } from 'react';
 import { getSession } from '@/lib/auth';
 import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
@@ -7,6 +8,18 @@ import AnalyticsCards from '@/components/History/AnalyticsCards';
 import HistoryActions from '@/components/History/HistoryActions';
 import EmptyState from '@/components/History/EmptyState';
 import styles from './history.module.css';
+
+function PageShell({ t, children }: { t: (key: string) => string; children: ReactNode }) {
+  return (
+    <main className={styles.page}>
+      <div className={styles.main}>
+        <h1 className={styles.title}>{t('title')}</h1>
+        <p className={styles.subtitle}>{t('subtitle')}</p>
+        {children}
+      </div>
+    </main>
+  );
+}
 
 const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
   loading: () => (
@@ -33,13 +46,9 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
 
   if (!session) {
     return (
-      <main className={styles.page}>
-        <div className={styles.main}>
-          <h1 className={styles.title}>{t('title')}</h1>
-          <p className={styles.subtitle}>{t('subtitle')}</p>
-          <EmptyState />
-        </div>
-      </main>
+      <PageShell t={t}>
+        <EmptyState />
+      </PageShell>
     );
   }
 
@@ -56,48 +65,25 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   const avg = total ? Math.round(totalTime / total) : 0;
 
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'var(--g-spacing-6)',
-          maxWidth: 800,
-          width: '100%',
-          margin: '0 auto',
-          padding: 'var(--se-space-12) var(--g-spacing-6) var(--g-spacing-6)',
-        }}
-      >
-        <h1 style={{ margin: 0 }}>{t('title')}</h1>
-        <p
-          style={{
-            margin: 0,
-            color: 'var(--g-color-text-secondary)',
-            fontSize: 'var(--se-font-size-sm)',
-          }}
-        >
-          {t('subtitle')}
-        </p>
+    <PageShell t={t}>
+      {total > 0 && (
+        <>
+          <AnalyticsCards
+            totalRequests={t('totalRequests', { count: total })}
+            successful={successful}
+            errored={errored}
+            totalTime={totalTime}
+            avgDuration={avg}
+            successfulLabel={t('analytics.successful')}
+            failedLabel={t('analytics.failed')}
+            totalTimeLabel={t('analytics.totalTime')}
+            avgDurationLabel={t('analytics.avgDuration')}
+          />
+          <HistoryActions clearAllLabel={t('clearAll')} />
+        </>
+      )}
 
-        {total > 0 && (
-          <>
-            <AnalyticsCards
-              totalRequests={t('totalRequests', { count: total })}
-              successful={successful}
-              errored={errored}
-              totalTime={totalTime}
-              avgDuration={avg}
-              successfulLabel={t('analytics.successful')}
-              failedLabel={t('analytics.failed')}
-              totalTimeLabel={t('analytics.totalTime')}
-              avgDurationLabel={t('analytics.avgDuration')}
-            />
-            <HistoryActions clearAllLabel={t('clearAll')} />
-          </>
-        )}
-
-        <HistoryContent entries={entries} lng={lng} />
-      </div>
-    </main>
+      <HistoryContent entries={entries} lng={lng} />
+    </PageShell>
   );
 }
