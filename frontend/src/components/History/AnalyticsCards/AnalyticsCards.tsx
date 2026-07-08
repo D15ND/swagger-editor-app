@@ -2,7 +2,7 @@
 
 import { Flex, Text, Card } from '@gravity-ui/uikit';
 import { formatDuration } from '@/lib/history';
-import styles from './history.module.css';
+import styles from './AnalyticsCards.module.css';
 
 type Props = {
   totalRequests: string;

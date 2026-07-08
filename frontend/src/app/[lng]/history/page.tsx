@@ -3,12 +3,19 @@ import dynamic from 'next/dynamic';
 import { getSession } from '@/lib/auth';
 import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
-import HistoryActions from './HistoryActions';
-import AnalyticsCards from './AnalyticsCards';
-import styles from './history.module.css';
+import AnalyticsCards from '@/components/History/AnalyticsCards';
+import HistoryActions from '@/components/History/HistoryActions';
 
-const HistoryContent = dynamic(() => import('./HistoryContent'), {
-  loading: () => <div className={styles.skeleton} />,
+const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
+  loading: () => (
+    <div
+      style={{
+        height: 320,
+        background: 'var(--g-color-base-generic)',
+        borderRadius: 'var(--se-radius-xl)',
+      }}
+    />
+  ),
 });
 
 export async function generateMetadata() {
@@ -37,10 +44,28 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   const avg = total ? Math.round(totalTime / total) : 0;
 
   return (
-    <main className={styles.page}>
-      <div className={styles.main}>
-        <h1 className={styles.title}>{t('title')}</h1>
-        <p className={styles.subtitle}>{t('subtitle')}</p>
+    <main style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--g-spacing-6)',
+          maxWidth: 800,
+          width: '100%',
+          margin: '0 auto',
+          padding: 'var(--se-space-12) var(--g-spacing-6) var(--g-spacing-6)',
+        }}
+      >
+        <h1 style={{ margin: 0 }}>{t('title')}</h1>
+        <p
+          style={{
+            margin: 0,
+            color: 'var(--g-color-text-secondary)',
+            fontSize: 'var(--se-font-size-sm)',
+          }}
+        >
+          {t('subtitle')}
+        </p>
 
         {total > 0 && (
           <>
