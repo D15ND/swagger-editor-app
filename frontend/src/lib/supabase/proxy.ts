@@ -1,11 +1,14 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import { supabaseConfig } from './constants';
+import { getSupabaseConfig } from './constants';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
+  const config = getSupabaseConfig();
 
-  const supabase = createServerClient(supabaseConfig.url, supabaseConfig.publishableKey, {
+  if (!config) return { supabase: null, supabaseResponse, user: null };
+
+  const supabase = createServerClient(config.url, config.publishableKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();

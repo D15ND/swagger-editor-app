@@ -1,12 +1,32 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/lib/supabase/server';
+import { ReactNode } from 'react';
+import { Text } from '@gravity-ui/uikit';
+import { getSession } from '@/lib/auth';
+import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
-import HistoryActions from './HistoryActions';
-import AnalyticsCards from './AnalyticsCards';
+import AnalyticsCards from '@/components/History/AnalyticsCards';
+import HistoryActions from '@/components/History/HistoryActions';
+import EmptyState from '@/components/History/EmptyState';
 import styles from './history.module.css';
 
-const HistoryContent = dynamic(() => import('./HistoryContent'), {
+function PageShell({ t, children }: { t: (key: string) => string; children: ReactNode }) {
+  return (
+    <main className={styles.page}>
+      <div className={styles.main}>
+        <Text as="h1" variant="header-2" className={styles.title}>
+          {t('title')}
+        </Text>
+        <Text variant="body-1" color="secondary">
+          {t('subtitle')}
+        </Text>
+        {children}
+      </div>
+    </main>
+  );
+}
+
+const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
   loading: () => <div className={styles.skeleton} />,
 });
 
@@ -17,19 +37,21 @@ export async function generateMetadata() {
 
 export default async function HistoryPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng } = await params;
+  const { t } = await getT('history', { lng });
 
-  const supabase = await createClient();
-  const { data: authData } = await supabase.auth.getClaims();
-  const userId = authData?.claims?.sub ?? null;
+  const session = await getSession();
 
-  const { data: rows } = await supabase
-    .from('request_logs')
-    .select('*')
-    .eq('user_id', userId ?? '')
-    .order('timestamp', { ascending: false })
-    .limit(15);
+  if (!session) {
+    return (
+      <PageShell t={t}>
+        <EmptyState />
+      </PageShell>
+    );
+  }
 
-  const entries = (rows ?? []).map(toHistoryEntry);
+  const entries = (
+    await fetchHistoryRows(session.supabase, session.user.id, 15).catch(() => [])
+  ).map(toHistoryEntry);
 
   const total = entries.length;
   const totalTime = entries.reduce((s, e) => s + e.duration, 0);
@@ -39,33 +61,26 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   const errored = entries.filter((e) => e.error !== null).length;
   const avg = total ? Math.round(totalTime / total) : 0;
 
-  const { t } = await getT('history', { lng });
-
   return (
-    <main className={styles.page}>
-      <div className={styles.main}>
-        <h1 className={styles.title}>{t('title')}</h1>
-        <p className={styles.subtitle}>{t('subtitle')}</p>
+    <PageShell t={t}>
+      {total > 0 && (
+        <>
+          <AnalyticsCards
+            totalRequests={t('totalRequests', { count: total })}
+            successful={successful}
+            errored={errored}
+            totalTime={totalTime}
+            avgDuration={avg}
+            successfulLabel={t('analytics.successful')}
+            failedLabel={t('analytics.failed')}
+            totalTimeLabel={t('analytics.totalTime')}
+            avgDurationLabel={t('analytics.avgDuration')}
+          />
+          <HistoryActions clearAllLabel={t('clearAll')} />
+        </>
+      )}
 
-        {total > 0 && (
-          <>
-            <AnalyticsCards
-              totalRequests={t('totalRequests', { count: total })}
-              successful={successful}
-              errored={errored}
-              totalTime={totalTime}
-              avgDuration={avg}
-              successfulLabel={t('analytics.successful')}
-              failedLabel={t('analytics.failed')}
-              totalTimeLabel={t('analytics.totalTime')}
-              avgDurationLabel={t('analytics.avgDuration')}
-            />
-            <HistoryActions clearAllLabel={t('clearAll')} />
-          </>
-        )}
-
-        <HistoryContent entries={entries} lng={lng} />
-      </div>
-    </main>
+      <HistoryContent entries={entries} lng={lng} />
+    </PageShell>
   );
 }

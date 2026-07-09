@@ -1,0 +1,26 @@
+{
+  "title": "Swagger Editor",
+  "fileName": "schema",
+  "format": {
+    "json": "JSON",
+    "yaml": "YAML"
+  },
+  "status": {
+    "valid": "Valid schema",
+    "invalid": "Invalid schema"
+  },
+  "actions": {
+    "convertToJson": "Convert to JSON",
+    "convertToYaml": "Convert to YAML",
+    "loadExample": "Load example"
+  },
+  "errors": {
+    "title": "Validation errors",
+    "invalidSchema": "Invalid schema.",
+    "cannotConvert": "Cannot convert invalid schema.",
+    "cannotConvertValidation": "Cannot convert invalid schema. Fix validation errors first."
+  },
+  "aria": {
+    "editor": "OpenAPI schema editor"
+  }
+}

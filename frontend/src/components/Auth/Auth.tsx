@@ -14,7 +14,11 @@ const signInSchema = z.object({
 
 type SignInFormData = z.infer<typeof signInSchema>;
 
-function Auth() {
+type AuthProps = {
+  mode?: 'signin' | 'signup';
+};
+
+function Auth({ mode = 'signin' }: AuthProps) {
   const { t } = useT('auth');
 
   const {
@@ -31,7 +35,9 @@ function Auth() {
 
   return (
     <div className={styles.content}>
-      <h4 className={styles.title}>{t('title')}</h4>
+      <Text as="h4" className={styles.title}>
+        {t('title')}
+      </Text>
       <Text className={styles.description}>{t('description')}</Text>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <TextInput

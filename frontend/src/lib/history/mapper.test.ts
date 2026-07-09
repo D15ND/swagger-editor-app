@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { toHistoryEntry } from '.';
-import type { RequestLogRow } from '@/lib/supabase/types';
+import type { LogRow } from '@/lib/supabase/types';
 
-const baseRow: RequestLogRow = {
+const baseRow: LogRow = {
   id: 'abc-123',
   user_id: 'user-1',
   method: 'POST',
@@ -34,7 +34,7 @@ describe('toHistoryEntry', () => {
   });
 
   it('maps error string when present', () => {
-    const row: RequestLogRow = { ...baseRow, error: 'Timeout' };
+    const row: LogRow = { ...baseRow, error: 'Timeout' };
 
     const entry = toHistoryEntry(row);
 
@@ -42,7 +42,7 @@ describe('toHistoryEntry', () => {
   });
 
   it('parses timestamp string to number', () => {
-    const row: RequestLogRow = { ...baseRow, timestamp: '2025-01-01T00:00:00Z' };
+    const row: LogRow = { ...baseRow, timestamp: '2025-01-01T00:00:00Z' };
 
     const entry = toHistoryEntry(row);
 
@@ -50,7 +50,7 @@ describe('toHistoryEntry', () => {
   });
 
   it('handles GET method', () => {
-    const row: RequestLogRow = { ...baseRow, method: 'GET' };
+    const row: LogRow = { ...baseRow, method: 'GET' };
 
     const entry = toHistoryEntry(row);
 
@@ -58,7 +58,7 @@ describe('toHistoryEntry', () => {
   });
 
   it('handles zero duration', () => {
-    const row: RequestLogRow = { ...baseRow, duration: 0 };
+    const row: LogRow = { ...baseRow, duration: 0 };
 
     const entry = toHistoryEntry(row);
 

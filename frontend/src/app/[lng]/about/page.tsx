@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Card, Label } from '@gravity-ui/uikit';
+import { Avatar, Card, Label, Link, Text } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 
 import styles from './about.module.css';
@@ -60,27 +60,29 @@ export default function AboutPage() {
           {t('badge')}
         </Label>
 
-        <h1>{t('title')}</h1>
+        <Text as="h1">{t('title')}</Text>
 
-        <p>{t('subtitle')}</p>
+        <Text>{t('subtitle')}</Text>
       </section>
 
       <section className={styles.infoGrid} aria-label="Project information">
         <Card className={styles.card}>
-          <h2>{t('rsSchool.title')}</h2>
+          <Text as="h2">{t('rsSchool.title')}</Text>
 
-          <p>{t('rsSchool.description')}</p>
+          <Text>{t('rsSchool.description')}</Text>
 
-          <a className={styles.link} href="https://rs.school/" target="_blank" rel="noreferrer">
+          <Link className={styles.link} href="https://rs.school/" target="_blank" rel="noreferrer">
             {t('rsSchool.link')}
-            <span aria-hidden="true">↗</span>
-          </a>
+            <Text as="span" aria-hidden="true">
+              ↗
+            </Text>
+          </Link>
         </Card>
 
         <Card className={styles.card}>
-          <h2>{t('technologies.title')}</h2>
+          <Text as="h2">{t('technologies.title')}</Text>
 
-          <p>{t('technologies.description')}</p>
+          <Text>{t('technologies.description')}</Text>
 
           <div className={styles.tags}>
             {technologies.map((technology) => (
@@ -93,7 +95,7 @@ export default function AboutPage() {
       </section>
 
       <section className={styles.teamCard}>
-        <h2>{t('team.title')}</h2>
+        <Text as="h2">{t('team.title')}</Text>
 
         <div className={styles.teamGrid}>
           {teamMembers.map((member) => (
@@ -105,18 +107,18 @@ export default function AboutPage() {
                 className={styles.avatar}
               />
 
-              <h3>{member.name}</h3>
+              <Text as="h3">{member.name}</Text>
 
-              <p>{t(`team.roles.${member.roleKey}`)}</p>
+              <Text>{t(`team.roles.${member.roleKey}`)}</Text>
 
-              <a
+              <Link
                 className={styles.githubLink}
                 href={`https://github.com/${member.github}`}
                 target="_blank"
                 rel="noreferrer"
               >
                 @{member.github}
-              </a>
+              </Link>
             </article>
           ))}
         </div>

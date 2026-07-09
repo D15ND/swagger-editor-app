@@ -2,8 +2,9 @@ import { FileQuestion, House } from '@gravity-ui/icons';
 import { getT } from 'next-i18next/server';
 
 import LocalizedLink from '@/components/LocalizedLink';
-import { GoBackButton } from './go-back-button';
+import { GoBackButton } from '@/components/GoBackButton';
 import styles from './not-found.module.css';
+import { Text } from '@gravity-ui/uikit';
 
 export default async function NotFoundPage() {
   const { t } = await getT('notFound');
@@ -18,11 +19,11 @@ export default async function NotFoundPage() {
           <FileQuestion className={styles.icon} />
         </div>
 
-        <h1>{t('title')}</h1>
+        <Text as="h1">{t('title')}</Text>
 
-        <h2>{t('subtitle')}</h2>
+        <Text as="h2">{t('subtitle')}</Text>
 
-        <p>{t('description')}</p>
+        <Text>{t('description')}</Text>
 
         <div className={styles.actions}>
           <GoBackButton>{t('goBack')}</GoBackButton>
