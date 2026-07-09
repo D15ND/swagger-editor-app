@@ -31,6 +31,9 @@ vi.mock('next-i18next/client', () => ({
         'status.invalid': 'Invalid schema',
         'actions.convertToJson': 'Convert to JSON',
         'actions.convertToYaml': 'Convert to YAML',
+        'actions.save': 'Save',
+        'save.success': 'Schema saved successfully',
+        'save.error': 'Failed to save schema',
         'errors.title': 'Validation errors',
         'errors.invalidSchema': 'Invalid schema.',
         'errors.cannotConvert': 'Cannot convert invalid schema.',
@@ -42,9 +45,23 @@ vi.mock('next-i18next/client', () => ({
   }),
 }));
 
+const defaultProps = {
+  canSave: false,
+  saveStatus: null,
+  onSave: vi.fn(),
+};
+
 describe('SwaggerEditor', () => {
   it('renders editor with format, filename and valid status', () => {
-    render(<SwaggerEditor source={DEFAULT_SCHEMA} format="json" errors={[]} onChange={vi.fn()} />);
+    render(
+      <SwaggerEditor
+        source={DEFAULT_SCHEMA}
+        format="json"
+        errors={[]}
+        onChange={vi.fn()}
+        {...defaultProps}
+      />,
+    );
 
     expect(screen.getByText('JSON')).toBeInTheDocument();
     expect(screen.getByText('schema.json')).toBeInTheDocument();
@@ -63,6 +80,7 @@ describe('SwaggerEditor', () => {
         format="json"
         errors={['Schema must contain "paths" object.']}
         onChange={vi.fn()}
+        {...defaultProps}
       />,
     );
 
@@ -82,7 +100,15 @@ info:
 paths: {}
 `;
 
-    render(<SwaggerEditor source={DEFAULT_SCHEMA} format="json" errors={[]} onChange={onChange} />);
+    render(
+      <SwaggerEditor
+        source={DEFAULT_SCHEMA}
+        format="json"
+        errors={[]}
+        onChange={onChange}
+        {...defaultProps}
+      />,
+    );
 
     fireEvent.change(
       screen.getByRole('textbox', {
@@ -113,7 +139,15 @@ paths: {}
   it('calls onChange with errors after editing invalid schema', () => {
     const onChange = vi.fn();
 
-    render(<SwaggerEditor source={DEFAULT_SCHEMA} format="json" errors={[]} onChange={onChange} />);
+    render(
+      <SwaggerEditor
+        source={DEFAULT_SCHEMA}
+        format="json"
+        errors={[]}
+        onChange={onChange}
+        {...defaultProps}
+      />,
+    );
 
     fireEvent.change(
       screen.getByRole('textbox', {
@@ -141,7 +175,15 @@ paths: {}
   it('converts JSON schema to YAML', () => {
     const onChange = vi.fn();
 
-    render(<SwaggerEditor source={DEFAULT_SCHEMA} format="json" errors={[]} onChange={onChange} />);
+    render(
+      <SwaggerEditor
+        source={DEFAULT_SCHEMA}
+        format="json"
+        errors={[]}
+        onChange={onChange}
+        {...defaultProps}
+      />,
+    );
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -167,6 +209,7 @@ paths: {}
         format="json"
         errors={['Schema must contain "paths" object.']}
         onChange={vi.fn()}
+        {...defaultProps}
       />,
     );
 
