@@ -23,6 +23,26 @@ vi.mock('next-i18next/server', () => ({
   }),
 }));
 
+vi.mock('next-i18next/client', () => ({
+  useT: () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        'signin.title': 'Welcome back',
+        'signin.description': 'Enter your credentials to access your saved schemas.',
+        'signin.submit': 'Sign In',
+        email: 'email',
+        password: 'password',
+        enterPassword: 'Enter password',
+        emailError: 'Please enter a valid email address',
+        passError: 'Password is required',
+        emailPlaceholder: 'your@email.com',
+      };
+
+      return translations[key] ?? key;
+    },
+  }),
+}));
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
 }));
