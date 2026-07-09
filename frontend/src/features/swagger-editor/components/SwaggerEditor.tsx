@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@gravity-ui/uikit';
+import { Button, Text } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 
 import type { OpenApiDocument, SchemaFormat } from '../types';
@@ -125,7 +125,7 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
 
         {errors.length > 0 && (
           <div className={styles.errorBox}>
-            <h2>{t('errors.title')}</h2>
+            <Text as="h2">{t('errors.title')}</Text>
 
             <ul>
               {errors.map((error) => (
