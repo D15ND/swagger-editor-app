@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 
@@ -17,16 +18,28 @@ type SwaggerEditorProps = {
   source: string;
   format: SchemaFormat;
   errors: string[];
+  canSave: boolean;
+  saveStatus: 'success' | 'error' | null;
   onChange: (payload: {
     source: string;
     format: SchemaFormat;
     document: OpenApiDocument | null;
     errors: string[];
   }) => void;
+  onSave: () => void;
 };
 
-export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEditorProps) {
+export function SwaggerEditor({
+  source,
+  format,
+  errors,
+  canSave,
+  saveStatus,
+  onChange,
+  onSave,
+}: SwaggerEditorProps) {
   const { t } = useT('swaggerEditor');
+  const [saving, setSaving] = useState(false);
   const isValid = errors.length === 0;
 
   function handleChange(value: string) {
@@ -87,6 +100,12 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
     }
   }
 
+  async function handleSave() {
+    setSaving(true);
+    await onSave();
+    setSaving(false);
+  }
+
   const convertButtonText =
     format === 'json' ? t('actions.convertToYaml') : t('actions.convertToJson');
 
@@ -112,6 +131,22 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
             <Button view="outlined" size="m" disabled={!isValid} onClick={handleFormatSwitch}>
               {convertButtonText}
             </Button>
+
+            {canSave && (
+              <>
+                <Button view="outlined" size="m" loading={saving} onClick={handleSave}>
+                  {t('actions.save')}
+                </Button>
+
+                {saveStatus === 'success' && (
+                  <span className={styles.saveSuccess}>{t('save.success')}</span>
+                )}
+
+                {saveStatus === 'error' && (
+                  <span className={styles.saveError}>{t('save.error')}</span>
+                )}
+              </>
+            )}
           </div>
         </div>
 
