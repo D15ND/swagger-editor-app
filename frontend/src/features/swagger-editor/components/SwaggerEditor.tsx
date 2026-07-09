@@ -91,50 +91,48 @@ export function SwaggerEditor({ source, format, errors, onChange }: SwaggerEdito
     format === 'json' ? t('actions.convertToYaml') : t('actions.convertToJson');
 
   return (
-    <main className={styles.page}>
-      <section className={styles.editorPanel}>
-        <div className={styles.toolbar}>
-          <div className={styles.fileInfo}>
-            <span className={styles.formatBadge}>
-              {format === 'json' ? t('format.json') : t('format.yaml')}
-            </span>
+    <section className={styles.editorPanel}>
+      <div className={styles.toolbar}>
+        <div className={styles.fileInfo}>
+          <span className={styles.formatBadge}>
+            {format === 'json' ? t('format.json') : t('format.yaml')}
+          </span>
 
-            <span className={styles.fileName}>
-              {t('fileName')}.{format === 'json' ? 'json' : 'yaml'}
-            </span>
-          </div>
-
-          <div className={styles.actions}>
-            <span className={isValid ? styles.validStatus : styles.invalidStatus}>
-              {isValid ? t('status.valid') : t('status.invalid')}
-            </span>
-
-            <Button view="outlined" size="m" disabled={!isValid} onClick={handleFormatSwitch}>
-              {convertButtonText}
-            </Button>
-          </div>
+          <span className={styles.fileName}>
+            {t('fileName')}.{format === 'json' ? 'json' : 'yaml'}
+          </span>
         </div>
 
-        <textarea
-          className={styles.textarea}
-          value={source}
-          spellCheck={false}
-          aria-label={t('aria.editor')}
-          onChange={(event) => handleChange(event.target.value)}
-        />
+        <div className={styles.actions}>
+          <span className={isValid ? styles.validStatus : styles.invalidStatus}>
+            {isValid ? t('status.valid') : t('status.invalid')}
+          </span>
 
-        {errors.length > 0 && (
-          <div className={styles.errorBox}>
-            <Text as="h2">{t('errors.title')}</Text>
+          <Button view="outlined" size="m" disabled={!isValid} onClick={handleFormatSwitch}>
+            {convertButtonText}
+          </Button>
+        </div>
+      </div>
 
-            <ul>
-              {errors.map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </section>
-    </main>
+      <textarea
+        className={styles.textarea}
+        value={source}
+        spellCheck={false}
+        aria-label={t('aria.editor')}
+        onChange={(event) => handleChange(event.target.value)}
+      />
+
+      {errors.length > 0 && (
+        <div className={styles.errorBox}>
+          <Text as="h2">{t('errors.title')}</Text>
+
+          <ul>
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
   );
 }
