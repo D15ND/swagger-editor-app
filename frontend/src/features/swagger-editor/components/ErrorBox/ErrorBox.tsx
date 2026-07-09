@@ -2,6 +2,7 @@
 
 import { useT } from 'next-i18next/client';
 import styles from '../SwaggerEditor/swagger-editor.module.css';
+import { Text } from '@gravity-ui/uikit';
 
 type ErrorBoxProps = {
   errors: string[];
@@ -14,7 +15,7 @@ export function ErrorBox({ errors }: ErrorBoxProps) {
 
   return (
     <div className={styles.errorBox}>
-      <h2>{t('errors.title')}</h2>
+      <Text as="h2">{t('errors.title')}</Text>
       <ul>
         {errors.map((error) => (
           <li key={error}>{error}</li>
