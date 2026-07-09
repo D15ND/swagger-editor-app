@@ -4,13 +4,11 @@ import { getSupabaseConfig } from './constants';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
-  const { url, publishableKey } = getSupabaseConfig();
+  const config = getSupabaseConfig();
 
-  if (!url || !publishableKey) {
-    return { supabase: null, supabaseResponse, user: null };
-  }
+  if (!config) return { supabase: null, supabaseResponse, user: null };
 
-  const supabase = createServerClient(url, publishableKey, {
+  const supabase = createServerClient(config.url, config.publishableKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();

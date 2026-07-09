@@ -2,11 +2,9 @@ import { createBrowserClient } from '@supabase/ssr';
 import { getSupabaseConfig } from './constants';
 
 export function createClient() {
-  const { url, publishableKey } = getSupabaseConfig();
+  const config = getSupabaseConfig();
 
-  if (!url || !publishableKey) {
-    return null;
-  }
+  if (!config) return null;
 
-  return createBrowserClient(url, publishableKey);
+  return createBrowserClient(config.url, config.publishableKey);
 }
