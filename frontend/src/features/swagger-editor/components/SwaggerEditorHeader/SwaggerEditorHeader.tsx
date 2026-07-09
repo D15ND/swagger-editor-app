@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Button } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 
-import type { SchemaFormat } from '../types';
-import styles from './swagger-editor.module.css';
+import type { SchemaFormat } from '../../types';
+import styles from '../SwaggerEditor/swagger-editor.module.css';
 
 type SwaggerEditorHeaderProps = {
   format: SchemaFormat;

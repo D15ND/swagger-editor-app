@@ -1,7 +1,7 @@
 'use client';
 
 import { useT } from 'next-i18next/client';
-import styles from './swagger-editor.module.css';
+import styles from '../SwaggerEditor/swagger-editor.module.css';
 
 type ErrorBoxProps = {
   errors: string[];

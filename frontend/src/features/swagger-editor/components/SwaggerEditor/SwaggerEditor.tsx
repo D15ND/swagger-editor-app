@@ -2,7 +2,7 @@
 
 import { useT } from 'next-i18next/client';
 
-import type { SchemaFormat } from '../types';
+import type { SchemaFormat } from '../../types';
 import styles from './swagger-editor.module.css';
 
 type SwaggerEditorProps = {

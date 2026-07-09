@@ -4,14 +4,19 @@ import { useState } from 'react';
 
 import { useT } from 'next-i18next/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { DEFAULT_SCHEMA } from '../constants';
-import type { SchemaState } from '../types';
-import { convertSchemaFormat, getNextSchemaFormat, parseSchema, parseSchemaState } from '../utils';
-import { validateOpenApiDocument } from '../validation';
-import { ErrorBox } from './ErrorBox';
-import { SwaggerEditor } from './SwaggerEditor';
-import { SwaggerEditorHeader } from './SwaggerEditorHeader';
-import styles from './swagger-editor.module.css';
+import { DEFAULT_SCHEMA } from '../../constants';
+import type { SchemaState } from '../../types';
+import {
+  convertSchemaFormat,
+  getNextSchemaFormat,
+  parseSchema,
+  parseSchemaState,
+} from '../../utils';
+import { validateOpenApiDocument } from '../../validation';
+import { ErrorBox } from '../ErrorBox';
+import { SwaggerEditor } from '../SwaggerEditor';
+import { SwaggerEditorHeader } from '../SwaggerEditorHeader';
+import styles from '../SwaggerEditor/swagger-editor.module.css';
 
 type SwaggerEditorContainerProps = {
   initialSchema?: string;
