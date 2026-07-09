@@ -54,11 +54,11 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
     }
   }
 
-  async function handleSave(content: string) {
+  async function handleSave() {
     const response = await fetch('/api/schema', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content: schemaState.source }),
     });
 
     if (!response.ok) throw new Error('Failed to save');
@@ -68,7 +68,6 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
     <main className={styles.page}>
       <section className={styles.editorPanel}>
         <SwaggerEditorHeader
-          source={schemaState.source}
           format={schemaState.format}
           isValid={schemaState.errors.length === 0}
           canSave={!!user}

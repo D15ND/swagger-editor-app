@@ -8,16 +8,14 @@ import type { SchemaFormat } from '../types';
 import styles from './swagger-editor.module.css';
 
 type SwaggerEditorHeaderProps = {
-  source: string;
   format: SchemaFormat;
   isValid: boolean;
   canSave: boolean;
   onConvert: () => void;
-  onSave: (content: string) => Promise<void>;
+  onSave: () => Promise<void>;
 };
 
 export function SwaggerEditorHeader({
-  source,
   format,
   isValid,
   canSave,
@@ -35,7 +33,7 @@ export function SwaggerEditorHeader({
     setSaving(true);
     setSaveStatus(null);
     try {
-      await onSave(source);
+      await onSave();
       setSaveStatus('success');
       setTimeout(() => setSaveStatus(null), 3000);
     } catch {
