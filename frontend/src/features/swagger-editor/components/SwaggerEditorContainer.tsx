@@ -8,6 +8,7 @@ import { DEFAULT_SCHEMA } from '../constants';
 import type { SchemaState } from '../types';
 import { convertSchemaFormat, getNextSchemaFormat, parseSchema, parseSchemaState } from '../utils';
 import { validateOpenApiDocument } from '../validation';
+import { ErrorBox } from './ErrorBox';
 import { SwaggerEditor } from './SwaggerEditor';
 import { SwaggerEditorHeader } from './SwaggerEditorHeader';
 import styles from './swagger-editor.module.css';
@@ -78,20 +79,10 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
         <SwaggerEditor
           source={schemaState.source}
           format={schemaState.format}
-          errors={schemaState.errors}
           onChange={handleChange}
         />
 
-        {schemaState.errors.length > 0 && (
-          <div className={styles.errorBox}>
-            <h2>{t('errors.title')}</h2>
-            <ul>
-              {schemaState.errors.map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <ErrorBox errors={schemaState.errors} />
       </section>
     </main>
   );

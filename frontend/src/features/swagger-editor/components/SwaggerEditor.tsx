@@ -8,15 +8,15 @@ import styles from './swagger-editor.module.css';
 type SwaggerEditorProps = {
   source: string;
   format: SchemaFormat;
-  errors: string[];
   onChange: (value: string) => void;
 };
 
-export function SwaggerEditor({ source, errors, onChange }: SwaggerEditorProps) {
+export function SwaggerEditor({ source, onChange }: SwaggerEditorProps) {
   const { t } = useT('swaggerEditor');
 
   return (
     <textarea
+      id="swagger-editor"
       className={styles.textarea}
       value={source}
       spellCheck={false}

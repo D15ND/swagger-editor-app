@@ -17,9 +17,7 @@ vi.mock('next-i18next/client', () => ({
 
 describe('SwaggerEditor', () => {
   it('renders textarea with source', () => {
-    render(
-      <SwaggerEditor source='{"openapi": "3.0.0"}' format="json" errors={[]} onChange={vi.fn()} />,
-    );
+    render(<SwaggerEditor source='{"openapi": "3.0.0"}' format="json" onChange={vi.fn()} />);
 
     expect(
       screen.getByRole('textbox', {
@@ -31,7 +29,7 @@ describe('SwaggerEditor', () => {
   it('calls onChange with new value', () => {
     const onChange = vi.fn();
 
-    render(<SwaggerEditor source="" format="json" errors={[]} onChange={onChange} />);
+    render(<SwaggerEditor source="" format="json" onChange={onChange} />);
 
     fireEvent.change(
       screen.getByRole('textbox', {
