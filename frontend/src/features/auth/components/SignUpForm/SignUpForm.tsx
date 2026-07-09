@@ -4,37 +4,29 @@ import { Button, Spin, TextInput } from '@gravity-ui/uikit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useT } from 'next-i18next/client';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import styles from './AuthForm.module.css';
+import { signUpSchema, type SignUpFormData } from '@/features/auth/schemas';
+import styles from './SignUpForm.module.css';
 
-const authSchema = z.object({
-  email: z.string().email('emailError'),
-  password: z.string().min(1, 'passError'),
-});
-
-export type AuthFormData = z.infer<typeof authSchema>;
-
-type AuthProps = {
-  onSubmit: (data: AuthFormData) => Promise<void>;
-  submitLabel: string;
+type SignUpFormProps = {
+  onSubmit: (data: SignUpFormData) => Promise<void>;
 };
 
-function AuthForm({ onSubmit, submitLabel }: AuthProps) {
+function SignUpForm({ onSubmit }: SignUpFormProps) {
   const { t } = useT('auth');
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<AuthFormData>({
-    resolver: zodResolver(authSchema),
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
   });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <TextInput
         type="email"
-        placeholder="your@email.com"
+        placeholder={t('emailPlaceholder')}
         label={t('email')}
         {...register('email')}
         error={errors.email?.message ? t(errors.email.message) : undefined}
@@ -46,11 +38,18 @@ function AuthForm({ onSubmit, submitLabel }: AuthProps) {
         {...register('password')}
         error={errors.password?.message ? t(errors.password.message) : undefined}
       />
+      <TextInput
+        type="password"
+        placeholder={t('confirmPasswordPlaceholder')}
+        label={t('confirmPassword')}
+        {...register('confirmPassword')}
+        error={errors.confirmPassword?.message ? t(errors.confirmPassword.message) : undefined}
+      />
       <Button type="submit" view="action" width="max" disabled={isSubmitting}>
-        {isSubmitting ? <Spin size="s" /> : submitLabel}
+        {isSubmitting ? <Spin size="s" /> : t('signup.submit')}
       </Button>
     </form>
   );
 }
 
-export default AuthForm;
+export default SignUpForm;
