@@ -3,8 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 
 import SignInPage from './page';
 
-vi.mock('next-i18next/client', () => ({
-  useT: () => ({
+vi.mock('next-i18next/server', () => ({
+  getT: async () => ({
     t: (key: string) => {
       const translations: Record<string, string> = {
         'signin.title': 'Welcome back',
@@ -25,7 +25,6 @@ vi.mock('next-i18next/client', () => ({
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
-  useParams: () => ({ lng: 'en' }),
 }));
 
 vi.mock('@/lib/supabase/client', () => ({
@@ -34,7 +33,7 @@ vi.mock('@/lib/supabase/client', () => ({
 
 describe('SignInPage', () => {
   it('renders the auth form for the sign-in route', async () => {
-    render(await SignInPage());
+    render(await SignInPage({ params: Promise.resolve({ lng: 'en' }) }));
 
     expect(screen.getByRole('heading', { name: 'Welcome back' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Sign In' })).toBeInTheDocument();

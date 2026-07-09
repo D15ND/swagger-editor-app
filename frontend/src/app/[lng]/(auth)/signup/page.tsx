@@ -1,35 +1,11 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import { getT } from 'next-i18next/server';
 import { Text } from '@gravity-ui/uikit';
-import { useT } from 'next-i18next/client';
-import { createClient } from '@/lib/supabase/client';
-import AuthForm, { type AuthFormData } from '@/components/AuthForm/AuthForm';
-import styles from '../auth.module.css';
+import SignUpHandler from './SignUpHandler';
+import styles from '../layout.module.css';
 
-export default function SignUpPage() {
-  const { t } = useT('auth');
-  const router = useRouter();
-  const { lng } = useParams<{ lng: string }>();
-  const supabase = createClient();
-
-  const handleSubmit = async (data: AuthFormData) => {
-    if (!supabase) return;
-
-    const { error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-    });
-
-    if (error) {
-      console.error('Sign up error:', error);
-      return;
-    }
-
-    router.push(`/${lng}`);
-    router.refresh();
-  };
+export default async function SignUpPage({ params }: { params: Promise<{ lng: string }> }) {
+  const { lng } = await params;
+  const { t } = await getT('auth', { lng });
 
   return (
     <>
@@ -39,7 +15,7 @@ export default function SignUpPage() {
       <Text variant="body-1" color="secondary" className={styles.description}>
         {t('signup.description')}
       </Text>
-      <AuthForm onSubmit={handleSubmit} submitLabel={t('signup.submit')} />
+      <SignUpHandler lng={lng} />
     </>
   );
 }
