@@ -33,10 +33,15 @@ vi.mock('@/components/LocalizedLink', () => ({
   ),
 }));
 
-vi.mock('@gravity-ui/icons', () => ({
-  FileQuestion: () => <span data-testid="file-question-icon" />,
-  House: () => <span data-testid="home-icon" />,
-}));
+vi.mock(import('@gravity-ui/icons'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    FileQuestion: () => <span data-testid="file-question-icon" />,
+    House: () => <span data-testid="home-icon" />,
+  };
+});
 
 describe('NotFoundPage', () => {
   it('renders not found content', async () => {

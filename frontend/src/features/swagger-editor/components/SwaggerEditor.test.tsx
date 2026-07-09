@@ -18,6 +18,13 @@ vi.mock('@gravity-ui/uikit', () => ({
       {children}
     </button>
   ),
+  Text: ({
+    children,
+    as: Component = 'span',
+  }: {
+    children: React.ReactNode;
+    as?: React.ElementType;
+  }) => <Component>{children}</Component>,
 }));
 
 vi.mock('next-i18next/client', () => ({
