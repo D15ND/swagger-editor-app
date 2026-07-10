@@ -24,21 +24,14 @@ export function SwaggerEditorHeader({
 }: SwaggerEditorHeaderProps) {
   const { t } = useT('swaggerEditor');
   const [saving, setSaving] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<'success' | 'error' | null>(null);
 
   const convertButtonText =
     format === 'json' ? t('actions.convertToYaml') : t('actions.convertToJson');
 
   async function handleSave() {
     setSaving(true);
-    setSaveStatus(null);
     try {
       await onSave();
-      setSaveStatus('success');
-      setTimeout(() => setSaveStatus(null), 3000);
-    } catch {
-      setSaveStatus('error');
-      setTimeout(() => setSaveStatus(null), 3000);
     } finally {
       setSaving(false);
     }
@@ -66,17 +59,9 @@ export function SwaggerEditorHeader({
         </Button>
 
         {canSave && (
-          <>
-            <Button view="outlined" size="m" loading={saving} onClick={handleSave}>
-              {t('actions.save')}
-            </Button>
-
-            {saveStatus === 'success' && (
-              <span className={styles.saveSuccess}>{t('save.success')}</span>
-            )}
-
-            {saveStatus === 'error' && <span className={styles.saveError}>{t('save.error')}</span>}
-          </>
+          <Button view="outlined" size="m" loading={saving} onClick={handleSave}>
+            {t('actions.save')}
+          </Button>
         )}
       </div>
     </div>
