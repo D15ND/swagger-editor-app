@@ -14,8 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     const data = await fetchHistoryRows(session.supabase, session.user.id, limit);
     return NextResponse.json(data);
-  } catch (error) {
-    console.error('GET /api/history:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch history' }, { status: 500 });
   }
 }
@@ -46,8 +45,7 @@ export async function POST(request: NextRequest) {
       error: body.error ?? null,
     });
     return NextResponse.json({ ok: true }, { status: 201 });
-  } catch (error) {
-    console.error('POST /api/history:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to insert history' }, { status: 500 });
   }
 }
@@ -59,8 +57,7 @@ export async function DELETE() {
   try {
     await deleteAllHistory(session.supabase, session.user.id);
     return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error('DELETE /api/history:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to clear history' }, { status: 500 });
   }
 }
