@@ -1,3 +1,9 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .content {
   display: flex;
   flex: 1;
@@ -7,21 +13,13 @@
   margin: 0 auto;
   max-width: 500px;
   width: 100%;
+  padding: 0 var(--g-spacing-6);
 }
 
 .title {
-  font-size: 40px;
-  margin-bottom: 15px;
+  margin-bottom: var(--g-spacing-4);
 }
 
 .description {
-  margin-bottom: 24px;
-  font-size: 16px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
+  margin-bottom: var(--g-spacing-6);
 }
