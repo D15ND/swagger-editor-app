@@ -1,4 +1,5 @@
 export const HISTORY_TABLE = 'request_logs';
+export const SCHEMA_TABLE = 'saved_schemas';
 
 export function getSupabaseConfig(): { url: string; publishableKey: string } | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();

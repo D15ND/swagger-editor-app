@@ -25,3 +25,15 @@ export type LogInsert = {
   url: string;
   user_id: string;
 };
+
+export type SavedSchemaRow = {
+  user_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SavedSchemaInsert = {
+  user_id: string;
+  content: string;
+};
