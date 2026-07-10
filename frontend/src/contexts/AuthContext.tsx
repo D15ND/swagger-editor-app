@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     if (!supabase) {
-      return;
+      throw new Error('supabase client not available');
     }
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     if (!supabase) {
-      return;
+      throw new Error('supabase client not available');
     }
 
     const { error } = await supabase.auth.signUp({ email, password });
@@ -61,8 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     if (!supabase) {
-      router.refresh();
-      return;
+      throw new Error('supabase client not available');
     }
 
     const { error } = await supabase.auth.signOut();

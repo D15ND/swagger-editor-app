@@ -1,9 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { useT } from 'next-i18next/client';
+import { useAuth } from '@/contexts/AuthContext';
 import { type SignInFormData } from '@/features/auth/schemas';
 import SignInForm from '@/features/auth/components/SignInForm/SignInForm';
+import { useNotify } from '@/hooks/useNotify';
 
 type SignInHandlerProps = {
   lng: string;
@@ -11,23 +13,23 @@ type SignInHandlerProps = {
 
 export default function SignInHandler({ lng }: SignInHandlerProps) {
   const router = useRouter();
-  const supabase = createClient();
+  const { t } = useT('auth');
+  const { error } = useNotify();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (data: SignInFormData) => {
-    if (!supabase) return;
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    });
-
-    if (error) {
-      console.error('Sign in error:', error);
-      return;
+    try {
+      await signIn(data.email, data.password);
+      router.push(`/${lng}`);
+      router.refresh();
+    } catch (e) {
+      const message = (e as Error).message;
+      if (message === 'supabase client not available') {
+        error(t('authUnavailable'));
+      } else {
+        error(t('signinError'), message);
+      }
     }
-
-    router.push(`/${lng}`);
-    router.refresh();
   };
 
   return <SignInForm onSubmit={handleSubmit} />;
