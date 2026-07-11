@@ -6,6 +6,7 @@ import TryItOutPanel from '../TryItOutPanel';
 import type { OpenApiMediaType, OpenApiParameter, SwaggerEndpoint } from '../types';
 import { groupParametersByLocation } from '../utils';
 import styles from './EndpointDetails.module.css';
+import { Card, Text } from '@gravity-ui/uikit';
 
 type EndpointDetailsProps = {
   endpoint: SwaggerEndpoint;
@@ -76,12 +77,16 @@ export function EndpointDetails({ endpoint, baseUrl }: EndpointDetailsProps) {
       {endpoint.description && <p className={styles.description}>{endpoint.description}</p>}
 
       <section className={styles.section}>
-        <h3>{t('parameters.title')}</h3>
+        <Text as="h3" variant="header-1">
+          {t('parameters.title')}
+        </Text>
 
         <div className={styles.parameterGroups}>
           {groupedParameters.map(({ location, parameters }) => (
             <div className={styles.parameterGroup} key={location}>
-              <h4>{t(`parameters.${location}`)}</h4>
+              <Text as="h4" variant="subheader-1" className={styles.locationTitle}>
+                {t(`parameters.${location}`)}
+              </Text>
               <ParameterTable parameters={parameters} t={t} />
             </div>
           ))}
@@ -110,14 +115,16 @@ export function EndpointDetails({ endpoint, baseUrl }: EndpointDetailsProps) {
         {responseEntries.length > 0 ? (
           <div className={styles.responses}>
             {responseEntries.map(([statusCode, response]) => (
-              <article className={styles.responseCard} key={statusCode}>
+              <Card view="outlined" size="m" className={styles.responseCard} key={statusCode}>
                 <div className={styles.responseHeader}>
                   <span className={styles.statusCode}>{statusCode}</span>
-                  <p>{response.description || t('endpoint.noDescription')}</p>
+                  <Text as="p" variant="body-2">
+                    {response.description || t('endpoint.noDescription')}
+                  </Text>
                 </div>
 
                 {renderMediaTypeBlocks(response.content, t)}
-              </article>
+              </Card>
             ))}
           </div>
         ) : (

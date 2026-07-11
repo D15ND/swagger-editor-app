@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button, Card, Text } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
 
 import { EndpointDetails } from '../EndpointDetails';
@@ -18,15 +19,28 @@ export function EndpointCard({ endpoint, baseUrl }: EndpointCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <article className={`${styles.card} ${styles[endpoint.method]}`}>
-      <button className={styles.header} type="button" onClick={() => setIsOpen((value) => !value)}>
+    <Card view="outlined" size="l" className={`${styles.card} ${styles[endpoint.method]}`}>
+      <Button
+        view="flat"
+        size="xl"
+        width="max"
+        className={styles.header}
+        onClick={() => setIsOpen((value) => !value)}
+      >
         <span className={styles.method}>{getMethodLabel(endpoint.method)}</span>
-        <span className={styles.path}>{endpoint.path}</span>
-        <span className={styles.summary}>{endpoint.summary || t('endpoint.noSummary')}</span>
-        <span className={styles.chevron}>{isOpen ? '−' : '+'}</span>
-      </button>
+
+        <Text as="span" variant="body-2" className={styles.path}>
+          {endpoint.path}
+        </Text>
+
+        <Text as="span" variant="body-1" className={styles.summary}>
+          {endpoint.summary || t('endpoint.noSummary')}
+        </Text>
+
+        <span className={styles.chevron}>{isOpen ? '-' : '+'}</span>
+      </Button>
 
       {isOpen && <EndpointDetails endpoint={endpoint} baseUrl={baseUrl} />}
-    </article>
+    </Card>
   );
 }
