@@ -1,0 +1,24 @@
+.block {
+  display: grid;
+  gap: 8px;
+}
+
+.block h4 {
+  margin: 0;
+  color: var(--se-page-text-primary);
+  font-size: var(--se-font-size-sm);
+}
+
+.code {
+  overflow: auto;
+  max-height: 260px;
+  margin: 0;
+  padding: 14px;
+  color: var(--se-page-text-primary);
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid var(--se-card-border);
+  border-radius: var(--se-radius-lg);
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}

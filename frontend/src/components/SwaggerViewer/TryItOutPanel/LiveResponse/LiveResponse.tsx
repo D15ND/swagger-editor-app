@@ -1,8 +1,8 @@
 import { generateCurlCommand } from '@/lib/generate-curl';
-import type { HttpMethod } from '@/lib/types';
 import CodeBlockCard from './CodeBlockCard';
 import ServerResponse from './ServerResponse';
 import styles from './LiveResponse.module.css';
+import type { ProxyResponse, RequestState } from '../types';
 
 function formatResponseBody(body: string | null, contentType: string): string {
   if (body === null) return '';
@@ -17,18 +17,8 @@ function formatResponseBody(body: string | null, contentType: string): string {
 }
 
 type LiveResponseProps = {
-  request: {
-    method: HttpMethod;
-    url: string;
-    headers: Record<string, string>;
-    body: string | null;
-  };
-  response: {
-    status: number;
-    headers: Record<string, string>;
-    body: string | null;
-    error: string | null;
-  };
+  request: RequestState;
+  response: ProxyResponse;
 };
 
 export default function LiveResponse({ request, response }: LiveResponseProps) {

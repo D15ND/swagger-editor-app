@@ -1,6 +1,7 @@
 import { parse, stringify } from 'yaml';
 
-import type { OpenApiDocument, SchemaFormat, SchemaState } from './types';
+import type { OpenApiDocument } from '@/types/openapi';
+import type { SchemaFormat, SchemaState } from './types';
 import { validateOpenApiDocument } from './validation';
 
 function isRecord(value: unknown): value is Record<string, unknown> {

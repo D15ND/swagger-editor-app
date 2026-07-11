@@ -6,7 +6,7 @@ const i18nConfig: I18nConfig = {
   supportedLngs,
   fallbackLng: DEFAULT_LNG,
   defaultNS: 'common',
-  ns: ['common', 'home', 'about', 'auth', 'not-found', 'history', 'swaggerEditor'],
+  ns: ['common', 'home', 'about', 'auth', 'not-found', 'history', 'swaggerEditor', 'swaggerViewer'],
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   resourceLoader,
 };
