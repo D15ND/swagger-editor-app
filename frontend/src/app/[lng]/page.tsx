@@ -1,6 +1,6 @@
 import { getT } from 'next-i18next/server';
 
-import { SwaggerEditorContainer } from '@/features/swagger-editor/components/SwaggerEditorContainer';
+import { SwaggerWorkspace } from '@/components/SwaggerWorkspace';
 
 export async function generateMetadata() {
   const { t } = await getT('home');
@@ -11,5 +11,5 @@ export async function generateMetadata() {
 }
 
 export default function Home() {
-  return <SwaggerEditorContainer />;
+  return <SwaggerWorkspace />;
 }
