@@ -1,5 +1,6 @@
 import { formatJson } from '../utils';
 import styles from './SchemaBlock.module.css';
+import { Text } from '@gravity-ui/uikit';
 
 type SchemaBlockProps = {
   title: string;
@@ -13,7 +14,9 @@ export function SchemaBlock({ title, value }: SchemaBlockProps) {
 
   return (
     <div className={styles.block}>
-      <h4>{title}</h4>
+      <Text as="h4" variant="header-2">
+        {title}
+      </Text>
       <pre className={styles.code}>{formatJson(value)}</pre>
     </div>
   );
