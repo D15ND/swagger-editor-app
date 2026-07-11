@@ -1,3 +1,7 @@
+'use client';
+
+import { useT } from 'next-i18next/client';
+
 import { EndpointCard } from './EndpointCard';
 import type { OpenApiDocument } from './types';
 import { getBaseUrl, getDocumentTitle, getDocumentVersion, getEndpoints } from './utils';
@@ -8,11 +12,13 @@ type SwaggerViewerProps = {
 };
 
 export function SwaggerViewer({ document }: SwaggerViewerProps) {
+  const { t } = useT('swaggerViewer');
+
   if (!document) {
     return (
       <section className={styles.empty}>
-        <h2>Swagger Viewer</h2>
-        <p>Load a valid OpenAPI or Swagger schema to view endpoints.</p>
+        <h2>{t('title')}</h2>
+        <p>{t('empty.description')}</p>
       </section>
     );
   }
@@ -31,7 +37,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
         {document.info?.description && <p>{document.info.description}</p>}
 
         <div className={styles.baseUrl}>
-          <strong>Base URL</strong>
+          <strong>{t('api.baseUrl')}</strong>
           <code>{baseUrl}</code>
         </div>
       </div>
@@ -42,7 +48,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
             <EndpointCard endpoint={endpoint} baseUrl={baseUrl} key={endpoint.id} />
           ))
         ) : (
-          <p className={styles.noEndpoints}>No endpoints found in schema.</p>
+          <p className={styles.noEndpoints}>{t('api.noEndpoints')}</p>
         )}
       </div>
     </section>

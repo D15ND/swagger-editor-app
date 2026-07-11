@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useT } from 'next-i18next/client';
 
 import { EndpointDetails } from '../EndpointDetails';
 import type { SwaggerEndpoint } from '../types';
@@ -13,6 +14,7 @@ type EndpointCardProps = {
 };
 
 export function EndpointCard({ endpoint, baseUrl }: EndpointCardProps) {
+  const { t } = useT('swaggerViewer');
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,7 +22,7 @@ export function EndpointCard({ endpoint, baseUrl }: EndpointCardProps) {
       <button className={styles.header} type="button" onClick={() => setIsOpen((value) => !value)}>
         <span className={styles.method}>{getMethodLabel(endpoint.method)}</span>
         <span className={styles.path}>{endpoint.path}</span>
-        <span className={styles.summary}>{endpoint.summary || 'No summary'}</span>
+        <span className={styles.summary}>{endpoint.summary || t('endpoint.noSummary')}</span>
         <span className={styles.chevron}>{isOpen ? '−' : '+'}</span>
       </button>
 

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { Button, Text } from '@gravity-ui/uikit';
-
+import { useT } from 'next-i18next/client';
 import type { HttpMethod } from '@/lib/types';
 import type { SwaggerEndpoint } from '../types';
 import LiveResponse from './LiveResponse';
@@ -79,6 +79,7 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
   const [isLoading, setIsLoading] = useState(false);
 
   const canSendBody = method !== 'GET' && method !== 'HEAD';
+  const { t } = useT('swaggerViewer');
 
   async function handleSend() {
     const nextRequest: RequestState = {
@@ -117,7 +118,7 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
         status: 0,
         headers: {},
         body: null,
-        error: error instanceof Error ? error.message : 'Request failed',
+        error: error instanceof Error ? error.message : t('tryItOut.requestFailed'),
       });
     } finally {
       setIsLoading(false);
@@ -128,21 +129,21 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
     <section className={styles.panel}>
       <div className={styles.header}>
         <Text as="h3" variant="header-1">
-          Try it out
+          {t('tryItOut.title')}
         </Text>
 
         <Button view="action" size="m" loading={isLoading} onClick={handleSend}>
-          Send
+          {t('tryItOut.send')}
         </Button>
       </div>
 
       <label className={styles.field}>
-        <span>Request URL</span>
+        <span>{t('tryItOut.requestUrl')}</span>
         <input value={url} onChange={(event) => setUrl(event.target.value)} />
       </label>
 
       <label className={styles.field}>
-        <span>Headers</span>
+        <span>{t('tryItOut.headers')}</span>
         <textarea
           rows={3}
           value={headers}
@@ -153,7 +154,7 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
 
       {canSendBody && (
         <label className={styles.field}>
-          <span>Body</span>
+          <span>{t('tryItOut.body')}</span>
           <textarea
             rows={6}
             value={body}
