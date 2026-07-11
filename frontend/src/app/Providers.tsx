@@ -1,5 +1,5 @@
 import ThemeProvider from '@/providers/ThemeProvider';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from '@/providers/AuthProvider';
 import I18nProvider from '@/providers/I18nProvider';
 
 export function Providers({ children, lng }: { children: React.ReactNode; lng: string }) {
