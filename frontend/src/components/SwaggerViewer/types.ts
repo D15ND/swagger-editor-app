@@ -1,5 +1,7 @@
 import type {
   HttpMethod,
+  OpenApiDocument,
+  OpenApiMediaType,
   OpenApiParameter,
   OpenApiRequestBody,
   OpenApiResponse,
@@ -8,16 +10,11 @@ import type {
 export type {
   HttpMethod,
   OpenApiDocument,
-  OpenApiExample,
   OpenApiMediaType,
-  OpenApiOperation,
   OpenApiParameter,
-  OpenApiPathItem,
   OpenApiRequestBody,
   OpenApiResponse,
-  OpenApiSchema,
-  ParameterLocation,
-} from '@/types/openapi';
+};
 
 export type SwaggerEndpoint = {
   id: string;

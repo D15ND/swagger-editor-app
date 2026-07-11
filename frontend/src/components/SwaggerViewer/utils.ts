@@ -3,9 +3,9 @@ import type {
   OpenApiDocument,
   OpenApiParameter,
   OpenApiPathItem,
-  OpenApiOperation,
-  SwaggerEndpoint,
-} from './types';
+} from '@/types/openapi';
+
+import type { SwaggerEndpoint } from './types';
 
 export const HTTP_METHODS: HttpMethod[] = [
   'get',
