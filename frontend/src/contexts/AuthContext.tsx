@@ -1,9 +1,7 @@
 'use client';
 
-import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 
 type AuthContextValue = {
   user: User | null;
@@ -13,68 +11,7 @@ type AuthContextValue = {
   signOut: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextValue | null>(null);
-
-const supabase = createClient();
-
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!supabase) {
-      return;
-    }
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const signIn = async (email: string, password: string) => {
-    if (!supabase) {
-      throw new Error('supabase client not available');
-    }
-
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-  };
-
-  const signUp = async (email: string, password: string) => {
-    if (!supabase) {
-      throw new Error('supabase client not available');
-    }
-
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) throw error;
-  };
-
-  const signOut = async () => {
-    if (!supabase) {
-      throw new Error('supabase client not available');
-    }
-
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    router.refresh();
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+export const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function useAuth() {
   const context = useContext(AuthContext);

@@ -4,9 +4,14 @@ import type { Metadata } from 'next';
 import { cookies, headers } from 'next/headers';
 import '../globals.css';
 import { Providers } from '../Providers';
-import I18nProvider from '@/providers/I18nProvider';
 import Header from '@/components/Header';
-import { STORAGE_KEY, HEADER_KEY, THEME_LIGHT, getThemeClass, type Theme } from '@/shared/theme';
+import {
+  STORAGE_KEY,
+  HEADER_KEY,
+  THEME_LIGHT,
+  getThemeClass,
+  type Theme,
+} from '@/lib/theme/shared';
 import Footer from '@/components/Footer';
 import styles from './layout.module.css';
 
@@ -37,14 +42,12 @@ export default async function RootLayout({
   return (
     <html lang={lng}>
       <body className={themeClass}>
-        <Providers>
-          <I18nProvider lng={lng}>
-            <div className={styles.layout}>
-              <Header />
-              {children}
-              <Footer />
-            </div>
-          </I18nProvider>
+        <Providers lng={lng}>
+          <div className={styles.layout}>
+            <Header />
+            {children}
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

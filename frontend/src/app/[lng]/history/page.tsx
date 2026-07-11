@@ -1,30 +1,13 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
-import { ReactNode } from 'react';
-import { Text } from '@gravity-ui/uikit';
 import { getSession } from '@/lib/auth';
 import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
 import AnalyticsCards from '@/components/History/AnalyticsCards';
 import HistoryActions from '@/components/History/HistoryActions';
-import EmptyState from '@/components/History/EmptyState';
+import AuthRequired from '@/components/History/AuthRequired';
+import PageShell from '@/components/History/PageShell';
 import styles from './history.module.css';
-
-function PageShell({ t, children }: { t: (key: string) => string; children: ReactNode }) {
-  return (
-    <main className={styles.page}>
-      <div className={styles.main}>
-        <Text as="h1" variant="header-2" className={styles.title}>
-          {t('title')}
-        </Text>
-        <Text variant="body-1" color="secondary">
-          {t('subtitle')}
-        </Text>
-        {children}
-      </div>
-    </main>
-  );
-}
 
 const HistoryContent = dynamic(() => import('@/components/History/HistoryContent'), {
   loading: () => <div className={styles.skeleton} />,
@@ -44,7 +27,12 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   if (!session) {
     return (
       <PageShell t={t}>
-        <EmptyState />
+        <AuthRequired
+          title={t('loginRequired')}
+          hint={t('loginHint')}
+          signIn={t('signIn')}
+          lng={lng}
+        />
       </PageShell>
     );
   }

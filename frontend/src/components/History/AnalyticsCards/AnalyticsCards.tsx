@@ -33,7 +33,7 @@ export default function AnalyticsCards({
         {totalRequests}
       </Text>
 
-      <Flex gap="3" className={styles.cards}>
+      <Flex gap="3" wrap>
         <Card view="outlined" size="l" className={styles.card}>
           <Text variant="caption-1" color="secondary">
             {successfulLabel}
