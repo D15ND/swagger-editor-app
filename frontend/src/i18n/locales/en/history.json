@@ -8,6 +8,8 @@
   "totalRequests_one": "{{count}} request",
   "totalRequests_other": "{{count}} requests",
   "clearAll": "Clear all",
+  "clearSuccess": "History cleared",
+  "clearError": "Failed to clear history",
   "analytics": {
     "endpoint": "Endpoint",
     "method": "Method",

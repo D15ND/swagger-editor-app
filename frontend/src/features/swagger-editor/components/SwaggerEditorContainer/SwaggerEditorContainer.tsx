@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { useT } from 'next-i18next/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNotify } from '@/hooks/useNotify';
 import { DEFAULT_SCHEMA } from '../../constants';
 import type { SchemaState } from '../../types';
 import {
@@ -14,9 +15,9 @@ import {
 } from '../../utils';
 import { validateOpenApiDocument } from '../../validation';
 import { ErrorBox } from '../ErrorBox';
-import { SwaggerEditor } from '../SwaggerEditor';
 import { SwaggerEditorHeader } from '../SwaggerEditorHeader';
 import styles from '../SwaggerEditor/swagger-editor.module.css';
+import { SwaggerEditor } from '../SwaggerEditor';
 
 type SwaggerEditorContainerProps = {
   initialSchema?: string;
@@ -25,6 +26,7 @@ type SwaggerEditorContainerProps = {
 export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainerProps) {
   const { t } = useT('swaggerEditor');
   const { user } = useAuth();
+  const { success, error } = useNotify();
   const [schemaState, setSchemaState] = useState<SchemaState>(() =>
     parseSchemaState(initialSchema ?? DEFAULT_SCHEMA),
   );
@@ -60,13 +62,19 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
   }
 
   async function handleSave() {
-    const response = await fetch('/api/schema', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: schemaState.source }),
-    });
+    try {
+      const response = await fetch('/api/schema', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: schemaState.source }),
+      });
 
-    if (!response.ok) throw new Error('Failed to save');
+      if (!response.ok) throw new Error('save failed');
+
+      success(t('save.success'));
+    } catch {
+      error(t('save.error'));
+    }
   }
 
   return (

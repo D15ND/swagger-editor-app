@@ -62,16 +62,6 @@
   color: var(--se-status-error);
 }
 
-.saveSuccess {
-  color: var(--se-status-success);
-  font-size: var(--se-font-size-sm);
-}
-
-.saveError {
-  color: var(--se-status-error);
-  font-size: var(--se-font-size-sm);
-}
-
 .textarea {
   width: 100%;
   height: 100%;
