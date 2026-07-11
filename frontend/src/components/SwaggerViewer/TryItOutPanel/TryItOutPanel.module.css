@@ -43,3 +43,17 @@
   resize: vertical;
   font-family: Monaco, 'Courier New', monospace;
 }
+
+.parameters {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: var(--se-card-bg);
+  border: 1px solid var(--se-card-border);
+  border-radius: var(--se-radius-lg);
+}
+
+.parameters h4 {
+  margin: 0;
+  color: var(--se-page-text-primary);
+}
