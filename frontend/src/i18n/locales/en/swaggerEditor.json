@@ -12,7 +12,12 @@
   "actions": {
     "convertToJson": "Convert to JSON",
     "convertToYaml": "Convert to YAML",
-    "loadExample": "Load example"
+    "loadExample": "Load example",
+    "save": "Save"
+  },
+  "save": {
+    "success": "Schema saved successfully",
+    "error": "Failed to save schema"
   },
   "errors": {
     "title": "Validation errors",

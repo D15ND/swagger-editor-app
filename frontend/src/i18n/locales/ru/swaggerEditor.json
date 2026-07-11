@@ -12,7 +12,12 @@
   "actions": {
     "convertToJson": "Конвертировать в JSON",
     "convertToYaml": "Конвертировать в YAML",
-    "loadExample": "Загрузить пример"
+    "loadExample": "Загрузить пример",
+    "save": "Сохранить"
+  },
+  "save": {
+    "success": "Схема успешно сохранена",
+    "error": "Не удалось сохранить схему"
   },
   "errors": {
     "title": "Ошибки валидации",
