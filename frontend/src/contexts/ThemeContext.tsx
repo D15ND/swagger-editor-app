@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import type { Theme } from '@/shared/theme';
+import type { Theme } from '@/lib/theme/shared';
 
 type ThemeContextType = {
   theme: Theme;

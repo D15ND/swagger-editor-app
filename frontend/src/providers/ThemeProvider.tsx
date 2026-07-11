@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react';
 import { ThemeProvider as GravityThemeProvider } from '@gravity-ui/uikit';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import { STORAGE_KEY, THEME_DARK, THEME_LIGHT, type Theme } from '@/shared/theme';
+import { STORAGE_KEY, THEME_DARK, THEME_LIGHT, type Theme } from '@/lib/theme/shared';
 
 function getStoredTheme(): Theme {
   try {

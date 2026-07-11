@@ -5,7 +5,13 @@ import { cookies, headers } from 'next/headers';
 import '../globals.css';
 import { Providers } from '../Providers';
 import Header from '@/components/Header';
-import { STORAGE_KEY, HEADER_KEY, THEME_LIGHT, getThemeClass, type Theme } from '@/shared/theme';
+import {
+  STORAGE_KEY,
+  HEADER_KEY,
+  THEME_LIGHT,
+  getThemeClass,
+  type Theme,
+} from '@/lib/theme/shared';
 import Footer from '@/components/Footer';
 import styles from './layout.module.css';
 
