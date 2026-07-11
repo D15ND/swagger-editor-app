@@ -1,0 +1,61 @@
+{
+  "title": "Swagger Viewer",
+  "empty": {
+    "description": "Загрузите валидную OpenAPI или Swagger схему, чтобы увидеть endpoints."
+  },
+  "api": {
+    "baseUrl": "Base URL",
+    "noEndpoints": "Endpoints в схеме не найдены."
+  },
+  "endpoint": {
+    "noSummary": "Без описания",
+    "noDescription": "Описание отсутствует."
+  },
+  "parameters": {
+    "title": "Параметры",
+    "empty": "Параметров нет.",
+    "name": "Имя",
+    "required": "Обязательный",
+    "schema": "Схема",
+    "description": "Описание",
+    "yes": "Да",
+    "no": "Нет",
+    "path": "path",
+    "query": "query",
+    "header": "header",
+    "cookie": "cookie"
+  },
+  "requestBody": {
+    "title": "Тело запроса",
+    "empty": "Тело запроса отсутствует.",
+    "required": "Обязательное"
+  },
+  "responses": {
+    "title": "Ответы",
+    "empty": "Ответы не описаны.",
+    "body": "Тело ответа",
+    "headers": "Заголовки ответа",
+    "serverResponse": "Ответ сервера",
+    "status": "Статус",
+    "error": "Ошибка"
+  },
+  "media": {
+    "empty": "Схема content не указана.",
+    "schema": "Схема",
+    "example": "Пример",
+    "examples": "Примеры"
+  },
+  "tryItOut": {
+    "title": "Try it out",
+    "send": "Отправить",
+    "requestUrl": "URL запроса",
+    "headers": "Заголовки",
+    "body": "Body",
+    "requestFailed": "Запрос не выполнен"
+  },
+  "liveResponse": {
+    "curl": "cURL",
+    "requestUrl": "URL запроса",
+    "cantParseJson": "Не удалось распарсить JSON. Сырой результат:"
+  }
+}
