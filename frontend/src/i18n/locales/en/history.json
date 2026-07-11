@@ -4,6 +4,9 @@
   "emptyTitle": "No requests yet",
   "emptyHint": "Open an API specification and use Try-It-Out to execute your first request. Your request history will appear here.",
   "goToEditor": "Go to Editor",
+  "loginRequired": "Sign in required",
+  "loginHint": "Please sign in to view your request history and analytics.",
+  "signIn": "Sign In",
 
   "totalRequests_one": "{{count}} request",
   "totalRequests_other": "{{count}} requests",
