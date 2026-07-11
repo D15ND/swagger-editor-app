@@ -30,9 +30,8 @@ export async function proxy(request: NextRequest) {
   const isAuth = authRoutes.some((r) => stripped.startsWith(r));
 
   if (isPrivate || isAuth) {
-    const { user, supabaseResponse } = await updateSession(request);
-
-    if (!user && isPrivate) {
+    const { user, supabaseResponse, timedOut } = await updateSession(request);
+    if (!user && isPrivate && !timedOut) {
       const url = request.nextUrl.clone();
       url.pathname = `/${lng}`;
       return NextResponse.redirect(url);
