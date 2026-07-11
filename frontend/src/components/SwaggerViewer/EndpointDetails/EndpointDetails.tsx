@@ -1,10 +1,12 @@
 import { SchemaBlock } from '../SchemaBlock';
+import TryItOutPanel from '../TryItOutPanel';
 import type { OpenApiMediaType, OpenApiParameter, SwaggerEndpoint } from '../types';
 import { groupParametersByLocation } from '../utils';
 import styles from './EndpointDetails.module.css';
 
 type EndpointDetailsProps = {
   endpoint: SwaggerEndpoint;
+  baseUrl: string;
 };
 
 function renderMediaTypeBlocks(content: Record<string, OpenApiMediaType> | undefined) {
@@ -56,7 +58,7 @@ function ParameterTable({ parameters }: { parameters: OpenApiParameter[] }) {
   );
 }
 
-export function EndpointDetails({ endpoint }: EndpointDetailsProps) {
+export function EndpointDetails({ endpoint, baseUrl }: EndpointDetailsProps) {
   const groupedParameters = groupParametersByLocation(endpoint.parameters);
   const responseEntries = Object.entries(endpoint.responses);
 
@@ -111,6 +113,8 @@ export function EndpointDetails({ endpoint }: EndpointDetailsProps) {
           <p className={styles.emptyText}>No responses documented.</p>
         )}
       </section>
+
+      <TryItOutPanel key={`${baseUrl}-${endpoint.id}`} endpoint={endpoint} baseUrl={baseUrl} />
     </div>
   );
 }

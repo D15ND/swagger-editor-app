@@ -18,6 +18,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
   }
 
   const endpoints = getEndpoints(document);
+  const baseUrl = getBaseUrl(document);
 
   return (
     <section className={styles.viewer}>
@@ -31,13 +32,15 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
 
         <div className={styles.baseUrl}>
           <strong>Base URL</strong>
-          <code>{getBaseUrl(document)}</code>
+          <code>{baseUrl}</code>
         </div>
       </div>
 
       <div className={styles.endpointList}>
         {endpoints.length > 0 ? (
-          endpoints.map((endpoint) => <EndpointCard endpoint={endpoint} key={endpoint.id} />)
+          endpoints.map((endpoint) => (
+            <EndpointCard endpoint={endpoint} baseUrl={baseUrl} key={endpoint.id} />
+          ))
         ) : (
           <p className={styles.noEndpoints}>No endpoints found in schema.</p>
         )}

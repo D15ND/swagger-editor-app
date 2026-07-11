@@ -9,9 +9,10 @@ import styles from './EndpointCard.module.css';
 
 type EndpointCardProps = {
   endpoint: SwaggerEndpoint;
+  baseUrl: string;
 };
 
-export function EndpointCard({ endpoint }: EndpointCardProps) {
+export function EndpointCard({ endpoint, baseUrl }: EndpointCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,7 +24,7 @@ export function EndpointCard({ endpoint }: EndpointCardProps) {
         <span className={styles.chevron}>{isOpen ? '−' : '+'}</span>
       </button>
 
-      {isOpen && <EndpointDetails endpoint={endpoint} />}
+      {isOpen && <EndpointDetails endpoint={endpoint} baseUrl={baseUrl} />}
     </article>
   );
 }
