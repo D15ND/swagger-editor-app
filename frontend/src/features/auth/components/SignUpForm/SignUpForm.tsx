@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Spin, TextInput } from '@gravity-ui/uikit';
+import { Button, Spin, TextInput, PasswordInput } from '@gravity-ui/uikit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useT } from 'next-i18next/client';
 import { useForm } from 'react-hook-form';
@@ -31,15 +31,13 @@ function SignUpForm({ onSubmit }: SignUpFormProps) {
         {...register('email')}
         error={errors.email?.message ? t(errors.email.message) : undefined}
       />
-      <TextInput
-        type="password"
+      <PasswordInput
         placeholder={t('enterPassword')}
         label={t('password')}
         {...register('password')}
         error={errors.password?.message ? t(errors.password.message) : undefined}
       />
-      <TextInput
-        type="password"
+      <PasswordInput
         placeholder={t('confirmPasswordPlaceholder')}
         label={t('confirmPassword')}
         {...register('confirmPassword')}
