@@ -13,6 +13,8 @@
   "totalRequests_many": "{{count}} запросов",
   "totalRequests_other": "{{count}} запросов",
   "clearAll": "Очистить всё",
+  "clearSuccess": "История очищена",
+  "clearError": "Не удалось очистить историю",
   "analytics": {
     "endpoint": "Endpoint",
     "method": "Метод",
