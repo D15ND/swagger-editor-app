@@ -6,6 +6,7 @@ import { EndpointCard } from './EndpointCard';
 import type { OpenApiDocument } from './types';
 import { getBaseUrl, getDocumentTitle, getDocumentVersion, getEndpoints } from './utils';
 import styles from './SwaggerViewer.module.css';
+import { Text } from '@gravity-ui/uikit';
 
 type SwaggerViewerProps = {
   document: OpenApiDocument | null;
@@ -17,8 +18,12 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
   if (!document) {
     return (
       <section className={styles.empty}>
-        <h2>{t('title')}</h2>
-        <p>{t('empty.description')}</p>
+        <Text as="h2" variant="header-1">
+          {t('title')}
+        </Text>
+        <Text as="p" variant="body-1">
+          {t('empty.description')}
+        </Text>
       </section>
     );
   }
@@ -30,11 +35,17 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
     <section className={styles.viewer}>
       <div className={styles.apiCard}>
         <div className={styles.apiHeader}>
-          <h2>{getDocumentTitle(document)}</h2>
+          <Text as="h2" variant="header-1">
+            {getDocumentTitle(document)}
+          </Text>
           <span>{getDocumentVersion(document)}</span>
         </div>
 
-        {document.info?.description && <p>{document.info.description}</p>}
+        {document.info?.description && (
+          <Text as="p" variant="body-1">
+            {document.info.description}
+          </Text>
+        )}
 
         <div className={styles.baseUrl}>
           <strong>{t('api.baseUrl')}</strong>

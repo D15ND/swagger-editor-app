@@ -1,7 +1,5 @@
 .card {
   overflow: hidden;
-  border: 1px solid var(--se-card-border);
-  border-radius: var(--se-radius-xl);
   background: var(--se-card-bg);
 }
 
@@ -13,10 +11,6 @@
   width: 100%;
   min-height: 64px;
   padding: 12px 18px;
-  color: inherit;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
   text-align: left;
 }
 
@@ -39,7 +33,6 @@
 .summary {
   overflow: hidden;
   color: var(--se-page-text-secondary);
-  font-size: var(--se-font-size-base);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
