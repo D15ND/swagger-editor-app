@@ -1,12 +1,13 @@
-'use client';
-
 import ThemeProvider from '@/providers/ThemeProvider';
 import { AuthProvider } from '@/contexts/AuthContext';
+import I18nProvider from '@/providers/I18nProvider';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children, lng }: { children: React.ReactNode; lng: string }) {
   return (
     <ThemeProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <I18nProvider lng={lng}>{children}</I18nProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
