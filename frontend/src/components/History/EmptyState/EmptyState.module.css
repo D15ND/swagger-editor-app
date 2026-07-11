@@ -2,10 +2,6 @@
   padding: var(--se-space-16) var(--g-spacing-6);
 }
 
-.inner {
-  gap: var(--g-spacing-3);
-}
-
 .icon {
   color: var(--g-color-text-secondary);
   opacity: 0.5;
@@ -13,7 +9,6 @@
 }
 
 .hint {
-  color: var(--g-color-text-secondary);
   max-width: 400px;
   text-align: center;
 }

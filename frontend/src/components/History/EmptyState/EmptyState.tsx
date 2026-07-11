@@ -11,12 +11,12 @@ export default function EmptyState() {
 
   return (
     <Card className={styles.card} view="outlined" size="l">
-      <Flex direction="column" alignItems="center" className={styles.inner}>
+      <Flex direction="column" alignItems="center" gap="3">
         <Icon data={Clock} size={48} className={styles.icon} />
         <Text variant="header-1" as="h2">
           {t('emptyTitle')}
         </Text>
-        <Text variant="body-2" className={styles.hint}>
+        <Text variant="body-2" color="secondary" className={styles.hint}>
           {t('emptyHint')}
         </Text>
         <LocalizedLink href="/">
