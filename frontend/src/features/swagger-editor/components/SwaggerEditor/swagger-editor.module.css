@@ -110,6 +110,34 @@
     linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px), var(--se-card-bg);
 }
 
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--se-page-bg);
+}
+
+.editorPanel,
+.viewerPanel {
+  min-width: 0;
+  min-height: 0;
+}
+
+.editorPanel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  background: var(--se-card-bg);
+  border-right: 1px solid var(--se-card-border);
+}
+
+.viewerPanel {
+  overflow: auto;
+  background: var(--se-page-bg);
+}
+
 @media (max-width: 720px) {
   .toolbar {
     align-items: flex-start;

@@ -17,6 +17,7 @@ import { ErrorBox } from '../ErrorBox';
 import { SwaggerEditor } from '../SwaggerEditor';
 import { SwaggerEditorHeader } from '../SwaggerEditorHeader';
 import styles from '../SwaggerEditor/swagger-editor.module.css';
+import { SwaggerViewer } from '@/components/SwaggerViewer';
 
 type SwaggerEditorContainerProps = {
   initialSchema?: string;
@@ -28,6 +29,7 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
   const [schemaState, setSchemaState] = useState<SchemaState>(() =>
     parseSchemaState(initialSchema ?? DEFAULT_SCHEMA),
   );
+  const viewerDocument = schemaState.errors.length === 0 ? schemaState.document : null;
 
   function handleChange(value: string) {
     setSchemaState(parseSchemaState(value));
@@ -70,7 +72,7 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
   }
 
   return (
-    <main className={styles.page}>
+    <main className={styles.workspace}>
       <section className={styles.editorPanel}>
         <SwaggerEditorHeader
           format={schemaState.format}
@@ -87,6 +89,10 @@ export function SwaggerEditorContainer({ initialSchema }: SwaggerEditorContainer
         />
 
         <ErrorBox errors={schemaState.errors} />
+      </section>
+
+      <section className={styles.viewerPanel}>
+        <SwaggerViewer document={viewerDocument} />
       </section>
     </main>
   );

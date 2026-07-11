@@ -1,6 +1,7 @@
 import type {
   HttpMethod,
   OpenApiDocument,
+  OpenApiOperation,
   OpenApiParameter,
   OpenApiPathItem,
 } from '@/types/openapi';
