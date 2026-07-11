@@ -1,19 +1,26 @@
 import { getT } from 'next-i18next/server';
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
-import { Text } from '@gravity-ui/uikit';
 import { getSession } from '@/lib/auth';
 import { fetchHistoryRows } from '@/lib/history/queries';
 import { toHistoryEntry } from '@/lib/history/mapper';
 import AnalyticsCards from '@/components/History/AnalyticsCards';
 import HistoryActions from '@/components/History/HistoryActions';
-import EmptyState from '@/components/History/EmptyState';
+import LocalizedLink from '@/components/LocalizedLink';
+import {
+  Card,
+  Flex,
+  Text,
+  Button,
+  Icon,
+} from '@gravity-ui/uikit';
+import { Lock } from '@gravity-ui/icons';
 import styles from './history.module.css';
 
 function PageShell({ t, children }: { t: (key: string) => string; children: ReactNode }) {
   return (
-    <main className={styles.page}>
-      <div className={styles.main}>
+    <Flex as="main" direction="column" className={styles.page}>
+      <Flex direction="column" gap="6" className={styles.main}>
         <Text as="h1" variant="header-2" className={styles.title}>
           {t('title')}
         </Text>
@@ -21,8 +28,8 @@ function PageShell({ t, children }: { t: (key: string) => string; children: Reac
           {t('subtitle')}
         </Text>
         {children}
-      </div>
-    </main>
+      </Flex>
+    </Flex>
   );
 }
 
@@ -44,7 +51,22 @@ export default async function HistoryPage({ params }: { params: Promise<{ lng: s
   if (!session) {
     return (
       <PageShell t={t}>
-        <EmptyState />
+        <Card view="outlined" size="l" className={styles.authCard}>
+          <Flex direction="column" alignItems="center" className={styles.authInner}>
+            <Icon data={Lock} size={48} className={styles.authIcon} />
+            <Text variant="header-1" as="h2">
+              {t('loginRequired')}
+            </Text>
+            <Text variant="body-2" className={styles.authHint}>
+              {t('loginHint')}
+            </Text>
+            <LocalizedLink href={`/${lng}/signin`}>
+              <Button view="action" size="l">
+                {t('signIn')}
+              </Button>
+            </LocalizedLink>
+          </Flex>
+        </Card>
       </PageShell>
     );
   }

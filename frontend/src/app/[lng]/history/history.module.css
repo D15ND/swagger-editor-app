@@ -1,14 +1,9 @@
 .page {
-  display: flex;
-  flex-direction: column;
   flex: 1;
   min-width: 0;
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--g-spacing-6);
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
@@ -36,4 +31,24 @@
   height: 320px;
   background: var(--g-color-base-generic);
   border-radius: var(--se-radius-xl);
+}
+
+.authCard {
+  padding: var(--se-space-16) var(--g-spacing-6);
+}
+
+.authInner {
+  gap: var(--g-spacing-3);
+}
+
+.authIcon {
+  color: var(--g-color-text-secondary);
+  opacity: 0.5;
+  margin-bottom: var(--g-spacing-2);
+}
+
+.authHint {
+  color: var(--g-color-text-secondary);
+  max-width: 400px;
+  text-align: center;
 }
