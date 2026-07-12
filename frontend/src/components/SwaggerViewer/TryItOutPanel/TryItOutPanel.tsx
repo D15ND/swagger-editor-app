@@ -3,6 +3,9 @@
 import { useMemo, useState } from 'react';
 import { Button, Text } from '@gravity-ui/uikit';
 import { useT } from 'next-i18next/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNotify } from '@/hooks/useNotify';
+import { extractPath } from '@/lib/history';
 import type { HttpMethod } from '@/lib/types';
 import type { SwaggerEndpoint } from '../types';
 import LiveResponse from './LiveResponse';
@@ -67,7 +70,6 @@ function normalizeHeaders(value: string): Record<string, string> {
       return headers;
     }, {});
 }
-
 export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps) {
   const method = endpoint.method.toUpperCase() as HttpMethod;
   const initialUrl = useMemo(() => joinUrl(baseUrl, endpoint.path), [baseUrl, endpoint.path]);
@@ -80,6 +82,38 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
 
   const canSendBody = method !== 'GET' && method !== 'HEAD';
   const { t } = useT('swaggerViewer');
+  const { user } = useAuth();
+  const { success: notifySuccess, error: notifyError } = useNotify();
+  async function logToHistory(duration: number, req: RequestState, res: ProxyResponse) {
+    const requestSize = new Blob([JSON.stringify(req)]).size;
+    const responseSize = res.body ? new Blob([res.body]).size : 0;
+    const endpoint = extractPath(req.url);
+
+    try {
+      const historyRes = await fetch('/api/history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          method: req.method,
+          url: req.url,
+          endpoint,
+          status: res.status,
+          duration,
+          request_size: requestSize,
+          response_size: responseSize,
+          error: res.error,
+        }),
+      });
+
+      if (historyRes.ok) {
+        notifySuccess(t('tryItOut.historySaved'));
+      } else {
+        notifyError(t('tryItOut.historySaveFailed'));
+      }
+    } catch {
+      notifyError(t('tryItOut.historySaveFailed'));
+    }
+  }
 
   async function handleSend() {
     const nextRequest: RequestState = {
@@ -93,6 +127,8 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
     setResponse(null);
     setIsLoading(true);
 
+    const startTime = performance.now();
+
     try {
       const proxyResponse = await fetch('/api/proxy', {
         method: 'POST',
@@ -101,25 +137,29 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
         },
         body: JSON.stringify(nextRequest),
       });
+      const duration = performance.now() - startTime;
       const data = (await proxyResponse.json()) as ProxyResponse | { error: string };
 
-      if ('status' in data) {
-        setResponse(data);
-      } else {
-        setResponse({
-          status: 0,
-          headers: {},
-          body: null,
-          error: data.error,
-        });
+      const parsedResponse: ProxyResponse =
+        'status' in data ? data : { status: 0, headers: {}, body: null, error: data.error };
+
+      setResponse(parsedResponse);
+      if (user) {
+        logToHistory(Math.round(duration), nextRequest, parsedResponse);
       }
     } catch (error) {
-      setResponse({
+      const duration = performance.now() - startTime;
+      const errorResponse: ProxyResponse = {
         status: 0,
         headers: {},
         body: null,
         error: error instanceof Error ? error.message : t('tryItOut.requestFailed'),
-      });
+      };
+
+      setResponse(errorResponse);
+      if (user) {
+        logToHistory(Math.round(duration), nextRequest, errorResponse);
+      }
     } finally {
       setIsLoading(false);
     }
