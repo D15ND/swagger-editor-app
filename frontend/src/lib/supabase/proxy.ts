@@ -2,8 +2,10 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { getSupabaseConfig } from './constants';
 
+const AUTH_COOKIE_PATTERN = /^sb-.+-auth-token(-\d+)?$/;
+
 function hasAuthCookie(request: NextRequest) {
-  return request.cookies.getAll().some((c) => /^sb-.+-auth-token(-\d+)?$/.test(c.name));
+  return request.cookies.getAll().some((c) => AUTH_COOKIE_PATTERN.test(c.name));
 }
 
 export async function updateSession(request: NextRequest) {
