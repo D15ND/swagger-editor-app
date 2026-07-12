@@ -51,7 +51,9 @@
     "requestUrl": "Request URL",
     "headers": "Headers",
     "body": "Body",
-    "requestFailed": "Request failed"
+    "requestFailed": "Request failed",
+    "historySaved": "Request saved to history",
+    "historySaveFailed": "Failed to save request to history"
   },
   "liveResponse": {
     "curl": "cURL",

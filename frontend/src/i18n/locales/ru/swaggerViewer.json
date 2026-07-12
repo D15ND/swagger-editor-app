@@ -51,7 +51,9 @@
     "requestUrl": "URL запроса",
     "headers": "Заголовки",
     "body": "Body",
-    "requestFailed": "Запрос не выполнен"
+    "requestFailed": "Запрос не выполнен",
+    "historySaved": "Запрос сохранён в историю",
+    "historySaveFailed": "Не удалось сохранить запрос в историю"
   },
   "liveResponse": {
     "curl": "cURL",
