@@ -18,15 +18,15 @@ App deployed on Vercel: [swagger-editor-app-one.vercel.app](https://swagger-edit
 
 | Category | Technology |
 | --- | --- |
-| Framework | [Next.js](https://nextjs.org/) 16.2.9 (App Router) |
-| Language | [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/) 19.2.4 |
+| Framework | [Next.js](https://nextjs.org/) (App Router), [React 19](https://react.dev/) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
 | UI Kit | [Gravity UI](https://gravity-ui.com/) |
 | Testing | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/react) |
-| Linting | [ESLint 9](https://eslint.org/), [Prettier](https://prettier.io/) |
+| Linting | [ESLint](https://eslint.org/), [Prettier](https://prettier.io/) |
 | Git Hooks | [Husky](https://typicode.github.io/husky/), [lint-staged](https://github.com/lint-staged/lint-staged), [commitlint](https://commitlint.js.org/) (conventional commits) |
 | CI/CD | [GitHub Actions](https://docs.github.com/en/actions) (branch validation, PR title lint) |
 | Auth | [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) |
-| i18n | [next-i18next](https://github.com/i18next/next-i18next) |
+| i18n | [i18next](https://www.i18next.com/) |
 
 ## Features
 
