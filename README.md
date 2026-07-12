@@ -12,23 +12,21 @@ Built by a team of 3 as the final project of the Rolling Scopes School React cou
 
 ## Deploy
 
-App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-app.vercel.app)
-
-> Link will be updated once deployed.
+App deployed on Vercel: [swagger-editor-app-one.vercel.app](https://swagger-editor-app-one.vercel.app)
 
 ## Tech Stack
 
 | Category | Technology |
 | --- | --- |
-| Framework | [Next.js](https://nextjs.org/) 16.2.9 (App Router) |
-| Language | [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/) 19.2.4 |
+| Framework | [Next.js](https://nextjs.org/) (App Router), [React 19](https://react.dev/) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
 | UI Kit | [Gravity UI](https://gravity-ui.com/) |
 | Testing | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/react) |
-| Linting | [ESLint](https://eslint.org/) 9, [Prettier](https://prettier.io/) |
+| Linting | [ESLint](https://eslint.org/), [Prettier](https://prettier.io/) |
 | Git Hooks | [Husky](https://typicode.github.io/husky/), [lint-staged](https://github.com/lint-staged/lint-staged), [commitlint](https://commitlint.js.org/) (conventional commits) |
 | CI/CD | [GitHub Actions](https://docs.github.com/en/actions) (branch validation, PR title lint) |
 | Auth | [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) |
-| i18n | [next-i18next](https://github.com/i18next/next-i18next) |
+| i18n | [i18next](https://www.i18next.com/) |
 
 ## Features
 
@@ -39,12 +37,12 @@ App deployed on Vercel: [swagger-editor-app.vercel.app](https://swagger-editor-a
 | 🌐 | i18n (en/ru, language toggler in header) | ✅ |
 | ℹ️ | About page (RS School info, team, tech stack) | ✅ |
 | 🔐 | Auth UI (sign-in form with validation) | ✅ |
-| 📝 | Swagger Editor (paste/edit OpenAPI specs) | ⬜ |
-| 👁️ | Swagger Viewer (endpoints, schemas) | ⬜ |
-| 🧪 | Try-It-Out (API request execution) | ⬜ |
-| 📋 | cURL generation | ⬜ |
-| 📊 | History & Analytics (authenticated users) | ⬜ |
-| 🔑 | JWT auth, private routes | ⬜ |
+| 📝 | Swagger Editor (paste/edit OpenAPI specs) | ✅ |
+| 👁️ | Swagger Viewer (endpoints, schemas) | ✅ |
+| 🧪 | Try-It-Out (API request execution) | ✅ |
+| 📋 | cURL generation | ✅ |
+| 📊 | History & Analytics (authenticated users) | ✅ |
+| 🔑 | JWT auth, private routes | ✅ |
 
 ## Project Structure
 
@@ -54,25 +52,31 @@ swagger-editor-app/
 │   ├── src/
 │   │   ├── app/           # Pages & routing (App Router)
 │   │   │   ├── [lng]/     # Locale-prefixed routes
+│   │   │   │   ├── (auth)/# Auth pages (sign-in, sign-up)
 │   │   │   │   ├── about/ # About page (team, tech stack)
-│   │   │   │   ├── auth/  # Auth page (sign-in form)
+│   │   │   │   ├── history/ # History & Analytics page
 │   │   │   │   ├── layout.tsx
 │   │   │   │   └── page.tsx
+│   │   │   ├── api/       # API routes (history, schema)
 │   │   │   ├── globals.css
+│   │   │   ├── global-error.tsx
 │   │   │   └── Providers.tsx
 │   │   ├── components/    # Reusable components
+│   │   │   ├── History/   # PageShell, AuthRequired, AnalyticsCards, HistoryContent
+│   │   │   ├── SwaggerViewer/  # EndpointCard, EndpointDetails, TryItOutPanel, SchemaBlock
 │   │   │   ├── Auth/      # Sign-in form (react-hook-form + zod)
 │   │   │   ├── Footer/    # Sticky footer (server + client split)
 │   │   │   ├── Header/    # Header with nav, theme toggle, lang switcher
 │   │   │   └── LocalizedLink/  # i18n-aware Link component
-│   │   ├── contexts/      # React contexts (theme)
-│   │   ├── hooks/         # Custom hooks (useLocaleSwitch)
-│   │   ├── i18n/          # i18n config, loader, locales (en, ru)
-│   │   ├── providers/     # ThemeProvider, I18nProvider
-│   │   ├── shared/        # Shared constants & utilities
+│   │   ├── contexts/      # React contexts (auth, theme)
+│   │   ├── features/      # Feature modules (swagger-editor)
+│   │   ├── hooks/         # Custom hooks (useLocaleSwitch, useNotify)
+│   │   ├── i18n/          # i18n config, locales (en, ru)
+│   │   ├── lib/           # Server utilities (auth, supabase, i18n, theme)
+│   │   ├── providers/     # AuthProvider, ThemeProvider, ToastProvider
 │   │   ├── styles/        # CSS token system
 │   │   │   └── tokens/    # base.css, semantic.css, gravity.css
-│   │   └── proxy.ts       # i18n middleware
+│   │   └── types/         # Shared types (openapi)
 │   ├── .husky/            # Git hooks (commit-msg, pre-commit)
 │   └── ...config files
 ├── .github/
@@ -120,23 +124,21 @@ Environment variables (create `.env` in `frontend/`):
 
 | Variable | Description |
 | --- | --- |
-| `NEXT_PUBLIC_API_URL` | Auth API base URL (planned) |
-| `JWT_SECRET` | JWT signing secret (planned) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase anonymous API key |
 
 ## Architecture
 
 ### Current
+
 - **SSR-first:** Pages render on server, client components hydrate for interactivity
 - **i18n:** Locale prefix in URL (`[lng]`), server-side `getT()` for static content, `useT` hook for dynamic
 - **Styling:** CSS custom properties token system (`--se-*`) mapped from Gravity UI tokens, dark mode via `.g-root_theme_dark`
 - **Layout:** CSS grid wrapper (`auto 1fr auto`) with sticky footer; Header + Footer SSR
+- **Auth:** JWT tokens in cookies/httpOnly; Supabase auth with session refresh
+- **State management:** Editor ↔ Viewer auto-sync via shared schema state
+- **Code splitting:** History page uses `next/dynamic` (not loaded for anonymous users)
 - **Linting:** ESLint 9 + Prettier, enforced via Husky pre-commit + lint-staged
-
-### Planned
-- **Try-It-Out proxying:** API requests routed through Next.js server routes to bypass CORS
-- **Auth flow:** JWT tokens in cookies/httpOnly; private routes with redirect on expiry
-- **State management:** Editor schema ↔ Viewer auto-sync; auth session in React context
-- **Code splitting:** History & Analytics page via `next/dynamic` (not loaded for anonymous users)
 
 ## Team
 
