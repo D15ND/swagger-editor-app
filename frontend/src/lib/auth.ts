@@ -1,5 +1,6 @@
 import { createClient } from './supabase/server';
 import type { User } from '@supabase/supabase-js';
+import { timeoutSignal } from '@/lib/timeoutSignal';
 
 export async function getSession() {
   const supabase = await createClient();
@@ -7,9 +8,7 @@ export async function getSession() {
 
   const response = await Promise.race([
     supabase.auth.getUser(),
-    new Promise<{ data: { user: null }; error: null }>((resolve) =>
-      setTimeout(() => resolve({ data: { user: null }, error: null }), 3000),
-    ),
+    timeoutSignal<{ data: { user: null }; error: null }>({ data: { user: null }, error: null }),
   ]);
 
   const user: User | null = response.data?.user ?? null;

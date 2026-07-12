@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { getSupabaseConfig } from './constants';
+import { timeoutSignal } from '@/lib/timeoutSignal';
 
 const AUTH_COOKIE_PATTERN = /^sb-.+-auth-token(-\d+)?$/;
 
@@ -36,7 +37,7 @@ export async function updateSession(request: NextRequest) {
   });
   const { data } = await Promise.race([
     supabase.auth.getClaims(),
-    new Promise<{ data: null }>((resolve) => setTimeout(() => resolve({ data: null }), 3000)),
+    timeoutSignal<{ data: null }>({ data: null }),
   ]);
 
   const user = data?.claims?.sub ? { id: data.claims.sub } : null;
