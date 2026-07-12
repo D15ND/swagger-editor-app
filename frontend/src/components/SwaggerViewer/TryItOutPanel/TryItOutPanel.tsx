@@ -8,6 +8,7 @@ import type { SwaggerEndpoint } from '../types';
 import LiveResponse from './LiveResponse';
 import styles from './TryItOutPanel.module.css';
 import type { ProxyResponse, RequestState } from './types';
+import { buildRequest, type ParameterDef } from '@/lib/build-request';
 
 type TryItOutPanelProps = {
   endpoint: SwaggerEndpoint;
@@ -19,6 +20,18 @@ function joinUrl(baseUrl: string, path: string) {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
   return `${trimmedBase}${normalizedPath}`;
+}
+
+function getParameterDefs(endpoint: SwaggerEndpoint): ParameterDef[] {
+  return endpoint.parameters
+    .filter((parameter): parameter is Required<Pick<ParameterDef, 'name' | 'in'>> & ParameterDef =>
+      Boolean(parameter.name && parameter.in),
+    )
+    .map((parameter) => ({
+      name: parameter.name,
+      in: parameter.in,
+      required: parameter.required,
+    }));
 }
 
 function resolveRequestUrl(value: string) {
@@ -77,15 +90,30 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
   const [request, setRequest] = useState<RequestState | null>(null);
   const [response, setResponse] = useState<ProxyResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const canSendBody = method !== 'GET' && method !== 'HEAD';
   const { t } = useT('swaggerViewer');
 
+  const parameterDefs = useMemo(() => getParameterDefs(endpoint), [endpoint]);
+  const [parameterValues, setParameterValues] = useState<Record<string, string>>({});
+
+  function handleParameterChange(name: string, value: string) {
+    setParameterValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
   async function handleSend() {
+    const builtRequest = buildRequest(
+      url,
+      parameterDefs,
+      parameterValues,
+      normalizeHeaders(headers),
+    );
+
     const nextRequest: RequestState = {
       method,
-      url: resolveRequestUrl(url),
-      headers: normalizeHeaders(headers),
+      url: resolveRequestUrl(builtRequest.url),
+      headers: builtRequest.headers,
       body: canSendBody && body.trim() ? body : null,
     };
 
@@ -141,6 +169,33 @@ export default function TryItOutPanel({ endpoint, baseUrl }: TryItOutPanelProps)
         <span>{t('tryItOut.requestUrl')}</span>
         <input value={url} onChange={(event) => setUrl(event.target.value)} />
       </label>
+
+      {endpoint.parameters.length > 0 && (
+        <div className={styles.parameters}>
+          <Text as="h4" variant="subheader-1">
+            {t('parameters.title')}
+          </Text>
+
+          {endpoint.parameters
+            .filter((parameter) => parameter.name && parameter.in)
+            .map((parameter) => (
+              <label className={styles.field} key={`${parameter.in}-${parameter.name}`}>
+                <span>
+                  {parameter.name} ({t(`parameters.${parameter.in}`)})
+                  {parameter.required ? ' *' : ''}
+                </span>
+
+                <input
+                  value={parameterValues[parameter.name as string] ?? ''}
+                  placeholder={parameter.description || String(parameter.example ?? '')}
+                  onChange={(event) =>
+                    handleParameterChange(parameter.name as string, event.target.value)
+                  }
+                />
+              </label>
+            ))}
+        </div>
+      )}
 
       <label className={styles.field}>
         <span>{t('tryItOut.headers')}</span>
