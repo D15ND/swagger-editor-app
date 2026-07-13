@@ -1,0 +1,30 @@
+{
+  "title": "History & Analytics",
+  "subtitle": "Review your past API interactions and performance metrics.",
+  "emptyTitle": "No requests yet",
+  "emptyHint": "Open an API specification and use Try-It-Out to execute your first request. Your request history will appear here.",
+  "goToEditor": "Go to Editor",
+  "loginRequired": "Sign in required",
+  "loginHint": "Please sign in to view your request history and analytics.",
+  "signIn": "Sign In",
+
+  "totalRequests_one": "{{count}} request",
+  "totalRequests_other": "{{count}} requests",
+  "clearAll": "Clear all",
+  "clearSuccess": "History cleared",
+  "clearError": "Failed to clear history",
+  "analytics": {
+    "endpoint": "Endpoint",
+    "method": "Method",
+    "status": "Status",
+    "duration": "Duration",
+    "requestSize": "Request size",
+    "responseSize": "Response size",
+    "time": "Time",
+    "error": "Error",
+    "successful": "Successful",
+    "failed": "Failed",
+    "totalTime": "Total time",
+    "avgDuration": "Avg duration"
+  }
+}

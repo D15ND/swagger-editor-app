@@ -1,0 +1,63 @@
+{
+  "title": "Swagger Viewer",
+  "empty": {
+    "description": "Load a valid OpenAPI or Swagger schema to view endpoints."
+  },
+  "api": {
+    "baseUrl": "Base URL",
+    "noEndpoints": "No endpoints found in schema."
+  },
+  "endpoint": {
+    "noSummary": "No summary",
+    "noDescription": "No description."
+  },
+  "parameters": {
+    "title": "Parameters",
+    "empty": "No parameters.",
+    "name": "Name",
+    "required": "Required",
+    "schema": "Schema",
+    "description": "Description",
+    "yes": "Yes",
+    "no": "No",
+    "path": "path",
+    "query": "query",
+    "header": "header",
+    "cookie": "cookie"
+  },
+  "requestBody": {
+    "title": "Request body",
+    "empty": "No request body.",
+    "required": "Required"
+  },
+  "responses": {
+    "title": "Responses",
+    "empty": "No responses documented.",
+    "body": "Response body",
+    "headers": "Response headers",
+    "serverResponse": "Server response",
+    "status": "Status",
+    "error": "Error"
+  },
+  "media": {
+    "empty": "No content schema provided.",
+    "schema": "Schema",
+    "example": "Example",
+    "examples": "Examples"
+  },
+  "tryItOut": {
+    "title": "Try it out",
+    "send": "Send",
+    "requestUrl": "Request URL",
+    "headers": "Headers",
+    "body": "Body",
+    "requestFailed": "Request failed",
+    "historySaved": "Request saved to history",
+    "historySaveFailed": "Failed to save request to history"
+  },
+  "liveResponse": {
+    "curl": "cURL",
+    "requestUrl": "Request URL",
+    "cantParseJson": "Can't parse JSON. Raw result:"
+  }
+}

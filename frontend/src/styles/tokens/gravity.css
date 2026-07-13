@@ -1,0 +1,19 @@
+.g-root {
+  --g-color-base-background: var(--se-page-bg);
+  --g-screen-xs: 0px;
+  --g-screen-sm: 576px;
+  --g-screen-md: 768px;
+  --g-screen-lg: 992px;
+  --g-screen-xl: 1200px;
+  --g-screen-xxl: 1400px;
+
+  --g-color-base-brand: var(--se-brand-primary);
+  --g-color-base-brand-hover: var(--se-brand-primary-hover);
+  --g-color-text-brand: var(--se-brand-primary);
+  --g-color-text-brand-contrast: var(--color-white);
+  --g-color-text-link: var(--se-brand-primary);
+  --g-color-text-link-hover: var(--se-brand-secondary);
+  --g-color-line-brand: var(--se-brand-primary);
+  --g-color-base-selection: rgba(99, 102, 241, 0.12);
+  --g-color-base-selection-hover: rgba(99, 102, 241, 0.2);
+}

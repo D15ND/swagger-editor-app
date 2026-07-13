@@ -1,0 +1,122 @@
+:root {
+  /* === Brand === */
+  --se-brand-primary: var(--color-indigo-500);
+  --se-brand-primary-hover: var(--color-indigo-400);
+  --se-brand-secondary: var(--color-violet-600);
+  --se-text-brand: var(--se-brand-primary);
+  --se-text-on-brand: var(--color-white);
+  --se-brand-gradient: linear-gradient(135deg, var(--se-brand-primary), var(--se-brand-secondary));
+
+  /* === HTTP Method Colors === */
+  --se-method-get: var(--color-blue-500);
+  --se-method-get-bg: rgba(59, 130, 246, 0.1);
+  --se-method-post: var(--color-green-500);
+  --se-method-post-bg: rgba(34, 197, 94, 0.1);
+  --se-method-put: var(--color-orange-500);
+  --se-method-put-bg: rgba(249, 115, 22, 0.1);
+  --se-method-delete: var(--color-red-500);
+  --se-method-delete-bg: rgba(239, 68, 68, 0.1);
+  --se-method-patch: var(--color-purple-500);
+  --se-method-patch-bg: rgba(168, 85, 247, 0.1);
+  --se-method-options: var(--color-slate-400);
+  --se-method-options-bg: rgba(100, 116, 139, 0.1);
+  --se-method-head: var(--color-slate-400);
+  --se-method-head-bg: rgba(100, 116, 139, 0.1);
+
+  /* === Status Colors === */
+  --se-status-success: var(--color-green-500);
+  --se-status-success-bg: rgba(34, 197, 94, 0.1);
+  --se-status-error: var(--color-red-500);
+  --se-status-error-bg: rgba(239, 68, 68, 0.1);
+  --se-status-warning: var(--color-amber-500);
+  --se-status-warning-bg: rgba(245, 158, 11, 0.1);
+  --se-status-info: var(--color-blue-500);
+  --se-status-info-bg: rgba(59, 130, 246, 0.1);
+
+  /* === Radii === */
+  --se-radius-md: var(--radius-md);
+  --se-radius-lg: var(--radius-lg);
+  --se-radius-xl: var(--radius-xl);
+  --se-radius-2xl: var(--radius-2xl);
+  --se-radius-3xl: var(--radius-3xl);
+
+  /* === Spacing === */
+  --se-space-12: var(--space-12);
+  --se-space-16: var(--space-16);
+
+  /* === Font stacks === */
+  --se-font-mono: var(--font-mono);
+
+  /* === Font sizes === */
+  --se-font-size-xs: var(--font-size-xs);
+  --se-font-size-sm: var(--font-size-sm);
+  --se-font-size-base: var(--font-size-base);
+  --se-font-size-lg: var(--font-size-lg);
+  --se-font-size-xl: var(--font-size-xl);
+  --se-font-size-2xl: var(--font-size-2xl);
+  --se-font-size-3xl: var(--font-size-3xl);
+
+  /* === Transitions === */
+  --se-transition-fast: var(--transition-fast);
+  --se-transition-base: var(--transition-base);
+  --se-transition-slow: var(--transition-slow);
+
+  /* === Shadows === */
+  --se-shadow-brand: 0 10px 15px -3px rgba(var(--color-indigo-500-rgb), 0.2);
+  --se-shadow-scroll: rgba(var(--color-black-rgb), 0.2);
+
+  /* === Header === */
+  --se-header-height: 64px;
+  --se-header-bg: var(--color-white);
+  --se-header-blur: 12px;
+
+  /* === Layout === */
+  --se-page-bg: var(--color-slate-50);
+  --se-border-generic: var(--color-neutral-200);
+  --se-text-primary: var(--color-neutral-900);
+  --se-text-secondary: var(--color-slate-600);
+  --se-bg-hover: rgba(var(--color-black-rgb), 0.04);
+  --se-max-width: 1440px;
+  --se-sidebar-width: 320px;
+
+  /* === Footer === */
+  --se-footer-bg: var(--color-slate-100);
+  --se-footer-border: var(--color-slate-200);
+
+  /* === Page surfaces === */
+  --se-page-text-primary: #101828;
+  --se-page-text-secondary: #667085;
+  --se-card-bg: rgba(255, 255, 255, 0.86);
+  --se-card-border: rgba(99, 102, 241, 0.14);
+  --se-card-hover-bg: rgba(99, 102, 241, 0.05);
+  --se-card-shadow: 0 24px 70px rgba(49, 56, 120, 0.08);
+
+  --se-page-gradient:
+    radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.14), transparent 320px),
+    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
+    var(--se-page-bg);
+}
+
+.g-root_theme_dark {
+  --se-shadow-brand: 0 10px 15px -3px rgba(var(--color-indigo-500-rgb), 0.3);
+  --se-header-bg: var(--color-neutral-950);
+  --se-page-bg: var(--color-slate-950);
+  --se-text-primary: var(--color-neutral-100);
+  --se-page-text-secondary: #9fb2d0;
+  --se-bg-hover: rgba(var(--color-white-rgb), 0.04);
+  --se-border-generic: var(--color-dark-border);
+  --se-footer-bg: var(--color-neutral-950);
+  --se-footer-border: var(--color-dark-border-strong);
+
+  /* === Page surfaces (dark) === */
+  --se-page-text-primary: #f8fafc;
+  --se-card-bg: rgba(15, 23, 42, 0.86);
+  --se-card-border: rgba(148, 163, 184, 0.16);
+  --se-card-hover-bg: rgba(99, 102, 241, 0.08);
+  --se-card-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+
+  --se-page-gradient:
+    radial-gradient(circle at 50% 0%, rgba(91, 76, 255, 0.18), transparent 360px),
+    radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.1), transparent 280px),
+    var(--se-page-bg);
+}

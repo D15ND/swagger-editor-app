@@ -1,0 +1,14 @@
+.card {
+  padding: var(--se-space-16) var(--g-spacing-6);
+}
+
+.icon {
+  color: var(--g-color-text-secondary);
+  opacity: 0.5;
+  margin-bottom: var(--g-spacing-2);
+}
+
+.hint {
+  max-width: 400px;
+  text-align: center;
+}

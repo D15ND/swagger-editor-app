@@ -1,0 +1,5 @@
+.skeleton {
+  height: 320px;
+  background: var(--g-color-base-generic);
+  border-radius: var(--se-radius-xl);
+}

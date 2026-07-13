@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "about": "About",
+    "history": "History",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
+  },
+  "language": {
+    "en": "English",
+    "ru": "Русский"
+  },
+  "errors": {
+    "unexpected": "Something went wrong",
+    "notFound": "Page not found"
+  },
+  "footer": {
+    "description": "RS School final project"
+  }
+}

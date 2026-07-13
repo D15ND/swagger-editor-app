@@ -1,0 +1,2 @@
+echo "--- lint-staged ---"
+npm --prefix frontend exec lint-staged

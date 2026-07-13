@@ -1,0 +1,151 @@
+.details {
+  display: grid;
+  gap: 24px;
+  padding: 20px;
+  border-top: 1px solid var(--se-card-border);
+}
+
+.description {
+  margin: 0;
+  color: var(--se-page-text-secondary);
+  line-height: 1.6;
+}
+
+.section {
+  display: grid;
+  gap: 14px;
+}
+
+.section h3 {
+  margin: 0;
+  color: var(--se-page-text-primary);
+  font-size: var(--se-font-size-lg);
+}
+
+.parameterGroups {
+  display: grid;
+  gap: 16px;
+}
+
+.parameterGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.locationTitle {
+  width: fit-content;
+  margin: 0;
+  padding: 4px 10px;
+  color: var(--se-brand-primary);
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 999px;
+  font-size: var(--se-font-size-sm);
+  text-transform: uppercase;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--se-font-size-sm);
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border: 1px solid var(--se-card-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  color: var(--se-page-text-primary);
+  background: rgba(99, 102, 241, 0.06);
+  font-weight: 700;
+}
+
+.table td {
+  color: var(--se-page-text-secondary);
+}
+
+.table code {
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  white-space: nowrap;
+}
+
+.requestBody {
+  display: grid;
+  gap: 14px;
+}
+
+.requestBody p {
+  margin: 0;
+  color: var(--se-page-text-secondary);
+}
+
+.required {
+  width: fit-content;
+  padding: 4px 10px;
+  color: var(--se-status-error);
+  background: var(--se-status-error-bg);
+  border-radius: 999px;
+  font-size: var(--se-font-size-xs);
+  font-weight: 700;
+}
+
+.responses {
+  display: grid;
+  gap: 14px;
+}
+
+.responseCard,
+.mediaType {
+  display: grid;
+  gap: 12px;
+}
+
+.responseCard {
+  padding: 16px;
+  background: var(--se-card-hover-bg);
+  border: 1px solid var(--se-card-border);
+  border-radius: var(--se-radius-xl);
+}
+
+.responseHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.responseHeader p {
+  margin: 0;
+  color: var(--se-page-text-secondary);
+}
+
+.statusCode {
+  padding: 5px 10px;
+  color: var(--se-status-success);
+  background: var(--se-status-success-bg);
+  border-radius: 999px;
+  font-size: var(--se-font-size-sm);
+  font-weight: 800;
+}
+
+.contentType {
+  width: fit-content;
+  padding: 5px 10px;
+  color: var(--se-brand-primary);
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 999px;
+  font-size: var(--se-font-size-xs);
+  font-weight: 800;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--se-page-text-secondary);
+  font-size: var(--se-font-size-sm);
+}
