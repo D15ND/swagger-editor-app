@@ -1,9 +1,27 @@
+.workspace {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--se-page-bg);
+}
+
+.editorPanel,
+.viewerPanel {
+  min-width: 0;
+  min-height: 0;
+}
+
 .editorPanel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  height: 100%;
-  min-height: 0;
+  overflow: hidden;
   background: var(--se-card-bg);
+}
+
+.viewerPanel {
+  overflow: auto;
+  background: var(--se-page-bg);
 }
 
 .toolbar {
@@ -97,35 +115,32 @@
 
 :global(.g-root_theme_dark) .textarea {
   background:
-    linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px), var(--se-card-bg);
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.06) 1px, transparent 1px), var(--se-card-bg);
 }
 
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 46%) minmax(0, 54%);
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  background: var(--se-page-bg);
+@media (orientation: landscape) {
+  .workspace {
+    grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .editorPanel {
+    border-right: 1px solid var(--se-card-border);
+    border-bottom: 0;
+  }
 }
 
-.editorPanel,
-.viewerPanel {
-  min-width: 0;
-  min-height: 0;
-}
+@media (orientation: portrait) {
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 50%) minmax(0, 50%);
+    overflow: hidden;
+  }
 
-.editorPanel {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  overflow: hidden;
-  background: var(--se-card-bg);
-  border-right: 1px solid var(--se-card-border);
-}
-
-.viewerPanel {
-  overflow: auto;
-  background: var(--se-page-bg);
+  .editorPanel {
+    border-right: 0;
+    border-bottom: 1px solid var(--se-card-border);
+  }
 }
 
 @media (max-width: 720px) {
